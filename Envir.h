@@ -1,40 +1,32 @@
-#ifndef CELL_H
-#define CELL_H 
+#ifndef ENVIR_H
+#define ENVIR_H 
 
 //==============================
 //    INCLUDES
 //==============================
 
-
-#include <vector>
-
 /**
- * @virtual class Cell
- * @inherited by LCell and SCell
- * @brief Creates a Cell
+ * @class Envir
+ * @brief Creates an environment
  */
 
-
-class Cell
+class Envir
 {
 public:
 //==============================
 //    CONSTRUCTORS
 //==============================
 
-  Cell();
-  Cell(float a, float b, float c);
 
 //==============================
 //    DESTRUCTOR
 //==============================
 
-  virtual ~Cell();
-
 
 //==============================
 //    GETTERS
 //==============================
+
 
 //==============================
 //    SETTERS
@@ -48,9 +40,6 @@ public:
 //    PUBLIC METHODS
 //==============================
 
-  virtual void Metabolize(float a, float b, float c)=0;
-  virtual float Fitness()=0;
-
 
 protected:
 //==============================
@@ -61,19 +50,13 @@ protected:
 //    ATTRIBUTES
 //==============================
 
-const float WMIN_;
-
-float pDeath_;
-float pMut_;
-float w_; //fitness
-vector<float>p_;
 
 };
-
 
 //==============================
 //    GETTER DEFINITION
 //==============================
+
 
 //==============================
 //    SETTER DEFINITION
@@ -84,4 +67,4 @@ vector<float>p_;
 //==============================
 
 
-#endif // CELL_H
+#endif // ENVIR_H
