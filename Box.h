@@ -18,7 +18,6 @@ public:
 //    CONSTRUCTORS
 //==============================
 Box();
-Cell cell_
 
 //==============================
 //    DESTRUCTOR
@@ -28,7 +27,6 @@ virtual ~Box();
 //==============================
 //    GETTERS
 //==============================
-inline vector <float> conc_;
 
 //==============================
 //    SETTERS
@@ -41,7 +39,7 @@ inline vector <float> conc_;
 //==============================
 //    PUBLIC METHODS
 //==============================
-
+void death();
 
 protected:
 //==============================
@@ -51,19 +49,16 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-vector <float> conc_(3);
-int diffusionspeed_;
-Cell *cell;
+vector <float> conc_;
+float diffusionspeed_;
+Cell *cellptr_;
 
 };
 
 //==============================
 //    GETTER DEFINITION
 //==============================
-inline Box::conc()
-{
-  return conc_;
-}
+
 
 //==============================
 //    SETTER DEFINITION
