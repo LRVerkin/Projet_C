@@ -19,11 +19,7 @@ Envir::Envir(float T, float Ainit)
   T_=T;
   t = 0;
   Box grid_[W_][H_];
-  for(int i=0; i<W_; i++){
-    for(int j=0; j<H_; j++){
-	  grid_[i][j].conc_[0]=Ainit;
-	}
-  }
+  renewal();
   
 }
 
@@ -44,10 +40,16 @@ void diffusion()
 
 void division()
 {
+  
 }
 
 void renewal()
 {
+  for(int i=0; i<W_; i++){
+    for(int j=0; j<H_; j++){
+	  grid_[i][j].conc_[0]=Ainit;
+	}
+  }
 }
 
 void run(){
