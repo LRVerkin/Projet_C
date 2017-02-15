@@ -45,9 +45,12 @@ void division()
 
 void renewal()
 {
+  //renew the culture media 
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
 	  grid_[i][j].conc_[0]=Ainit;
+	  grid_[i][j].conc_[1]=0;
+	  grid_[i][j].conc_[2]=0;
 	}
   }
 }
