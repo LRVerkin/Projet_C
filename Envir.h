@@ -56,6 +56,7 @@ int W_;
 int H_;
 float T_;
 float t;
+float Ainit;
 
 };
 
