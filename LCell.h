@@ -1,36 +1,32 @@
-#ifndef CELL_H
-#define CELL_H 
+#ifndef LCell_H
+#define LCell_H 
 
 //==============================
 //    INCLUDES
 //==============================
 
-
+#include "LCell.h"
 #include <vector>
 
 /**
- * @virtual class Cell
- * @inherited by LCell and SCell
- * @brief Creates a Cell
+ * @class LCell
+ * @brief Creates a LCell, Cell
  */
 
 
-class Cell
+class LCell : public Cell
 {
 public:
 //==============================
 //    CONSTRUCTORS
 //==============================
-
-  Cell();
-  Cell(float a, float b, float c);
+  LCell();
+  LCell(float a, float b, float c);
 
 //==============================
 //    DESTRUCTOR
 //==============================
-
-  virtual ~Cell();
-
+  ~LCell();
 
 //==============================
 //    GETTERS
@@ -47,10 +43,8 @@ public:
 //==============================
 //    PUBLIC METHODS
 //==============================
-
-  virtual void Metabolize(float a, float b, float c)=0;
-  virtual float Fitness()=0;
-
+  float Fitness();
+  void Metabolism(float a, float b, float c);
 
 protected:
 //==============================
@@ -60,16 +54,11 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-
-const float WMIN_;
-
-float pDeath_;
-float pMut_;
-float w_; //fitness
-vector<float>p_;
+  
+  const float Raa_;
+  const float Rab_;
 
 };
-
 
 //==============================
 //    GETTER DEFINITION
@@ -84,4 +73,4 @@ vector<float>p_;
 //==============================
 
 
-#endif // CELL_H
+#endif // LCell_H
