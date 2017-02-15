@@ -2,6 +2,7 @@
 //    INCLUDES
 //==============================
 #include "SCell.h"
+#include <cmath>
 #include <iostream>
 
 
@@ -37,9 +38,19 @@ SCell::~SCell(){
 
 float SCell::Fitness()
 {
-	return p_[2];
+	if (p_[2] < WMIN)
+	{
+		return 0;
+	}
+	else{
+		return p_[2];
+	}
 }
 
-void SCell::Metabolism(float a, float b, float c){
-	
+vector<float> SCell::Metabolism(vector<float> conc, float t){
+	conc.at(1) = ;
+	p_.at(1) = ;
+	p_.at(2) = ;
+
+	return conc;
 }

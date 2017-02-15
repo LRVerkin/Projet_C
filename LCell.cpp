@@ -2,6 +2,7 @@
 //    INCLUDES
 //==============================
 #include "LCell.h"
+#include <cmath>
 #include <iostream>
 
 
@@ -37,9 +38,18 @@ LCell::~LCell(){
 
 float LCell::Fitness()
 {
-	return p_[1];
+	if (p_[1] < WMIN){
+		return 0;
+	}
+	else {
+		return p_[1];
+	}
 }
 
-void LCell::Metabolism(float a, float b, float c){
-	
+vector<float> LCell::Metabolism(vector<float> conc,float t){
+	conc.at(0) = exp(-Raa*t);
+	p_.at(0) = ;
+	p_.at(1) = ;
+
+	return conc;
 }
