@@ -16,7 +16,7 @@ public:
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir();
+Envir(float T, float Ainit);
 
 //==============================
 //    DESTRUCTOR
@@ -54,7 +54,7 @@ protected:
 //==============================
 int W_;
 int H_;
-int T_;
+float T_;
 float t;
 
 };
