@@ -8,6 +8,8 @@
 
 #include <vector>
 
+using std::vector;
+
 /**
  * @virtual class Cell
  * @inherited by LCell and SCell

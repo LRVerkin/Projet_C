@@ -4,7 +4,10 @@
 //==============================
 //    INCLUDES
 //==============================
-#include<vector>
+
+#include <vector>
+
+using std::vector;
 
 /**
  * @class Box
@@ -28,7 +31,7 @@ virtual ~Box();
 //==============================
 //    GETTERS
 //==============================
-inline vector <float> conc_;
+inline vector<float> conc_;
 
 //==============================
 //    SETTERS
