@@ -4,6 +4,7 @@
 //==============================
 //    INCLUDES
 //==============================
+#include<vector>
 
 /**
  * @class Box
@@ -17,6 +18,7 @@ public:
 //    CONSTRUCTORS
 //==============================
 Box();
+Cell cell_
 
 //==============================
 //    DESTRUCTOR
@@ -26,7 +28,7 @@ virtual ~Box();
 //==============================
 //    GETTERS
 //==============================
-
+inline vector <float> conc_;
 
 //==============================
 //    SETTERS
@@ -49,18 +51,19 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-int A_;
-int B_;
-int C_;
+vector <float> conc_(3);
 int diffusionspeed_;
-cellptr;
+Cell *cell;
 
 };
 
 //==============================
 //    GETTER DEFINITION
 //==============================
-
+inline Box::conc()
+{
+  return conc_;
+}
 
 //==============================
 //    SETTER DEFINITION
