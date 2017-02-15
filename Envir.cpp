@@ -21,7 +21,7 @@ Envir::Envir(float T, float Ainit)
   Box grid_[W_][H_];
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	  grid_[i][j].conc_[0]=Ainit;
+	  grid_[i][j].getConc()[0]=Ainit;
 	}
   }
   

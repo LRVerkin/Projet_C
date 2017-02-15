@@ -6,6 +6,7 @@
 //==============================
 
 #include <vector>
+#include "Cell.h"
 
 using std::vector;
 
@@ -21,7 +22,6 @@ public:
 //    CONSTRUCTORS
 //==============================
 Box();
-Cell cell_
 
 //==============================
 //    DESTRUCTOR
@@ -31,7 +31,8 @@ virtual ~Box();
 //==============================
 //    GETTERS
 //==============================
-inline vector<float> conc_;
+
+inline vector<float> getConc();
 
 //==============================
 //    SETTERS
@@ -54,19 +55,19 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-vector <float> conc_(3);
+vector <float> conc_;
 int diffusionspeed_;
 Cell *cellptr_;
-
 
 };
 
 //==============================
 //    GETTER DEFINITION
 //==============================
-inline Box::conc()
+
+inline vector<float> Box::getConc()
 {
-  return conc_;
+	return conc_;
 }
 
 //==============================
