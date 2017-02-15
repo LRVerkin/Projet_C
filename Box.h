@@ -53,7 +53,7 @@ int A_;
 int B_;
 int C_;
 int diffusionspeed_;
-cellptr;
+Cell *cellptr_;
 
 };
 
