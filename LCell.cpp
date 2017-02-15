@@ -1,54 +1,45 @@
 //==============================
 //    INCLUDES
 //==============================
+#include "LCell.h"
+#include <iostream>
 
-#include "Cell.h"
 
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
 //==============================
 
+
 //==============================
 //    CONSTRUCTORS
 //==============================
-
-Cell::Cell()
-{
-  pDeath_ = 0.02;
-  pMut_ = 0;
-  WMIN_ = 0.001;
-  p_.push_back(50);
-  p_.push_back(0);
-  p_.push_back(0);
+LCell::LCell(){
+	Raa_ = 0.1;
+	Rab_ = 0.1;
 }
 
-Cell::Cell(float a, float b, float c)
+LCell::LCell(float a, float b, float c)
 {
-  pDeath_ = 0.02;
-  pMut_ = 0;
-  WMIN_ = 0.001;
-  p_.push_back(a);
-  p_.push_back(b);
-  p_.push_back(c);
+	Rab_ = 0.1;
+	Rab_ = 0.1;
 }
-
 
 
 //==============================
 //    DESTRUCTOR
 //==============================
-
-Character::~Character(){
-
+LCell::~LCell(){
 }
 
 //==============================
 //    PUBLIC METHODS
 //==============================
 
+float LCell::Fitness()
+{
+	return p_[1];
+}
 
-
-//==============================
-//    PUBLIC METHODS
-//==============================
-
+void LCell::Metabolism(float a, float b, float c){
+	
+}
