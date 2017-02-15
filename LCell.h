@@ -8,6 +8,8 @@
 #include "LCell.h"
 #include <vector>
 
+using std::vector;
+
 /**
  * @class LCell
  * @brief Creates a LCell, Cell

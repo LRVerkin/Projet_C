@@ -8,6 +8,8 @@
 #include "SCell.h"
 #include <vector>
 
+using std::vector;
+
 /**
  * @class SCell
  * @brief Creates a SCell, Cell

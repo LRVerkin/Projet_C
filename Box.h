@@ -4,7 +4,11 @@
 //==============================
 //    INCLUDES
 //==============================
-#include<vector>
+
+#include <vector>
+#include "Cell.h"
+
+using std::vector;
 
 /**
  * @class Box
@@ -27,6 +31,8 @@ virtual ~Box();
 //==============================
 //    GETTERS
 //==============================
+
+inline vector<float> getConc();
 
 //==============================
 //    SETTERS
@@ -59,6 +65,10 @@ Cell *cellptr_;
 //    GETTER DEFINITION
 //==============================
 
+inline vector<float> Box::getConc()
+{
+	return conc_;
+}
 
 //==============================
 //    SETTER DEFINITION
