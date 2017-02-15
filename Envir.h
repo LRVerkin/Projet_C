@@ -21,7 +21,7 @@ Envir();
 //==============================
 //    DESTRUCTOR
 //==============================
-virtual Envir();
+virtual ~Envir();
 
 //==============================
 //    GETTERS
@@ -55,7 +55,7 @@ protected:
 int W_;
 int H_;
 int T_;
-
+float t;
 
 };
 

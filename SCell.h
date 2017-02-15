@@ -44,7 +44,7 @@ public:
 //    PUBLIC METHODS
 //==============================
   float Fitness();
-  void Metabolism(float a, float b, float c);
+  vector<float> Metabolism(vector<float> conc, float t);
 
 protected:
 //==============================
