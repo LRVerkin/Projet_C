@@ -48,7 +48,7 @@ public:
 //    PUBLIC METHODS
 //==============================
 
-  virtual void Metabolize(float a, float b, float c)=0;
+  virtual vector<float> Metabolize(vector<float> conc, float t)=0;
   virtual float Fitness()=0;
 
 
