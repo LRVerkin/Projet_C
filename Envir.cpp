@@ -35,27 +35,27 @@ Envir::~Envir()
 //==============================
 //    PUBLIC METHODS
 //==============================
-void diffusion()
+void Envir::diffusion()
 {
   
 }
 
-void division()
+void Envir::division()
 {
   
 }
 
-void renewal()
+void Envir::renewal(float f)
 {
   //renew the culture media 
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	  grid_[i][j].getConc()[0]=Ainit;
+	  grid_[i][j].getConc()[0]=f;
 	  grid_[i][j].getConc()[1]=0;
 	  grid_[i][j].getConc()[2]=0;
 	}
   }
 }
 
-void run(){
+void Envir::run(){
 }

@@ -41,7 +41,7 @@ virtual ~Envir();
 //==============================
 void diffusion();
 void division();
-void renewal();
+void renewal(float f);
 void run();
 
 protected:
