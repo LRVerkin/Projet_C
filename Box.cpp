@@ -29,8 +29,8 @@ Box::~Box()
 //==============================
 void Box::death()
 {
+  conc_[0] = conc_[0] + cellptr_->getP()[0];
+  conc_[1] = conc_[1] + cellptr_->getP()[1];
+  conc_[2] = conc_[2] + cellptr_->getP()[2]; 
   delete cellptr_;
-  conc_[0] = conc_[0] + p_(0);
-  conc_[1] = conc_[1] + p_(1);
-  conc_[2] = conc_[2] + p_(2); 
 }
