@@ -14,15 +14,14 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-SCell::SCell(){
-	Rbb_ = 0.1;
-	Rbc_ = 0.1;
+SCell::SCell() : Rbb_(0.1), Rbc_(0.1)
+{
+	
 }
 
-SCell::SCell(float a, float b, float c)
+SCell::SCell(float a, float b, float c) : Rbb_(0.1), Rbc_(0.1)
 {
-	Rbb_ = 0.1;
-	Rbc_ = 0.1;
+	
 }
 
 

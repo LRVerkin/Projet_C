@@ -14,15 +14,14 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-LCell::LCell(){
-	Raa_ = 0.1;
-	Rab_ = 0.1;
+LCell::LCell() : Raa_(0.1), Rab_(0.1) 
+{
+	
 }
 
-LCell::LCell(float a, float b, float c)
+LCell::LCell(float a, float b, float c) : Raa_(0.1), Rab_(0.1)
 {
-	Rab_ = 0.1;
-	Rab_ = 0.1;
+	
 }
 
 
