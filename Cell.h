@@ -65,7 +65,7 @@ protected:
 //    ATTRIBUTES
 //==============================
 
-const float WMIN_;
+const float WMIN_ = 0.001;
 
 float pDeath_;
 float pMut_;
