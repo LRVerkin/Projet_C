@@ -38,6 +38,8 @@ public:
 //    GETTERS
 //==============================
 
+  inline vector<float> getP();
+
 //==============================
 //    SETTERS
 //==============================
@@ -76,6 +78,11 @@ vector<float>p_;
 //==============================
 //    GETTER DEFINITION
 //==============================
+
+inline vector<float> Cell::getP()
+{
+	return p_;
+}
 
 //==============================
 //    SETTER DEFINITION
