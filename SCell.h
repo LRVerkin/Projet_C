@@ -5,8 +5,8 @@
 //    INCLUDES
 //==============================
 
-#include "SCell.h"
 #include <vector>
+#include "Cell.h"
 
 using std::vector;
 
@@ -16,8 +16,7 @@ using std::vector;
  */
 
 
-class SCell : public Cell
-{
+class SCell : public Cell {
 public:
 //==============================
 //    CONSTRUCTORS
