@@ -37,7 +37,7 @@ SCell::~SCell(){
 
 float SCell::Fitness()
 {
-	if (p_[2] < WMIN)
+	if (p_[2] < WMIN_)
 	{
 		return 0;
 	}
@@ -47,9 +47,9 @@ float SCell::Fitness()
 }
 
 vector<float> SCell::Metabolism(vector<float> conc, float t){
-	conc.at(1) = ;
-	p_.at(1) = ;
-	p_.at(2) = ;
+	conc.at(1) += -t*conc.at(1)*Rbb_;
+	p_.at(1) += t*(conc.at(1)*Rbb_-p_.at(1)*Rbc_);
+	p_.at(2) += t*conc.at(1)*Rbc_;
 
 	return conc;
 }
