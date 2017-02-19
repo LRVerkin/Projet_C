@@ -47,9 +47,9 @@ float SCell::Fitness()
 }
 
 vector<float> SCell::Metabolism(vector<float>* conc, float t){
-	conc.at(1) += -t*conc.at(1)*Rbb_;
-	p_.at(1) += t*(conc.at(1)*Rbb_-p_.at(1)*Rbc_);
-	p_.at(2) += t*conc.at(1)*Rbc_;
+	conc->at(1) += -t*conc->at(1)*Rbb_;
+	p_.at(1) += t*(conc->at(1)*Rbb_-p_.at(1)*Rbc_);
+	p_.at(2) += t*conc->at(1)*Rbc_;
 
-	return conc;
+	return *conc;
 }

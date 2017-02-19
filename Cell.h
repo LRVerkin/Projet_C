@@ -52,7 +52,7 @@ public:
 //    PUBLIC METHODS
 //==============================
 
-  virtual vector<float> Metabolize(vector<float>* conc, float t)=0;
+  virtual vector<float> Metabolism(vector<float>* conc, float t)=0;
   virtual float Fitness()=0;
 
 
