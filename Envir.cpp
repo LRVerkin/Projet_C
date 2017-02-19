@@ -58,5 +58,13 @@ void Envir::renewal(float f)
   }
 }
 
-void Envir::run(){
+void Envir::run(int rounds)
+{
+  for (int i=0;i<rounds;i++)
+  {
+    if (i%T_==0) //if it's time to renew the medium
+    {
+      renewal();
+    }
+  }
 }
