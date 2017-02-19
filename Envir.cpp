@@ -13,15 +13,15 @@
 //==============================
 Envir::Envir(float T, float A)
 {
-  Ainit=A;
+  Ainit_=A;
   //W_ = 32;
   //H_ = 32;
   T_=T;
-  t = 0;
+  t_ = 0;
   grid_ = new Box[H_*W_]; /*advised way to do a 2D array in C++:
   * do it in 1D and access it with offsets.
   * To access box [i][j] : grid_[i * W_ + j] */
-  renewal(Ainit); //initialize the culture media
+  renewal(Ainit_); //initialize the culture media
   
 }
 

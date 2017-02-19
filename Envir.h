@@ -57,8 +57,8 @@ protected:
 static const int W_ = 32;
 static const int H_ = 32;
 float T_;
-float t;
-float Ainit;
+float t_;
+float Ainit_;
 Box* grid_;
 };
 
