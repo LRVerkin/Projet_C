@@ -45,7 +45,7 @@ float LCell::Fitness()
 	}
 }
 
-vector<float> LCell::Metabolism(vector<float> conc,float t){
+vector<float> LCell::Metabolism(vector<float>* conc,float t){
 	conc.at(0) += -t*conc.at(0)*Raa_;
 	p_.at(0) += t*(conc.at(0)*Raa_-p_.at(0)*Rab_);
 	p_.at(1) += t*p_.at(0)*Rab_;
