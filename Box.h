@@ -22,6 +22,7 @@ public:
 //    CONSTRUCTORS
 //==============================
 Box();
+Box(const Box& b);
 
 //==============================
 //    DESTRUCTOR
