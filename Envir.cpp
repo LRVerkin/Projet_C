@@ -123,7 +123,7 @@ void Envir::division()
     }
   }
   random_shuffle(findGaps.begin(),findGaps.end());
-  for(int k=0; k<size(findGaps); k++)
+  for(int k=0; k<findGaps.size(); k++)
   {
     int x = findGaps[k]/W_;
     int I[3];
@@ -138,27 +138,27 @@ void Envir::division()
     if(J[0]<0) J[0] = W_-1; 
     if(J[2]>W_-1) J[2] = 0;
     
-    vector<Cell> *cells; //cells around the gap 
+    vector<Box> boxes; //cells around the gap 
     for(i=0; i<=2; i++){
-	  for(j=0; j<=2; j++){
-	    if (i!=1 && j!=1) cells->push_back(grid_[I[i]][J[j]]);
+	    for(j=0; j<=2; j++){
+	      if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
+	    }
 	  }
-	}
     // 1  2  3 
     // 4  .  5
     // 6  7  8
-    random_shuffle(cells.begin(),cells.end());
+    random_shuffle(boxes.begin(),boxes.end());
     
-    Cell betterCell = cells[0]; 
+    Box bestBox = boxes[0]; 
     for(int n=1; n<9; n++) // find the cell with the better fitness
     {
-	  if(cell.w_ > betterCell.w_) betterCell = cell;
-	}
+	    if(cell.w_ > bestBox.w_) bestBox = cell;
+	  }
 	
-	vector<float> conc = betterCell.getP();
-	betterCell.p_/2;
-	Mutation(betterCell);
-	if(type(betterCell.getCell())==LCell) grid_[x][y].getCell()=new LCell(conc[0],conc[1],conc[2]);
+	vector<float> conc = bestBox.getCell().getP();
+	bestBox.getCell().setP(bestBox.getCell().getP()/2);
+	Mutation(bestBox.getCell());
+	if(type(bestBox.getCell())==LCell) grid_[x][y].getCell()=new LCell(conc[0],conc[1],conc[2]);
 	else grid_[x][y].getCell()=new SCell(conc[0],conc[1],conc[2]);
   }
 }
