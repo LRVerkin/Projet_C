@@ -143,7 +143,7 @@ void Envir::division()
 	  for(j=0; j<=2; j++){
 	    if (i!=1 && j!=1) cells->push_back(grid_[I[i]][J[j]]);
 	  }
-	}
+	
     // 1  2  3 
     // 4  .  5
     // 6  7  8
@@ -158,7 +158,7 @@ void Envir::division()
 	vector<float> conc = betterCell.getP();
 	betterCell.p_/2;
 	Mutation(betterCell);
-	if(type(betterCell)==LCell) grid_[x][y].cellptr_=new LCell(conc[0],conc[1],conc[2]);
+	if(type(betterCell.cellptr_)==LCell) grid_[x][y].cellptr_=new LCell(conc[0],conc[1],conc[2]);
 	else grid_[x][y].cellptr_=new SCell(conc[0],conc[1],conc[2]);
   }
 }
@@ -177,7 +177,7 @@ void Envir::run(int rounds)
 {
   for (int i = 0;i < rounds;i++)
   {
-    if (i%T_ == 0) //if it's time to renew the medium
+    if (i%int(T_*10) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
     }
