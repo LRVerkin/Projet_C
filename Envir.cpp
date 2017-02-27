@@ -165,7 +165,7 @@ void Envir::renewal(float f)
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
 	  grid_[i][j].setConc(f,0,0);
-	}
+	  }
   }
 }
 
@@ -175,9 +175,9 @@ void Envir::run(int rounds)
   {
     if (i%T_ == 0) //if it's time to renew the medium
     {
-      renewal();
+      renewal(Ainit_);
     }
 
-    t+= 0.1;
+    t_ += 0.1;
   }
 }
