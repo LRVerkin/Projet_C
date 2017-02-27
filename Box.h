@@ -7,6 +7,8 @@
 
 #include <vector>
 #include "Cell.h"
+#include "SCell.h"
+#include "LCell.h"
 
 using std::vector;
 
@@ -38,6 +40,10 @@ inline vector<float> getConc();
 //    SETTERS
 //==============================
 
+inline void setConc(float a, float b, float c);
+inline void setCell(LCell* c);
+inline void setCell(SCell* c);
+
 //==============================
 //    OPERATORS
 //==============================
@@ -58,7 +64,6 @@ protected:
 //    ATTRIBUTES
 //==============================
 vector <float> conc_;
-float diffusionspeed_;
 Cell *cellptr_;
 float Pmut_;
 
@@ -76,6 +81,22 @@ inline vector<float> Box::getConc()
 //==============================
 //    SETTER DEFINITION
 //==============================
+
+inline void Box::setConc(float a, float b, float c)
+{
+	vector<float> tamp{a,b,c};
+	conc_ = tamp;
+}
+
+inline void Box::setCell(LCell* c)
+{
+	cellptr_ = c;
+}
+
+inline void Box::setCell(SCell* c)
+{
+	cellptr_ = c;
+}
 
 //==============================
 //    OPERATOR DEFINITION
