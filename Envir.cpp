@@ -114,16 +114,16 @@ void Envir::diffusion()
 
 void Envir::division()
 {
-  vector<int>findGaps[W_*H_];
+  vector<int> findGaps;
   for(int i=0; i<W_*H_; i++)
   {
-    if(grid_[i/W_][i%W_].getCell()!=nullptr)
+    if(grid_[i/W_][i%W_].getCell()==nullptr)
     {
-	  findGaps.erase(i);
+	  findGaps.push_back(i);
     }
   }
   random_shuffle(findGaps.begin(),findGaps.end());
-  for(int k=0; k<findGaps.size(); k++)
+  for(unsigned int k=0; k<findGaps.size(); k++)
   {
     int x = findGaps[k]/W_;
     int I[3];
@@ -139,8 +139,8 @@ void Envir::division()
     if(J[2]>W_-1) J[2] = 0;
     
     vector<Box> boxes; //cells around the gap 
-    for(i=0; i<=2; i++){
-	    for(j=0; j<=2; j++){
+    for(int i=0; i<=2; i++){
+	    for(int j=0; j<=2; j++){
 	      if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
 	    }
 	  }
@@ -156,12 +156,11 @@ void Envir::division()
 	    if(cell.w_ > bestBox.w_) bestBox = cell;
 	  }
 	
-	  vector<float> conc = bestBox.getCell().getP();
-	  bestBox.getCell().setP(bestBox.getCell().getP()/2);
-	  bestBox.Mutation(bestBox.getCell());
-	  if(type(bestBox.getCell())==LCell) grid_[x][y].getCell()=new LCell(conc[0],conc[1],conc[2]);
-	  else grid_[x][y].getCell()=new SCell(conc[0],conc[1],conc[2]);
-  }
+	vector<float> conc = bestBox.getCell().getP();
+	bestBox.getCell().setP(bestBox.getCell().getP()/2);
+	bestBox.Mutation(bestBox.getCell());
+	if(type(bestBox.getCell())==LCell) grid_[x][y].getCell()=new LCell(conc[0],conc[1],conc[2]);
+	else grid_[x][y].getCell()=new SCell(conc[0],conc[1],conc[2]);
 }
 
 void Envir::renewal(float f)
