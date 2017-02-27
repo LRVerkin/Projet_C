@@ -57,13 +57,13 @@ void Envir::diffusion()
   /*prepare array of random indices so we can
   * diffuse at random*/
   vector<int> indices;
-  for (k=0;k<W_*H_;k++){
+  for (int k=0;k<W_*H_;k++){
     indices.push_back(k);
   }
   random_shuffle(indices.begin(),indices.end());
 
 
-  for (k=0;k<W_*H_;k++){
+  for (int k=0;k<W_*H_;k++){
     x = indices[k]/W_;
     y = indices[k]%W_;
     /*x and y may change later on so 
@@ -100,7 +100,7 @@ void Envir::diffusion()
 
   //destroy newgrid
   grid_ = newgrid;
-  for (i=0;i<H_;i++)
+  for (int i=0;i<H_;i++)
   {
     delete[] newgrid[i];
   }
