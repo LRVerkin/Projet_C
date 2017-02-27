@@ -13,7 +13,7 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A)
+Envir::Envir(float T, float A, float pm)
 {
   Ainit_=A;
   //W_ = 32;
@@ -26,6 +26,8 @@ Envir::Envir(float T, float A)
     grid_[i] = new Box[H_];
   }
   renewal(Ainit_); //initialize the culture media
+  pDeath = 0.02;
+  pMut = pm;
   
 }
 
@@ -75,7 +77,34 @@ void Envir::diffusion(int k)
 
 void Envir::division()
 {
-  
+  vector<int>findGaps[W_*H_];
+  for(int i=0; i<W_*H_; i++)
+  {
+    if(grid_[i].cellptr_!=nullptr)
+    {
+	  findGaps.erase(i);
+    }
+  }
+  random.shuffle(findGaps);
+  for(int i=0; i<size(findGaps); i++)
+  {
+    vector<Cell> *cells_; //cells around the gap
+    if(findGaps[i]<W_)
+    {
+	  if(findGaps[i]=0) //topleft
+	  {
+		cells_.push_back(); /////////////////TO DO//////////////////
+	  }
+	  else if(findGaps[i]=W_-1) //topright
+	  {
+		
+	  }
+	  else //top 
+	  { 
+		  
+	  }
+    }
+  }
 }
 
 
