@@ -16,8 +16,8 @@ Envir::Envir(float T, float Ainit)
 {
   W_ = 32;
   H_ = 32;
-  T_=T;
-  t = 0;
+  T_= T;
+  t_ = 0;
   Box grid_[W_][H_];
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
@@ -39,16 +39,16 @@ Envir::~Envir()
 //==============================
 //    PUBLIC METHODS
 //==============================
-void diffusion()
+void Envir::diffusion()
 {
 }
 
-void division()
+void Envir::division()
 {
   
 }
 
-void renewal()
+void Envir::renewal()
 {
   //renew the culture medium 
   for(int i=0; i<W_; i++){
@@ -56,9 +56,9 @@ void renewal()
 	  grid_[i][j].conc_[0]=Ainit;
 	  grid_[i][j].conc_[1]=0;
 	  grid_[i][j].conc_[2]=0;
-	}
+	  }
   }
 }
 
-void run(){
+void Envir::run(){
 }
