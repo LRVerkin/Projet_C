@@ -40,43 +40,76 @@ Envir::~Envir()
   {
     delete[] grid_[i];
   }
-  
+
   delete[] grid_;
 }
 
 //==============================
 //    PUBLIC METHODS
 //==============================
-void Envir::diffusion(int k)
+void Envir::diffusion()
 {
-  Box* newgrid = new Box[H_*W_];
+  Box** newgrid = new Box*[W_];
+  for (int k=0;k<W_;k++){
+    newgrid[k] = new Box[H_];
+  }
+
   float a = 0;
   float b = 0;
   float c = 0;
+  int x = 0;
+  int y = 0;
 
-  vector<int> tamp;
-  for (int i=0;i<W_*H_;i++)
-  {
-    tamp.push_back(i);
-    newgrid[i]=grid_[i];
+  /*prepare array of random indices so we can
+  * diffuse at random*/
+  vector<int> indices;
+  for (k=0;k<W_*H_;k++){
+    indices.push_back(k);
   }
-  random_shuffle(tamp.begin(),tamp.end());
+  random_shuffle(indices.begin(),indices.end());
 
-  for(i=0;i<W_*H_;i++)
-  {
-    if (tamp[i]>0) && (tamp[i]<W_-1)
-    {
-      a += D*newgrid[tamp[i]]
+
+  for (k=0;k<W_*H_;k++){
+    x = indices[k]/W_;
+    y = indices[k]%W_;
+    /*x and y may change later on so 
+    * we need to do this now*/
+    a = -grid_[x][y]->getConc()[0];
+    b = -grid_[x][y]->getConc()[1];
+    c = -grid_[x][y]->getConc()[2];
+    for (int i=-1;i<=1;i++){
       for (int j=-1;j<=1;j++){
-        a += D*newgrid[tamp[i]]->getConc()[0];
-        b += D*newgrid[tamp[i]]->getConc()[1];
-        c += D*newgrid[tamp[i]]->getConc()[2];
+        a = grid_[x][y]->getConc()[0];
+        b = grid_[x][y]->getConc()[1];
+        c = grid_[x][y]->getConc()[2];
+        //stream of cases
+        if(x+i<0){
+          x = H_-1;
+        }
+        if(x+i==H_){
+          x = 0;
+        }
+        if(y+j<0){
+          y = W_-1;
+        }
+        if(y+j==W_){
+          y = 0;
+        }
+        a += D_*grid_[x][y]->getConc()[0];
+        b += D_*grid_[x][y]->getConc()[1];
+        c += D_*grid_[x][y]->getConc()[2];
       }
-      
     }
-  }
+    //x and y may have been changed, so we're using their initial value
+    newgrid[indices[k]/W_][indices[k]%W_]->setConc(a,b,c);
+  }  
 
+  //destroy newgrid
   grid_ = newgrid;
+  for (i=0;i<H_;i++)
+  {
+    delete[] newgrid[i];
+  }
   delete[] newgrid;
 }
 
