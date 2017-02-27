@@ -3,6 +3,7 @@
 //==============================
 #include "SCell.h"
 #include <cmath>
+#include<cstdlib>
 #include <iostream>
 
 
@@ -53,4 +54,11 @@ vector<float> SCell::Metabolism(vector<float>* conc, float t){
 	w_ = Fitness();
 
 	return *conc;
+}
+
+void Mutation(){
+  float v = static_cast<float>(rand())/static_cast<float>(RAND_MAX); // float between 0 and 1 included
+  if (v < pMut_){
+    // attributes reinitialization
+  }
 }

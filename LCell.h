@@ -47,6 +47,7 @@ public:
 //==============================
   float Fitness();
   vector<float> Metabolism(vector<float>* conc, float t);
+  void Mutation();
 
 protected:
 //==============================
