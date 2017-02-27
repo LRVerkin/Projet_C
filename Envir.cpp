@@ -151,11 +151,11 @@ void Envir::division()
 	  if(cell.w_ > betterCell.w_) betterCell = cell;
 	}
 	
-	inline vector<float> conc = betterCell.getP();
+	vector<float> conc = betterCell.getP();
 	betterCell.p_/2;
 	Mutation(betterCell);
-	if(type(betterCell)==LCell) grid_[i][j]=new LCell(conc[0],conc[1],conc[2]);
-	else grid_[i][j]=new SCell(conc[0],conc[1],conc[2]);
+	if(type(betterCell)==LCell) grid_[x][y].cellptr_=new LCell(conc[0],conc[1],conc[2]);
+	else grid_[x][y].cellptr_=new SCell(conc[0],conc[1],conc[2]);
   }
 }
 
