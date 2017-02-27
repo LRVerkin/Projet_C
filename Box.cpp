@@ -41,7 +41,7 @@ void Mutation(LCell cell){
     float a = p_[0];
     float b = p_[1];
     float c = p_[2];
-    Cell(a,b,c);
+    SCell(a,b,c);
     delete *cell; 
   }
 }
@@ -52,7 +52,7 @@ void Mutation(SCell cell){
     float a = p_[0];
     float b = p_[1];
     float c = p_[2];
-    Cell(a,b,c);
+    LCell(a,b,c);
     delete *cell; 
   }
 }
