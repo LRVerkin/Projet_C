@@ -14,15 +14,14 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-LCell::LCell(){
-	Raa_ = 0.1;
-	Rab_ = 0.1;
+LCell::LCell() : Raa_(0.1), Rab_(0.1) 
+{
+	
 }
 
-LCell::LCell(float a, float b, float c)
+LCell::LCell(float a, float b, float c) : Raa_(0.1), Rab_(0.1)
 {
-	Rab_ = 0.1;
-	Rab_ = 0.1;
+	
 }
 
 
@@ -38,7 +37,7 @@ LCell::~LCell(){
 
 float LCell::Fitness()
 {
-	if (p_[1] < WMIN){
+	if (p_[1] < WMIN_){
 		return 0;
 	}
 	else {
@@ -46,10 +45,11 @@ float LCell::Fitness()
 	}
 }
 
-vector<float> LCell::Metabolism(vector<float> conc,float t){
-	conc.at(0) = exp(-Raa*t);
-	p_.at(0) = ;
-	p_.at(1) = ;
+vector<float> LCell::Metabolism(vector<float>* conc,float t){
+	conc->at(0) += -t*conc->at(0)*Raa_;
+	p_.at(0) += t*(conc->at(0)*Raa_-p_.at(0)*Rab_);
+	p_.at(1) += t*p_.at(0)*Rab_;
+	w_ = Fitness();
 
-	return conc;
+	return *conc;
 }

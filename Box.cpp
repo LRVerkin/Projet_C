@@ -12,9 +12,9 @@
 //==============================
 Box::Box()
 {
-  conc_(0) = 50;
-  conc_(1) = 0;
-  conc_(2) = 0;
+  conc_[0] = 50;
+  conc_[1] = 0;
+  conc_[2] = 0;
 }
 
 //==============================
@@ -27,3 +27,10 @@ Box::~Box()
 //==============================
 //    PUBLIC METHODS
 //==============================
+void Box::death()
+{
+  conc_[0] = conc_[0] + cellptr_->getP()[0];
+  conc_[1] = conc_[1] + cellptr_->getP()[1];
+  conc_[2] = conc_[2] + cellptr_->getP()[2]; 
+  delete cellptr_;
+}

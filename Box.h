@@ -45,7 +45,7 @@ inline vector<float> getConc();
 //==============================
 //    PUBLIC METHODS
 //==============================
-
+void death();
 
 protected:
 //==============================
@@ -56,7 +56,7 @@ protected:
 //    ATTRIBUTES
 //==============================
 vector <float> conc_;
-int diffusionspeed_;
+float diffusionspeed_;
 Cell *cellptr_;
 
 };

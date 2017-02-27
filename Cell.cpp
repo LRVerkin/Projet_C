@@ -12,21 +12,15 @@
 //    CONSTRUCTORS
 //==============================
 
-Cell::Cell()
+Cell::Cell() : pDeath_(0.02), pMut_(0)
 {
-  pDeath_ = 0.02;
-  pMut_ = 0;
-  WMIN_ = 0.001;
   p_.push_back(50);
   p_.push_back(0);
   p_.push_back(0);
 }
 
-Cell::Cell(float a, float b, float c)
+Cell::Cell(float a, float b, float c) : pDeath_(0.02), pMut_(0)
 {
-  pDeath_ = 0.02;
-  pMut_ = 0;
-  WMIN_ = 0.001;
   p_.push_back(a);
   p_.push_back(b);
   p_.push_back(c);
@@ -38,7 +32,7 @@ Cell::Cell(float a, float b, float c)
 //    DESTRUCTOR
 //==============================
 
-Character::~Character(){
+Cell::~Cell(){
 
 }
 

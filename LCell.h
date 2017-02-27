@@ -5,8 +5,8 @@
 //    INCLUDES
 //==============================
 
-#include "LCell.h"
 #include <vector>
+#include "Cell.h"
 
 using std::vector;
 
@@ -46,7 +46,7 @@ public:
 //    PUBLIC METHODS
 //==============================
   float Fitness();
-  vector<float> Metabolism(vector<float> conc, float t);
+  vector<float> Metabolism(vector<float>* conc, float t);
 
 protected:
 //==============================

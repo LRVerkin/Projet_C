@@ -5,6 +5,8 @@
 //    INCLUDES
 //==============================
 
+#include "Box.h"
+
 /**
  * @class Envir
  * @brief Creates an environment
@@ -41,8 +43,8 @@ virtual ~Envir();
 //==============================
 void diffusion();
 void division();
-void renewal();
-void run();
+void renewal(float f);
+void run(int rounds); //number of rounds
 
 protected:
 //==============================
@@ -52,11 +54,12 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-int W_;
-int H_;
+static const int W_ = 32;
+static const int H_ = 32;
 float T_;
 float t_;
-
+float Ainit_;
+Box* grid_;
 };
 
 //==============================

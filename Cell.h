@@ -38,6 +38,8 @@ public:
 //    GETTERS
 //==============================
 
+  inline vector<float> getP();
+
 //==============================
 //    SETTERS
 //==============================
@@ -50,7 +52,7 @@ public:
 //    PUBLIC METHODS
 //==============================
 
-  virtual vector<float> Metabolize(vector<float> conc, float t)=0;
+  virtual vector<float> Metabolism(vector<float>* conc, float t)=0;
   virtual float Fitness()=0;
 
 
@@ -63,12 +65,12 @@ protected:
 //    ATTRIBUTES
 //==============================
 
-const float WMIN_;
+const float WMIN_ = 0.001;
 
 float pDeath_;
 float pMut_;
 float w_; //fitness
-vector<float>p_;
+vector<float>p_; //A, B and C
 
 };
 
@@ -76,6 +78,11 @@ vector<float>p_;
 //==============================
 //    GETTER DEFINITION
 //==============================
+
+inline vector<float> Cell::getP()
+{
+	return p_;
+}
 
 //==============================
 //    SETTER DEFINITION
