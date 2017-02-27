@@ -36,6 +36,11 @@ Envir::Envir(float T, float A, float pm)
 //==============================
 Envir::~Envir()
 {
+  for (int i=0;i<H_;i++)
+  {
+    delete[] grid_[i];
+  }
+  
   delete[] grid_;
 }
 
