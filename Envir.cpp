@@ -143,7 +143,7 @@ void Envir::division()
 	  for(j=0; j<=2; j++){
 	    if (i!=1 && j!=1) cells->push_back(grid_[I[i]][J[j]]);
 	  }
-	}
+	
     // 1  2  3 
     // 4  .  5
     // 6  7  8
