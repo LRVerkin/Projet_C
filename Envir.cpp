@@ -175,11 +175,25 @@ void Envir::renewal(float f)
 
 void Envir::run(int rounds)
 {
+  //we'll use it every time we need to do something in no order
+  vector<int> ran;
+  for (int i=0;i<W_*H_;i++){
+    ran.push_back(i);
+  }
+  random_shuffle(ran.begin(),ran.end());
+
+
   for (int i = 0;i < rounds;i++)
   {
     if (i%int(T_*10) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
+    }
+
+    diffusion();
+
+    for(int k = 0;k<W_*H_;k++){
+      grid_[ran[k]/W_][ran[k]%W_].death();
     }
 
     t_ += 0.1;
