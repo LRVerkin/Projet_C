@@ -13,13 +13,12 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A, float pm)
+Envir::Envir(float T, float A, float pm) : t_(0), pDeath(0.02), D_(0.1)
 {
   Ainit_= A;
   //W_ = 32;
   //H_ = 32;
   T_= T;
-  t_ = 0;
   grid_ = new Box*[W_];
   for (int i=0;i<W_;i++){
     grid_[i] = new int[H_];
@@ -34,7 +33,6 @@ Envir::Envir(float T, float A, float pm)
     grid_[index[i]/W_][index[i]%W_]->setCell(LCell());
     grid_[index[i+(W_*H_)/2]/W_][index[i(W_*H_)/2]%W_]->setCell(SCell());
   }
-  pDeath = 0.02;
   pMut = pm;
   
 }
@@ -132,7 +130,7 @@ void Envir::division()
 	  findGaps.erase(i);
     }
   }
-  random.shuffle(findGaps);
+  random_shuffle(findGaps.begin(),findGaps.end());
   for(int k=0; k<size(findGaps); k++)
   {
     vector<Cell> *cells; //cells around the gap 
@@ -165,7 +163,7 @@ void Envir::division()
 	}
 	inline vector<float> conc = betterCell.getP();
 	betterCell.p_/2;
-	grid_[i][j]=new Cell(conc[0],conc[1],conc[2]);
+	grid_[i][j] = new Cell(conc[0],conc[1],conc[2]);
 	// MAKE MUTATION
 	
   }
