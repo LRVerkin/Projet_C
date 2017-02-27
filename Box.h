@@ -76,12 +76,9 @@ inline vector<float> Box::getConc()
 //    SETTER DEFINITION
 //==============================
 
-inline void Box::setConc(float a, float b, float c)
+inline void Box::setConc(vector<float> concentration)
 {
-	vector<float> concentration;
-	concentration.push_back(a);
-	concentration.push_back(b);
-	concentration.push_back(c);
+	conc_ = concentration;
 }
 
 //==============================
