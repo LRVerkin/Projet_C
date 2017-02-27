@@ -155,11 +155,11 @@ void Envir::division()
 	    if(cell.w_ > bestBox.w_) bestBox = cell;
 	  }
 	
-	vector<float> conc = bestBox.getCell().getP();
-	bestBox.getCell().setP(bestBox.getCell().getP()/2);
-	Mutation(bestBox.getCell());
-	if(type(bestBox.getCell())==LCell) grid_[x][y].getCell()=new LCell(conc[0],conc[1],conc[2]);
-	else grid_[x][y].getCell()=new SCell(conc[0],conc[1],conc[2]);
+	  vector<float> conc = bestBox.getCell().getP();
+	  bestBox.getCell().setP(bestBox.getCell().getP()/2);
+	  Mutation(bestBox.getCell());
+	  if(type(bestBox.getCell())==LCell) grid_[x][y].getCell()=new LCell(conc[0],conc[1],conc[2]);
+	  else grid_[x][y].getCell()=new SCell(conc[0],conc[1],conc[2]);
   }
 }
 
