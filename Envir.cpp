@@ -1,6 +1,8 @@
 //==============================
 //    INCLUDES
 //==============================
+#include <algorithm> //random_shuffle
+#include <vector>
 #include "Envir.h"
 
 //==============================
@@ -36,9 +38,28 @@ Envir::~Envir()
 //==============================
 //    PUBLIC METHODS
 //==============================
-void Envir::diffusion()
+void Envir::diffusion(int k)
 {
-  
+  Box* newgrid = new Box[H_*W_];
+
+  vector<int> tamp;
+  for (int i=0;i<W_*H_;i++)
+  {
+    tamp.push_back(i);
+    newgrid[i]=grid_[i];
+  }
+  random_shuffle(tamp.begin(),tamp.end());
+
+  for(i=0;i<W_*H_;i++)
+  {
+    if (tamp[i]>=0) && (tamp[i]<W_)
+    {
+      grid
+    }
+  }
+
+  grid_ = newgrid;
+  delete[] newgrid;
 }
 
 void Envir::division()
@@ -52,9 +73,9 @@ void Envir::renewal(float f)
   //renew the culture media 
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	  grid_[i][j].conc_[0]=Ainit;
-	  grid_[i][j].conc_[1]=0;
-	  grid_[i][j].conc_[2]=0;
+	  grid_[i*W_+j]->getConc(0)=Ainit;
+	  grid_[i*W_+j]->getConc(1)=0;
+	  grid_[i*W_+j]->getConc(2)=0;
 	  }
   }
 }
