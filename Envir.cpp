@@ -155,9 +155,9 @@ void Envir::division()
 	
 	inline vector<float> conc = betterCell.getP();
 	betterCell.p_/2;
-	grid_[i][j]=new Cell(conc[0],conc[1],conc[2]);
-	// MAKE MUTATION
-	
+	Mutation(betterCell);
+	if(type(betterCell)==LCell) grid_[i][j]=new LCell(conc[0],conc[1],conc[2]);
+	else grid_[i][j]=new SCell(conc[0],conc[1],conc[2]);
   }
 }
 
