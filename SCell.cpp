@@ -55,10 +55,3 @@ vector<float> SCell::Metabolism(vector<float>* conc, float t){
 
 	return *conc;
 }
-
-void Mutation(){
-  float v = static_cast<float>(rand())/static_cast<float>(RAND_MAX); // float between 0 and 1 included
-  if (v < pMut_){
-    // attributes reinitialization
-  }
-}

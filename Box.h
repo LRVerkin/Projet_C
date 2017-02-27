@@ -38,8 +38,6 @@ inline vector<float> getConc();
 //    SETTERS
 //==============================
 
-inline void setConc(float a, float b, float c);
-
 //==============================
 //    OPERATORS
 //==============================
@@ -48,6 +46,8 @@ inline void setConc(float a, float b, float c);
 //    PUBLIC METHODS
 //==============================
 void death();
+void Mutation(LCell cell);
+void Mutation(SCell cell);
 
 protected:
 //==============================
@@ -60,6 +60,7 @@ protected:
 vector <float> conc_;
 float diffusionspeed_;
 Cell *cellptr_;
+float Pmut_;
 
 };
 
@@ -75,11 +76,6 @@ inline vector<float> Box::getConc()
 //==============================
 //    SETTER DEFINITION
 //==============================
-
-inline void Box::setConc(vector<float> concentration)
-{
-	conc_ = concentration;
-}
 
 //==============================
 //    OPERATOR DEFINITION
