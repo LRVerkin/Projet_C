@@ -11,17 +11,17 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A, float pm)
+Envir::Envir(float T, float A, float pm) : t_(0), pDeath_(0.02), D_(0.1)
 {
   Ainit_= A;
   T_= T;
-  t_ = 0;
-  grid_ = new Box[H_*W_]; /*advised way to do a 2D array in C++:
-  * do it in 1D and access it with offsets.
-  * To access box [i][j] : grid_[i * W_ + j] */
+  grid_ = new Box*[H_];
+  for (int i=0;i<H_;i++){
+    grid_[i] = new Box[W_];
+  }
+
   renewal(Ainit_); //initialize the culture media
-  pDeath = 0.02;
-  pMut = pm;
+  pMut_ = pm;
   
 }
 
@@ -68,14 +68,14 @@ void Envir::diffusion()
     y = indices[k]%W_;
     /*x and y may change later on so 
     * we need to do this now*/
-    a = -grid_[x][y]->getConc()[0];
-    b = -grid_[x][y]->getConc()[1];
-    c = -grid_[x][y]->getConc()[2];
+    a = -grid_[x][y].getConc()[0];
+    b = -grid_[x][y].getConc()[1];
+    c = -grid_[x][y].getConc()[2];
     for (int i=-1;i<=1;i++){
       for (int j=-1;j<=1;j++){
-        a = grid_[x][y]->getConc()[0];
-        b = grid_[x][y]->getConc()[1];
-        c = grid_[x][y]->getConc()[2];
+        a = grid_[x][y].getConc()[0];
+        b = grid_[x][y].getConc()[1];
+        c = grid_[x][y].getConc()[2];
         //stream of cases
         if(x+i<0){
           x = H_-1;
@@ -89,13 +89,13 @@ void Envir::diffusion()
         if(y+j==W_){
           y = 0;
         }
-        a += D_*grid_[x][y]->getConc()[0];
-        b += D_*grid_[x][y]->getConc()[1];
-        c += D_*grid_[x][y]->getConc()[2];
+        a += D_*grid_[x][y].getConc()[0];
+        b += D_*grid_[x][y].getConc()[1];
+        c += D_*grid_[x][y].getConc()[2];
       }
     }
     //x and y may have been changed, so we're using their initial value
-    newgrid[indices[k]/W_][indices[k]%W_]->setConc(a,b,c);
+    newgrid[indices[k]/W_][indices[k]%W_].setConc(a,b,c);
   }  
 
   //destroy newgrid
