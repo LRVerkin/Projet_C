@@ -1,6 +1,8 @@
 //==============================
 //    INCLUDES
 //==============================
+#include <vector>
+#include <algorithm>
 #include "Envir.h"
 
 //==============================
@@ -23,6 +25,15 @@ Envir::Envir(float T, float A, float pm)
     grid_[i] = new int[H_];
   }
   renewal(Ainit_); //initialize the culture media
+  vector<int> index;
+  for (int i=0;i<W_*H_;i++){
+    index.push_back(i);
+  }
+  std::random_shuffle(index.begin(),index.end());
+  for (int i=0;i<(W_*H_)/2;i++){
+    grid_[index[i]/W_][index[i]%W_]->setCell(LCell());
+    grid_[index[i+(W_*H_)/2]/W_][index[i(W_*H_)/2]%W_]->setCell(SCell());
+  }
   pDeath = 0.02;
   pMut = pm;
   
