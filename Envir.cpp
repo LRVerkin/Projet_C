@@ -20,9 +20,11 @@ Envir::Envir(float T, float A)
   //H_ = 32;
   T_=T;
   t_ = 0;
-  grid_ = new Box[H_*W_]; /*advised way to do a 2D array in C++:
-  * do it in 1D and access it with offsets.
-  * To access box [i][j] : grid_[i * W_ + j] */
+  grid_ = new Box*[W_];
+  for (int i=0;i<W_;i++)
+  {
+    grid_[i] = new Box[H_];
+  }
   renewal(Ainit_); //initialize the culture media
   
 }
@@ -41,6 +43,9 @@ Envir::~Envir()
 void Envir::diffusion(int k)
 {
   Box* newgrid = new Box[H_*W_];
+  float a = 0;
+  float b = 0;
+  float c = 0;
 
   vector<int> tamp;
   for (int i=0;i<W_*H_;i++)
@@ -52,9 +57,15 @@ void Envir::diffusion(int k)
 
   for(i=0;i<W_*H_;i++)
   {
-    if (tamp[i]>=0) && (tamp[i]<W_)
+    if (tamp[i]>0) && (tamp[i]<W_-1)
     {
-      grid
+      a += D*newgrid[tamp[i]]
+      for (int j=-1;j<=1;j++){
+        a += D*newgrid[tamp[i]]->getConc()[0];
+        b += D*newgrid[tamp[i]]->getConc()[1];
+        c += D*newgrid[tamp[i]]->getConc()[2];
+      }
+      
     }
   }
 
@@ -73,9 +84,9 @@ void Envir::renewal(float f)
   //renew the culture media 
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	  grid_[i*W_+j]->getConc(0)=Ainit;
-	  grid_[i*W_+j]->getConc(1)=0;
-	  grid_[i*W_+j]->getConc(2)=0;
+	   grid_[getConc(0)=Ainit;
+	   grid_[i*W_+j]->getConc(1)=0;
+	   grid_[i*W_+j]->getConc(2)=0;
 	  }
   }
 }
