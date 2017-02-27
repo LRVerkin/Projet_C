@@ -39,6 +39,7 @@ inline vector<float> getConc();
 //==============================
 
 inline void setConc(float a, float b, float c);
+inline void setCell(Cell* c);
 
 //==============================
 //    OPERATORS
@@ -58,7 +59,6 @@ protected:
 //    ATTRIBUTES
 //==============================
 vector <float> conc_;
-float diffusionspeed_;
 Cell *cellptr_;
 
 };
@@ -80,6 +80,11 @@ inline void Box::setConc(float a, float b, float c)
 {
 	vector<float> tamp{a,b,c};
 	conc_ = tamp;
+}
+
+inline void Box::setCell(Cell* c)
+{
+	cellptr_ = c;
 }
 
 //==============================
