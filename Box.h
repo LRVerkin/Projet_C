@@ -35,6 +35,7 @@ virtual ~Box();
 //==============================
 
 inline vector<float> getConc();
+inline Cell* getCell();
 
 //==============================
 //    SETTERS
@@ -77,6 +78,12 @@ inline vector<float> Box::getConc()
 {
 	return conc_;
 }
+
+inline Cell* Box::getCell()
+{
+	return cellptr_;
+}
+
 
 //==============================
 //    SETTER DEFINITION
