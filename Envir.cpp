@@ -122,7 +122,7 @@ void Envir::division()
 	  findGaps.erase(i);
     }
   }
-  random.shuffle(findGaps);
+  random_shuffle(findGaps.begin(),findGaps.end());
   for(int k=0; k<size(findGaps); k++)
   {
     int x = findGaps[k]/W_;
@@ -147,7 +147,7 @@ void Envir::division()
     // 1  2  3 
     // 4  .  5
     // 6  7  8
-    random.shuffle(cells);
+    random_shuffle(cells.begin(),cells.end());
     
     Cell betterCell = cells[0]; 
     for(int n=1; n<9; n++) // find the cell with the better fitness
