@@ -38,6 +38,8 @@ inline vector<float> getConc();
 //    SETTERS
 //==============================
 
+inline void setConc(float a, float b, float c);
+
 //==============================
 //    OPERATORS
 //==============================
@@ -73,6 +75,14 @@ inline vector<float> Box::getConc()
 //==============================
 //    SETTER DEFINITION
 //==============================
+
+inline void Box::setConc(float a, float b, float c)
+{
+	vector<float> concentration;
+	concentration.push_back(a);
+	concentration.push_back(b);
+	concentration.push_back(c);
+}
 
 //==============================
 //    OPERATOR DEFINITION
