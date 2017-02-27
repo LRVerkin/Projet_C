@@ -117,7 +117,7 @@ void Envir::division()
   vector<int>findGaps[W_*H_];
   for(int i=0; i<W_*H_; i++)
   {
-    if(grid_[i/W_][i%W_].cellptr_!=nullptr)
+    if(grid_[i/W_][i%W_].getCell()!=nullptr)
     {
 	  findGaps.erase(i);
     }
@@ -127,11 +127,11 @@ void Envir::division()
   {
     int x = findGaps[k]/W_;
     int I[3];
-    for(int n=-1, n<=1, n++) I[1+n]=x+n;
+    for(int n=-1; n<=1; n++) I[1+n]=x+n;
     
     int y = findGaps[k]%W_;
     int J[3];
-    for(int n=-1, n<=1, n++) J[1+n]=y+n;
+    for(int n=-1; n<=1; n++) J[1+n]=y+n;
     
     if(I[0]<0) I[0] = H_-1; // toroidal map
     if(I[2]>H_-1) I[2] = 0; 
@@ -143,7 +143,7 @@ void Envir::division()
 	  for(j=0; j<=2; j++){
 	    if (i!=1 && j!=1) cells->push_back(grid_[I[i]][J[j]]);
 	  }
-	
+	}
     // 1  2  3 
     // 4  .  5
     // 6  7  8
@@ -158,8 +158,8 @@ void Envir::division()
 	vector<float> conc = betterCell.getP();
 	betterCell.p_/2;
 	Mutation(betterCell);
-	if(type(betterCell.cellptr_)==LCell) grid_[x][y].cellptr_=new LCell(conc[0],conc[1],conc[2]);
-	else grid_[x][y].cellptr_=new SCell(conc[0],conc[1],conc[2]);
+	if(type(betterCell.getCell())==LCell) grid_[x][y].getCell()=new LCell(conc[0],conc[1],conc[2]);
+	else grid_[x][y].getCell()=new SCell(conc[0],conc[1],conc[2]);
   }
 }
 
