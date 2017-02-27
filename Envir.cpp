@@ -177,7 +177,7 @@ void Envir::run(int rounds)
 {
   for (int i = 0;i < rounds;i++)
   {
-    if (i%T_ == 0) //if it's time to renew the medium
+    if (i%int(T_*10) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
     }
