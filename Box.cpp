@@ -44,9 +44,9 @@ void Mutation(LCell cell){
 }
 
 void Mutation(SCell cell){
-  float v = static_cast<float>(rand())/static_cast<float>(RAND_MAX); // float between 0 and 1 included
+  float v = (rand()%1000)/1000; // float between 0 and 1 included
   if (v < pMut_){
     LCell();
-    ~cell 
+    delete cell; 
   }
 }
