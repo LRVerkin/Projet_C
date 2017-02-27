@@ -16,7 +16,7 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A, float pm) : t_(0), pDeath(0.02), D_(0.1)
+Envir::Envir(float T, float A, float pm) : t_(0), pDeath_s(0.02), D_(0.1)
 {
   Ainit_= A;
   //W_ = 32;
@@ -190,7 +190,7 @@ void Envir::run(int rounds)
   {
     if (i%T_ == 0) //if it's time to renew the medium
     {
-      renewal();
+      renewal(Ainit_);
     }
   }
 }
