@@ -14,8 +14,6 @@
 Envir::Envir(float T, float A, float pm)
 {
   Ainit_= A;
-  //W_ = 32;
-  //H_ = 32;
   T_= T;
   t_ = 0;
   grid_ = new Box[H_*W_]; /*advised way to do a 2D array in C++:
@@ -166,9 +164,7 @@ void Envir::renewal(float f)
   //renew the culture media 
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	  grid_[i][j].getConc()[0]=f;
-	  grid_[i][j].getConc()[1]=0;
-	  grid_[i][j].getConc()[2]=0;
+	  grid_[i][j].setConc(f,0,0);
 	}
   }
 }
@@ -181,5 +177,7 @@ void Envir::run(int rounds)
     {
       renewal();
     }
+
+    t+= 0.1;
   }
 }
