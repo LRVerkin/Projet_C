@@ -39,7 +39,8 @@ inline vector<float> getConc();
 //==============================
 
 inline void setConc(float a, float b, float c);
-inline void setCell(Cell* c);
+inline void setCell(LCell* c);
+inline void setCell(SCell* c);
 
 //==============================
 //    OPERATORS
@@ -82,7 +83,12 @@ inline void Box::setConc(float a, float b, float c)
 	conc_ = tamp;
 }
 
-inline void Box::setCell(Cell* c)
+inline void Box::setCell(LCell* c)
+{
+	cellptr_ = c;
+}
+
+inline void Box::setCell(SCell* c)
 {
 	cellptr_ = c;
 }
