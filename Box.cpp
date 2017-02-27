@@ -38,15 +38,21 @@ void Box::death()
 void Mutation(LCell cell){
   float v = (rand()%1000)/1000; // float between 0 and 1 included
   if (v < pMut_){
-    SCell();
-    delete cell; 
+    float a = p_[0];
+    float b = p_[1];
+    float c = p_[2];
+    Cell(a,b,c);
+    delete *cell; 
   }
 }
 
 void Mutation(SCell cell){
   float v = (rand()%1000)/1000; // float between 0 and 1 included
   if (v < pMut_){
-    LCell();
-    delete cell; 
+    float a = p_[0];
+    float b = p_[1];
+    float c = p_[2];
+    Cell(a,b,c);
+    delete *cell; 
   }
 }
