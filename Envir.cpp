@@ -45,7 +45,34 @@ void Envir::diffusion()
 
 void Envir::division()
 {
-  
+  vector<int>findGaps[W_*H_];
+  for(int i=0; i<W_*H_; i++)
+  {
+    if(grid_[i].cellptr_!=nullptr)
+    {
+	  findGaps.erase(i);
+    }
+  }
+  random.shuffle(findGaps);
+  for(int i=0; i<size(findGaps); i++)
+  {
+    vector<Cell> *cells_; //cells around the gap
+    if(findGaps[i]<W_)
+    {
+	  if(findGaps[i]=0) //topleft
+	  {
+		cells_.push_back(); /////////////////TO DO//////////////////
+	  }
+	  else if(findGaps[i]=W_-1) //topright
+	  {
+		
+	  }
+	  else //top 
+	  { 
+		  
+	  }
+    }
+  }
 }
 
 void Envir::renewal(float f)
