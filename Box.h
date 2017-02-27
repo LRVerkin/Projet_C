@@ -7,6 +7,8 @@
 
 #include <vector>
 #include "Cell.h"
+#include "SCell.h"
+#include "LCell.h"
 
 using std::vector;
 
