@@ -138,9 +138,9 @@ void Envir::division()
     if(J[0]<0) J[0] = W_-1; 
     if(J[2]>W_-1) J[2] = 0;
     
-    vector<Cell> *cells; //cells around the gap 
-    for(i=0; i<=2; i++){
-	  for(j=0; j<=2; j++){
+    vector<Cell> cells; //cells around the gap 
+    for(int i=0; i<=2; i++){
+	  for(int j=0; j<=2; j++){
 	    if (i!=1 && j!=1) cells->push_back(grid_[I[i]][J[j]]);
 	  }
 	}
