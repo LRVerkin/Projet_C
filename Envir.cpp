@@ -11,7 +11,7 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A)
+Envir::Envir(float T, float A, float pm)
 {
   Ainit_=A;
   //W_ = 32;
@@ -22,6 +22,8 @@ Envir::Envir(float T, float A)
   * do it in 1D and access it with offsets.
   * To access box [i][j] : grid_[i * W_ + j] */
   renewal(Ainit_); //initialize the culture media
+  pDeath = 0.02;
+  pMut = pm;
   
 }
 
