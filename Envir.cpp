@@ -18,9 +18,10 @@ Envir::Envir(float T, float A, float pm)
   //H_ = 32;
   T_= T;
   t_ = 0;
-  grid_ = new Box[H_*W_]; /*advised way to do a 2D array in C++:
-  * do it in 1D and access it with offsets.
-  * To access box [i][j] : grid_[i * W_ + j] */
+  grid_ = new Box*[W_];
+  for (int i=0;i<W_;i++){
+    grid_[i] = new int[H_];
+  }
   renewal(Ainit_); //initialize the culture media
   pDeath = 0.02;
   pMut = pm;
