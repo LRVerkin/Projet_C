@@ -52,8 +52,8 @@ public:
 //    PUBLIC METHODS
 //==============================
 
-  virtual vector<float> Metabolism(vector<float>* conc, float t)=0;
-  virtual float Fitness()=0;
+  virtual vector<float> Metabolism(vector<float>* conc, float t) = 0;
+  virtual float Fitness() = 0;
 
 
 protected:
