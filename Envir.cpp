@@ -4,6 +4,9 @@
 #include <vector>
 #include <algorithm>
 #include "Envir.h"
+#include "Cell.h"
+#include "SCell.h"
+#include "LCell.h"
 
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
@@ -21,7 +24,7 @@ Envir::Envir(float T, float A, float pm) : t_(0), pDeath(0.02), D_(0.1)
   T_= T;
   grid_ = new Box*[W_];
   for (int i=0;i<W_;i++){
-    grid_[i] = new int[H_];
+    grid_[i] = new Box[H_];
   }
   renewal(Ainit_); //initialize the culture media
   vector<int> index;
@@ -30,10 +33,10 @@ Envir::Envir(float T, float A, float pm) : t_(0), pDeath(0.02), D_(0.1)
   }
   std::random_shuffle(index.begin(),index.end());
   for (int i=0;i<(W_*H_)/2;i++){
-    grid_[index[i]/W_][index[i]%W_]->setCell(LCell());
-    grid_[index[i+(W_*H_)/2]/W_][index[i(W_*H_)/2]%W_]->setCell(SCell());
+    grid_[index[i]/W_][index[i]%W_].setCell(LCell());
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(SCell());
   }
-  pMut = pm;
+  pMut_ = pm;
   
 }
 
