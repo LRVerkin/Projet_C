@@ -3,6 +3,7 @@
 //==============================
 #include "SCell.h"
 #include <cmath>
+#include<cstdlib>
 #include <iostream>
 
 

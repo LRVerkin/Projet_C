@@ -3,6 +3,7 @@
 //==============================
 #include "LCell.h"
 #include <cmath>
+#include<cstdlib>
 #include <iostream>
 
 

@@ -52,6 +52,8 @@ inline void setCell(SCell* c);
 //    PUBLIC METHODS
 //==============================
 void death();
+void Mutation(LCell cell);
+void Mutation(SCell cell);
 
 protected:
 //==============================
@@ -63,6 +65,7 @@ protected:
 //==============================
 vector <float> conc_;
 Cell *cellptr_;
+float Pmut_;
 
 };
 
