@@ -139,11 +139,11 @@ void Envir::division()
     if(J[2]>W_-1) J[2] = 0;
     
     vector<Cell> *cells; //cells around the gap 
-    for(i=0; i<=2; i++){
-	  for(j=0; j<=2; j++){
-	    if (i!=1 && j!=1) cells->push_back(grid_[I[i]][J[j]]);
+    for(int i=0; i<=2; i++){
+	    for(int j=0; j<=2; j++){
+	      if (i!=1 && j!=1) cells->push_back(grid_[I[i]][J[j]]);
+	    }
 	  }
-	}
     // 1  2  3 
     // 4  .  5
     // 6  7  8
@@ -152,14 +152,14 @@ void Envir::division()
     Cell betterCell = cells[0]; 
     for(int n=1; n<9; n++) // find the cell with the better fitness
     {
-	  if(cell.w_ > betterCell.w_) betterCell = cell;
-	}
+	    if(cell.w_ > betterCell.w_) betterCell = cell;
+	  }
 	
-	vector<float> conc = betterCell.getP();
-	betterCell.p_/2;
-	Mutation(betterCell);
-	if(type(betterCell)==LCell) grid_[x][y].cellptr_=new LCell(conc[0],conc[1],conc[2]);
-	else grid_[x][y].cellptr_=new SCell(conc[0],conc[1],conc[2]);
+	  vector<float> conc = betterCell.getP();
+	  betterCell.p_/2;
+	  Mutation(betterCell);
+	  if(type(betterCell)==LCell) grid_[x][y].cellptr_ = new LCell(conc[0],conc[1],conc[2]);
+	  else grid_[x][y].cellptr_ = new SCell(conc[0],conc[1],conc[2]);
   }
 }
 
