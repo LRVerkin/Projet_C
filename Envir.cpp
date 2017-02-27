@@ -1,6 +1,10 @@
 //==============================
 //    INCLUDES
 //==============================
+#include <vector>
+#include <algorithm>
+#include "LCell.h"
+#include "SCell.h"
 #include "Envir.h"
 
 //==============================
