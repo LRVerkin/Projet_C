@@ -144,6 +144,7 @@ void Envir::division()
 	      if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
 	    }
 	  }
+	}
     // 1  2  3 
     // 4  .  5
     // 6  7  8

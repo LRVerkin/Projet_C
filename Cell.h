@@ -44,6 +44,8 @@ public:
 //    SETTERS
 //==============================
 
+inline void setP(float a, float b, float c);
+
 //==============================
 //    OPERATORS
 //==============================
@@ -85,6 +87,13 @@ inline vector<float> Cell::getP()
 //==============================
 //    SETTER DEFINITION
 //==============================
+
+inline void Cell::setP(float a, float b, float c)
+{
+  p_[0] = a;
+  p_[1] = b;
+  p_[2] = c;
+}
 
 //==============================
 //    OPERATOR DEFINITION
