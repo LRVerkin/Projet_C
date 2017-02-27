@@ -192,5 +192,7 @@ void Envir::run(int rounds)
     {
       renewal(Ainit_);
     }
+
+    t+= 0.1;
   }
 }
