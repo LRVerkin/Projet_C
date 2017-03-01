@@ -195,15 +195,28 @@ void Envir::run(int rounds)
 
   for (int i = 0;i < rounds;i++)
   {
+
+    //POSSIBLE RENEWAL
     if (i%int(T_*10) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
     }
 
+    //METABOLITES DIFFUSE
     diffusion();
 
+    //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_*H_;k++){
       grid_[ran[k]/W_][ran[k]%W_].death();
+    }
+
+    //DIVISION
+    division();
+
+    //INDIVIDUALS ADAPT THEIR METABOLISM
+    random_shuffle(ran.begin(),ran.end());
+    for (int i=0;i<W_*H_;i++){
+      grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
     }
 
     t_ += 0.1;
