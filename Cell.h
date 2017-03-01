@@ -56,7 +56,7 @@ inline void setP(float a, float b, float c);
 //    PUBLIC METHODS
 //==============================
 
-  virtual vector<float> Metabolism(vector<float>* conc, float t) = 0;
+  virtual void Metabolism(vector<float> conc, float t) = 0;
   virtual float Fitness() = 0;
 
 
@@ -92,9 +92,11 @@ inline vector<float> Cell::getP()
 
 inline void Cell::setP(float a, float b, float c)
 {
+  p_.reserve(15); //just in case p_ is empty
   p_[0] = a;
   p_[1] = b;
   p_[2] = c;
+  
 }
 
 //==============================

@@ -31,6 +31,8 @@ int main(int argc, char const *argv[])
   Envir gonnaFail(10,50);
 
   gonnaFail.run(50);
+
+  cout<< "And it did!"<<endl;
   
   
   return 0;

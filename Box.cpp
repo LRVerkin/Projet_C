@@ -11,12 +11,11 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-Box::Box() : pMut_(0)
+Box::Box() : pMut_(0),cellptr_(nullptr)
 {
   conc_.push_back(50);
   conc_.push_back(0);
   conc_.push_back(0);
-  cellptr_ = nullptr;
 }
 
 //==============================
@@ -24,6 +23,7 @@ Box::Box() : pMut_(0)
 //==============================
 Box::~Box()
 {
+  delete cellptr_;
 }
 
 //==============================
@@ -31,11 +31,11 @@ Box::~Box()
 //==============================
 void Box::death()
 {
-  if (cellptr_!=nullptr){
-    conc_[0] = conc_[0] + cellptr_->getP()[0];
-    conc_[1] = conc_[1] + cellptr_->getP()[1];
-    conc_[2] = conc_[2] + cellptr_->getP()[2]; 
-    delete cellptr_;
+  if (cellptr_!= nullptr){
+    conc_.at(0) += cellptr_->getP().at(0);
+    conc_.at(1) += cellptr_->getP().at(1);
+    conc_.at(2) += cellptr_->getP().at(2); 
+    cellptr_ = nullptr;
   }
 }
 
