@@ -53,8 +53,7 @@ inline void setCell(SCell* c);
 //    PUBLIC METHODS
 //==============================
 void death();
-void Mutation(LCell cell);
-void Mutation(SCell cell);
+void Mutation(Cell* cell);
 
 protected:
 //==============================

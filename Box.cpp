@@ -35,24 +35,20 @@ void Box::death()
   delete cellptr_;
 }
 
-void Mutation(LCell cell){
+void Mutation(Cell* cell){
   float v = (rand()%1000)/1000; // float between 0 and 1 included
   if (v < pMut_){
     float a = p_[0];
     float b = p_[1];
     float c = p_[2];
-    SCell(a,b,c);
-    delete *cell; 
-  }
-}
-
-void Mutation(SCell cell){
-  float v = (rand()%1000)/1000; // float between 0 and 1 included
-  if (v < pMut_){
-    float a = p_[0];
-    float b = p_[1];
-    float c = p_[2];
-    LCell(a,b,c);
+    if (typeid(*cell)==typeid(LCell))
+    {
+      SCell(a,b,c);
+    }
+    else //ie si le type est SCell
+    {
+      LCell(a,b,c);
+    }
     delete *cell; 
   }
 }
