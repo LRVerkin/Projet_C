@@ -111,7 +111,7 @@ void Envir::diffusion()
         c += D_*grid_[x][y].getConc()[2];
       }
     }
-    //x and y may have been changed, so we're using their initial value
+    //x and y may have been changed, so we're using their initial values again
     newgrid[indices[k]/W_][indices[k]%W_].setConc(a,b,c);
   }  
 
@@ -156,7 +156,7 @@ void Envir::division()
 	    for(int j=0; j<=2; j++){
 	      if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
 	    }
-	}
+	  }
     // 1  2  3 
     // 4  .  5
     // 6  7  8
@@ -166,10 +166,11 @@ void Envir::division()
     for(int n=1; n<9; n++) // find the cell with the better fitness
     {
 	    if(boxes[n].getCell()->Fitness() > bestBox.getCell()->Fitness()) bestBox = boxes[n];
-	}
+	  }
 	
-	vector<float> conc = bestBox.getCell()->getP()/2;
-	bestBox.getCell().setP(conc);
+	vector<float> conc = bestBox.getCell()->getP();
+  std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
+	bestBox.getCell()->setP(conc);
 	bestBox.Mutation(bestBox.getCell());
 	if(type(bestBox.getCell())==LCell) grid_[x][y].setCell()=new LCell(conc[0],conc[1],conc[2]);
 	else grid_[x][y].setCell()=new SCell(conc[0],conc[1],conc[2]);
