@@ -1,11 +1,7 @@
 //==============================
 //    INCLUDES
 //==============================
-#include <vector>
-#include <algorithm>
-#include <typeinfo>
-#include "LCell.h"
-#include "SCell.h"
+
 #include "Envir.h"
 
 using std::random_shuffle;

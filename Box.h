@@ -11,6 +11,7 @@
 #include "LCell.h"
 
 using std::vector;
+using std::rand;
 
 /**
  * @class Box
