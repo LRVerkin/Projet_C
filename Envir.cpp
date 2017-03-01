@@ -3,6 +3,7 @@
 //==============================
 #include <vector>
 #include <algorithm>
+#include <typeinfo>
 #include "LCell.h"
 #include "SCell.h"
 #include "Envir.h"
@@ -172,7 +173,7 @@ void Envir::division()
     std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
 	bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
 	bestBox.Mutation(bestBox.*getCell());
-	if(type(bestBox.*getCell())==LCell) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
+	if(typeid(bestBox.*getCell())==typeid(LCell)) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
 	else grid_[x][y].setCell(new SCell(conc[0],conc[1],conc[2]));
   }
 }
