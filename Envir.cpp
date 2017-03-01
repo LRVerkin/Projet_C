@@ -21,9 +21,9 @@ Envir::Envir(float T, float A, float pm) : t_(0), pDeath_(0.02), D_(0.1)
 {
   Ainit_= A;
   T_= T;
-  grid_ = new Box*[H_];
-  for (int i=0;i<H_;i++){
-    grid_[i] = new Box[W_];
+  grid_ = new Box*[W_];
+  for (int i=0;i<W_;i++){
+    grid_[i] = new Box[H_];
   }
 
   vector<int> index;
