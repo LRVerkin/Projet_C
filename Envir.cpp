@@ -155,9 +155,9 @@ void Envir::division()
 	    if(boxes[n].getCell()->Fitness() > bestBox.getCell()->Fitness()) bestBox = boxes[n];
 	}
 	
-	vector<float> conc = bestBox.getCell()->getP()/2;
-	bestBox.getCell().setP(conc);
-	bestBox.Mutation(bestBox.getCell());
+	vector<float> conc = bestBox.getCell()->getP();
+	bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
+	bestBox.Mutation(*bestBox.getCell());
 	if(type(bestBox.getCell())==LCell) grid_[x][y].setCell()=new LCell(conc[0],conc[1],conc[2]);
 	else grid_[x][y].setCell()=new SCell(conc[0],conc[1],conc[2]);
   }
