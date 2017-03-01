@@ -36,9 +36,16 @@ Envir::~Envir()
 //==============================
 //    PUBLIC METHODS
 //==============================
-void Envir::diffusion()
+void Envir::diffusion(int x, int y)
 {
-  
+  Box newBox(b);
+  for (int i=-1;i<=1;i++)
+  {
+    for (int j=-1;j<=1;j++)
+    {
+      newBox.setConc(grid_[x*W_+y].getConc()+D_*grid_[(x+i)*W_+y+j]);
+    }
+  }
 }
 
 void Envir::division()
@@ -62,9 +69,21 @@ void Envir::run(int rounds)
 {
   for (int i=0;i<rounds;i++)
   {
-    if (i%T_==0) //if it's time to renew the medium
+    if (t_%T_==0) //if it's time to renew the medium
     {
-      renewal();
+      renewal(Ainit_);
+    }
+
+    vector<int> browse; //will be used to browse grid_
+    for (int k=0;k<W_*H_;k++)
+    {
+      browse.push_back(k);
+    }
+    std::random_shuffle(browse.begin(),browse.end());
+
+    for(k=0;k<W_*H_;k++)
+    {
+      if
     }
   }
 }

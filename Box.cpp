@@ -10,11 +10,20 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-Box::Box()
+Box::Box() : diffusionspeed_(0.1)
 {
   conc_[0] = 50;
   conc_[1] = 0;
   conc_[2] = 0;
+  cellptr_ = nullptr;
+}
+
+Box::Box(const Box& b) : diffusionspeed_(0.1)
+{
+  conc_[0] = b.getConc[0];
+  conc_[1] = b.getConc[1];
+  conc_[2] = b.getConc[2];
+  cellptr_ = b.cellptr_;
 }
 
 //==============================

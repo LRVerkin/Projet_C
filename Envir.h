@@ -41,7 +41,7 @@ virtual ~Envir();
 //==============================
 //    PUBLIC METHODS
 //==============================
-void diffusion();
+void diffusion(Box b);
 void division();
 void renewal(float f);
 void run(int rounds); //number of rounds

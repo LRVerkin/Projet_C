@@ -39,6 +39,8 @@ inline vector<float> getConc();
 //    SETTERS
 //==============================
 
+inline void setConc(vector<float> c);
+
 //==============================
 //    OPERATORS
 //==============================
@@ -74,6 +76,11 @@ inline vector<float> Box::getConc()
 //==============================
 //    SETTER DEFINITION
 //==============================
+
+inline void Box::setConc(vector<float> c)
+{
+	conc_ = c;
+}
 
 //==============================
 //    OPERATOR DEFINITION
