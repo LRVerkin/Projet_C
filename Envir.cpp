@@ -153,9 +153,9 @@ void Envir::division()
     
     vector<Box> boxes; //cells around the gap 
     for(int i=0; i<=2; i++){
-	    for(int j=0; j<=2; j++){
-	      if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
-	    }
+	  for(int j=0; j<=2; j++){
+	    if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
+	  }
 	}
     // 1  2  3 
     // 4  .  5
@@ -169,11 +169,11 @@ void Envir::division()
 	}
 	
 	vector<float> conc = bestBox.getCell()->getP();
-  std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
-	bestBox.getCell()->setP(conc);
-	bestBox.Mutation(bestBox.getCell());
-	if(type(bestBox.getCell())==LCell) grid_[x][y].setCell()=new LCell(conc[0],conc[1],conc[2]);
-	else grid_[x][y].setCell()=new SCell(conc[0],conc[1],conc[2]);
+    std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
+	bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
+	bestBox.Mutation(bestBox.*getCell());
+	if(type(bestBox.*getCell())==LCell) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
+	else grid_[x][y].setCell(new SCell(conc[0],conc[1],conc[2]));
   }
 }
 
