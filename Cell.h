@@ -44,6 +44,8 @@ public:
 //    SETTERS
 //==============================
 
+inline void setP(float a, float b, float c);
+
 //==============================
 //    OPERATORS
 //==============================
@@ -52,8 +54,8 @@ public:
 //    PUBLIC METHODS
 //==============================
 
-  virtual vector<float> Metabolism(vector<float>* conc, float t)=0;
-  virtual float Fitness()=0;
+  virtual vector<float> Metabolism(vector<float>* conc, float t) = 0;
+  virtual float Fitness() = 0;
 
 
 protected:
@@ -67,8 +69,6 @@ protected:
 
 const float WMIN_ = 0.001;
 
-float pDeath_;
-float pMut_;
 float w_; //fitness
 vector<float>p_; //A, B and C
 
@@ -87,6 +87,13 @@ inline vector<float> Cell::getP()
 //==============================
 //    SETTER DEFINITION
 //==============================
+
+inline void Cell::setP(float a, float b, float c)
+{
+  p_[0] = a;
+  p_[1] = b;
+  p_[2] = c;
+}
 
 //==============================
 //    OPERATOR DEFINITION

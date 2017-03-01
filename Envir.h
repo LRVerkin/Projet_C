@@ -7,6 +7,7 @@
 
 #include "Box.h"
 
+
 /**
  * @class Envir
  * @brief Creates an environment
@@ -59,7 +60,9 @@ static const int H_ = 32;
 float T_;
 float t_;
 float Ainit_;
-Box* grid_;
+Box** grid_;
+float pDeath_;
+float pMut_;
 };
 
 //==============================

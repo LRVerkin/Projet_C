@@ -7,6 +7,8 @@
 
 #include <vector>
 #include "Cell.h"
+#include "SCell.h"
+#include "LCell.h"
 
 using std::vector;
 
@@ -34,12 +36,16 @@ virtual ~Box();
 //==============================
 
 inline vector<float> getConc();
+inline Cell* getCell();
 
 //==============================
 //    SETTERS
 //==============================
 
-inline void setConc(vector<float> c);
+
+inline void setConc(float a, float b, float c);
+inline void setCell(LCell* c);
+inline void setCell(SCell* c);
 
 //==============================
 //    OPERATORS
@@ -49,6 +55,8 @@ inline void setConc(vector<float> c);
 //    PUBLIC METHODS
 //==============================
 void death();
+void Mutation(LCell cell);
+void Mutation(SCell cell);
 
 protected:
 //==============================
@@ -59,8 +67,8 @@ protected:
 //    ATTRIBUTES
 //==============================
 vector <float> conc_;
-float diffusionspeed_;
 Cell *cellptr_;
+float Pmut_;
 
 };
 
@@ -73,13 +81,31 @@ inline vector<float> Box::getConc()
 	return conc_;
 }
 
+inline Cell* Box::getCell()
+{
+	return cellptr_;
+}
+
+
 //==============================
 //    SETTER DEFINITION
 //==============================
 
-inline void Box::setConc(vector<float> c)
+
+inline void Box::setConc(float a, float b, float c)
 {
-	conc_ = c;
+	vector<float> tamp{a,b,c};
+	conc_ = tamp;
+}
+
+inline void Box::setCell(LCell* c)
+{
+	cellptr_ = c;
+}
+
+inline void Box::setCell(SCell* c)
+{
+	cellptr_ = c;
 }
 
 //==============================
