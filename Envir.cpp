@@ -14,7 +14,7 @@ using std::random_shuffle;
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A, float pm) : t_(0), pDeath_(0.02), D_(0.1)
+Envir::Envir(float T, float A) : t_(0), pDeath_(0.02), D_(0.1)
 {
   Ainit_= A;
   T_= T;
@@ -35,7 +35,6 @@ Envir::Envir(float T, float A, float pm) : t_(0), pDeath_(0.02), D_(0.1)
   }
 
   renewal(Ainit_); //initialize the culture media
-  pMut_ = pm;
   
 }
 

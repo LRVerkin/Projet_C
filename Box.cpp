@@ -1,6 +1,7 @@
 //==============================
 //    INCLUDES
 //==============================
+
 #include "Box.h"
 
 //==============================
@@ -10,7 +11,7 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-Box::Box()
+Box::Box() : pMut_(0)
 {
   conc_[0] = 50;
   conc_[1] = 0;
@@ -35,12 +36,12 @@ void Box::death()
   delete cellptr_;
 }
 
-void Mutation(Cell* cell){
+void Box::Mutation(Cell* cell){
   float v = (rand()%1000)/1000; // float between 0 and 1 included
   if (v < pMut_){
-    float a = p_[0];
-    float b = p_[1];
-    float c = p_[2];
+    float a = cell->getP()[0];
+    float b = cell->getP()[1];
+    float c = cell->getP()[2];
     if (typeid(*cell)==typeid(LCell))
     {
       SCell(a,b,c);
@@ -49,6 +50,6 @@ void Mutation(Cell* cell){
     {
       LCell(a,b,c);
     }
-    delete *cell; 
+    delete cell; 
   }
 }

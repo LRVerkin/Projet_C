@@ -6,6 +6,7 @@
 //==============================
 
 #include <vector>
+#include <typeinfo>
 #include "Cell.h"
 #include "SCell.h"
 #include "LCell.h"
@@ -64,9 +65,10 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
+float pMut_;
 vector <float> conc_;
 Cell *cellptr_;
-float Pmut_;
+
 
 };
 
