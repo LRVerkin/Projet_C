@@ -5,12 +5,10 @@
 //    INCLUDES
 //==============================
 
-#include "Box.h"
 #include <vector>
 #include <algorithm>
 #include <typeinfo>
-#include "LCell.h"
-#include "SCell.h"
+#include "Box.h"
 
 
 /**

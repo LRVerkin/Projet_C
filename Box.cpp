@@ -16,6 +16,7 @@ Box::Box() : pMut_(0)
   conc_.push_back(50);
   conc_.push_back(0);
   conc_.push_back(0);
+  cellptr_ = nullptr;
 }
 
 //==============================
@@ -30,10 +31,12 @@ Box::~Box()
 //==============================
 void Box::death()
 {
-  conc_[0] = conc_[0] + cellptr_->getP()[0];
-  conc_[1] = conc_[1] + cellptr_->getP()[1];
-  conc_[2] = conc_[2] + cellptr_->getP()[2]; 
-  delete cellptr_;
+  if (cellptr_!=nullptr){
+    conc_[0] = conc_[0] + cellptr_->getP()[0];
+    conc_[1] = conc_[1] + cellptr_->getP()[1];
+    conc_[2] = conc_[2] + cellptr_->getP()[2]; 
+    delete cellptr_;
+  }
 }
 
 void Box::Mutation(Cell* cell){

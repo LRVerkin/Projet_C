@@ -72,7 +72,7 @@ protected:
 const float WMIN_ = 0.001;
 
 float w_; //fitness
-vector<float>p_; //A, B and C
+vector<float> p_; //A, B and C
 
 };
 
