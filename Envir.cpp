@@ -7,6 +7,8 @@
 #include "SCell.h"
 #include "Envir.h"
 
+using std::random_shuffle;
+
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
 //==============================
@@ -22,6 +24,17 @@ Envir::Envir(float T, float A, float pm) : t_(0), pDeath_(0.02), D_(0.1)
   grid_ = new Box*[H_];
   for (int i=0;i<H_;i++){
     grid_[i] = new Box[W_];
+  }
+
+  vector<int> index;
+  for (int i=0;i<W_*H_;i++){
+    index.push_back(i);
+  }
+  random_shuffle(index.begin(),index.end());
+
+  for (int i=0;i<(W_*H_)/2;i++){
+    grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
   }
 
   renewal(Ainit_); //initialize the culture media
