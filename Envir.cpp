@@ -1,11 +1,7 @@
 //==============================
 //    INCLUDES
 //==============================
-#include <vector>
-#include <algorithm>
-#include <typeinfo>
-#include "LCell.h"
-#include "SCell.h"
+
 #include "Envir.h"
 
 using std::random_shuffle;
@@ -18,7 +14,7 @@ using std::random_shuffle;
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A, float pm) : t_(0), pDeath_(0.02), D_(0.1)
+Envir::Envir(float T, float A) : t_(0), pDeath_(0.02), D_(0.1)
 {
   Ainit_= A;
   T_= T;
@@ -39,7 +35,6 @@ Envir::Envir(float T, float A, float pm) : t_(0), pDeath_(0.02), D_(0.1)
   }
 
   renewal(Ainit_); //initialize the culture media
-  pMut_ = pm;
   
 }
 
@@ -170,10 +165,10 @@ void Envir::division()
 	}
 	
 	vector<float> conc = bestBox.getCell()->getP();
-    std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
+  std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
 	bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
-	bestBox.Mutation(bestBox.*getCell());
-	if(typeid(bestBox.*getCell())==typeid(LCell)) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
+	bestBox.Mutation(bestBox.getCell());
+	if(typeid(bestBox.getCell())==typeid(LCell)) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
 	else grid_[x][y].setCell(new SCell(conc[0],conc[1],conc[2]));
   }
 }
@@ -201,6 +196,7 @@ void Envir::run(int rounds)
   for (int i = 0;i < rounds;i++)
   {
 
+    //POSSIBLE RENEWAL
     if (i%int(T_*10) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
@@ -214,10 +210,21 @@ void Envir::run(int rounds)
     std::random_shuffle(browse.begin(),browse.end());
 
 
+    //METABOLITES DIFFUSE
     diffusion();
 
+    //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_*H_;k++){
       grid_[ran[k]/W_][ran[k]%W_].death();
+    }
+
+    //DIVISION
+    division();
+
+    //INDIVIDUALS ADAPT THEIR METABOLISM
+    random_shuffle(ran.begin(),ran.end());
+    for (int i=0;i<W_*H_;i++){
+      grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
     }
 
     t_ += 0.1;

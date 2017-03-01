@@ -6,11 +6,13 @@
 //==============================
 
 #include <vector>
+#include <typeinfo>
 #include "Cell.h"
 #include "SCell.h"
 #include "LCell.h"
 
 using std::vector;
+using std::rand;
 
 /**
  * @class Box
@@ -44,8 +46,8 @@ inline Cell* getCell();
 
 
 inline void setConc(float a, float b, float c);
-inline void setCell(LCell* c);
-inline void setCell(SCell* c);
+inline void setCell(Cell* c);
+//inline void setCell(SCell* c);
 
 //==============================
 //    OPERATORS
@@ -55,8 +57,7 @@ inline void setCell(SCell* c);
 //    PUBLIC METHODS
 //==============================
 void death();
-void Mutation(LCell cell);
-void Mutation(SCell cell);
+void Mutation(Cell* cell);
 
 protected:
 //==============================
@@ -66,9 +67,10 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
+float pMut_;
 vector <float> conc_;
-Cell *cellptr_;
-float Pmut_;
+Cell* cellptr_;
+
 
 };
 
@@ -98,15 +100,15 @@ inline void Box::setConc(float a, float b, float c)
 	conc_ = tamp;
 }
 
-inline void Box::setCell(LCell* c)
+inline void Box::setCell(Cell* c)
 {
 	cellptr_ = c;
 }
 
-inline void Box::setCell(SCell* c)
+/*inline void Box::setCell(SCell* c)
 {
 	cellptr_ = c;
-}
+}*/
 
 //==============================
 //    OPERATOR DEFINITION

@@ -5,6 +5,9 @@
 //    INCLUDES
 //==============================
 
+#include <vector>
+#include <algorithm>
+#include <typeinfo>
 #include "Box.h"
 
 
@@ -19,7 +22,8 @@ public:
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir(float T, float Ainit, float pm);
+
+Envir(float T, float A);
 
 //==============================
 //    DESTRUCTOR
@@ -63,6 +67,7 @@ float Ainit_;
 Box** grid_;
 float pDeath_;
 float pMut_;
+float D_;
 };
 
 //==============================

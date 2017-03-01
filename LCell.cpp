@@ -2,9 +2,7 @@
 //    INCLUDES
 //==============================
 #include "LCell.h"
-#include <cmath>
-#include<cstdlib>
-#include <iostream>
+
 
 
 //==============================
@@ -15,12 +13,12 @@
 //==============================
 //    CONSTRUCTORS
 //==============================
-LCell::LCell() : Raa_(0.1), Rab_(0.1) 
+LCell::LCell() : Cell(), Raa_(0.1), Rab_(0.1) 
 {
-	
+	w_ = Fitness();
 }
 
-LCell::LCell(float a, float b, float c) : Raa_(0.1), Rab_(0.1)
+LCell::LCell(float a, float b, float c) : Cell(a,b,c), Raa_(0.1), Rab_(0.1)
 {
 	
 }
@@ -45,10 +43,9 @@ float LCell::Fitness(){
   }
 }
 
-vector<float> LCell::Metabolism(vector<float>* conc,float t){
-  conc->at(0) += -t*conc->at(0)*Raa_;
-  p_.at(0) += t*(conc->at(0)*Raa_-p_.at(0)*Rab_);
+void LCell::Metabolism(vector<float> conc,float t){
+  conc.at(0) += -t*conc.at(0)*Raa_;
+  p_.at(0) += t*(conc.at(0)*Raa_-p_.at(0)*Rab_);
   p_.at(1) += t*p_.at(0)*Rab_;
   w_ = Fitness();
-  return *conc;
 }
