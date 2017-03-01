@@ -156,24 +156,24 @@ void Envir::division()
 	    for(int j=0; j<=2; j++){
 	      if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
 	    }
-	  }
 	}
     // 1  2  3 
     // 4  .  5
     // 6  7  8
-    random_shuffle(boxes.begin(),boxes.end());
+    random_shuffle(boxes.begin(), boxes.end());
     
     Box bestBox = boxes[0]; 
     for(int n=1; n<9; n++) // find the cell with the better fitness
     {
-	    if(cell.w_ > bestBox.w_) bestBox = cell;
-	  }
+	    if(boxes[n].getCell()->Fitness() > bestBox.getCell()->Fitness()) bestBox = boxes[n];
+	}
 	
-	vector<float> conc = bestBox.getCell().getP();
-	bestBox.getCell().setP(bestBox.getCell().getP()/2);
+	vector<float> conc = bestBox.getCell()->getP()/2;
+	bestBox.getCell().setP(conc);
 	bestBox.Mutation(bestBox.getCell());
-	if(type(bestBox.getCell())==LCell) grid_[x][y].getCell()=new LCell(conc[0],conc[1],conc[2]);
-	else grid_[x][y].getCell()=new SCell(conc[0],conc[1],conc[2]);
+	if(type(bestBox.getCell())==LCell) grid_[x][y].setCell()=new LCell(conc[0],conc[1],conc[2]);
+	else grid_[x][y].setCell()=new SCell(conc[0],conc[1],conc[2]);
+  }
 }
 
 void Envir::renewal(float f)
