@@ -7,6 +7,8 @@
 #include "SCell.h"
 #include "Envir.h"
 
+using std::random_shuffle;
+
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
 //==============================
@@ -22,6 +24,17 @@ Envir::Envir(float T, float A, float pm) : t_(0), pDeath_(0.02), D_(0.1)
   grid_ = new Box*[H_];
   for (int i=0;i<H_;i++){
     grid_[i] = new Box[W_];
+  }
+
+  vector<int> index;
+  for (int i=0;i<W_*H_;i++){
+    index.push_back(i);
+  }
+  random_shuffle(index.begin(),index.end());
+
+  for (int i=0;i<(W_*H_)/2;i++){
+    grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
   }
 
   renewal(Ainit_); //initialize the culture media
@@ -98,7 +111,7 @@ void Envir::diffusion()
         c += D_*grid_[x][y].getConc()[2];
       }
     }
-    //x and y may have been changed, so we're using their initial value
+    //x and y may have been changed, so we're using their initial values again
     newgrid[indices[k]/W_][indices[k]%W_].setConc(a,b,c);
   }  
 
@@ -156,8 +169,9 @@ void Envir::division()
 	}
 	
 	vector<float> conc = bestBox.getCell()->getP();
-	bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
-	bestBox.Mutation(*bestBox.getCell());
+  std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
+	bestBox.getCell()->setP(conc);
+	bestBox.Mutation(bestBox.getCell());
 	if(type(bestBox.getCell())==LCell) grid_[x][y].setCell()=new LCell(conc[0],conc[1],conc[2]);
 	else grid_[x][y].setCell()=new SCell(conc[0],conc[1],conc[2]);
   }
