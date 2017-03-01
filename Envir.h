@@ -19,7 +19,7 @@ public:
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir(float T, float Ainit);
+Envir(float T, float Ainit, float pm);
 
 //==============================
 //    DESTRUCTOR
