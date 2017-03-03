@@ -30,8 +30,10 @@ Envir::Envir(float T, float A) : t_(0), pDeath_(0.02), D_(0.1)
   random_shuffle(index.begin(),index.end());
 
   for (int i=0;i<(W_*H_)/2;i++){
-    grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
-    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
+    LCell* lc = new LCell();
+    SCell* sc = new SCell();
+    grid_[index[i]/W_][index[i]%W_].setCell(lc);
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(sc);
   }
 
   renewal(Ainit_); //initialize the culture media
