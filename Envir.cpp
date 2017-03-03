@@ -221,4 +221,20 @@ void Envir::run(int rounds)
 
     t_ += 0.1;
   }
+  
+  // STATE OF THE POPULATION
+  int nLcell = 0;
+  int nScell = 0;
+  String state;
+  for(int i=0; i<W_; i++){
+    for(int j=0; j<H_; j++){
+	  if(typeid(grid_[i][j].getCell))==typeid(LCell)) nLcell++;
+	  if(typeid(grid_[i][j].getCell))==typeid(SCell)) nScell++;
+	}
+  }
+  if(nScell == 0){
+	 if(nLcell == 0) state = "Extinction";
+	 else state = "Exclusion";
+  } else state = "Cohabitation";
+  
 }
