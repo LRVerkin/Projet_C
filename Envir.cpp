@@ -227,11 +227,11 @@ void Envir::run(int rounds)
   // STATE OF THE POPULATION
   int nLcell = 0;
   int nScell = 0;
-  String state;
+  string state;
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	  if(typeid(grid_[i][j].getCell))==typeid(LCell)) nLcell++;
-	  if(typeid(grid_[i][j].getCell))==typeid(SCell)) nScell++;
+	  if(typeid(grid_[i][j].getCell())==typeid(LCell)) nLcell++;
+	  if(typeid(grid_[i][j].getCell())==typeid(SCell)) nScell++;
 	}
   }
   if(nScell == 0){
