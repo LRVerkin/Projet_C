@@ -5,6 +5,7 @@
 #include "Envir.h"
 
 using std::random_shuffle;
+using std::string;
 
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
@@ -230,9 +231,9 @@ void Envir::run(int rounds)
   string state;
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	  if(typeid(grid_[i][j].getCell())==typeid(LCell)) nLcell++;
-	  if(typeid(grid_[i][j].getCell())==typeid(SCell)) nScell++;
-	}
+	   if(typeid(grid_[i][j].getCell())==typeid(LCell)) nLcell++;
+	   if(typeid(grid_[i][j].getCell())==typeid(SCell)) nScell++;
+	 }
   }
   if(nScell == 0){
 	 if(nLcell == 0) state = "Extinction";
