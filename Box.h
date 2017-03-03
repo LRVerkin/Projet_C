@@ -26,6 +26,7 @@ public:
 //    CONSTRUCTORS
 //==============================
 Box();
+Box(char c);
 
 //==============================
 //    DESTRUCTOR
@@ -67,6 +68,7 @@ protected:
 //==============================
 float pMut_;
 vector <float> conc_;
+float pDeath_;
 Cell* cellptr_;
 
 
