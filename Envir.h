@@ -28,7 +28,7 @@ Envir(float T, float A);
 //==============================
 //    DESTRUCTOR
 //==============================
-virtual ~Envir();
+~Envir();
 
 //==============================
 //    GETTERS
@@ -65,7 +65,6 @@ float T_;
 float t_;
 float Ainit_;
 Box** grid_;
-float pDeath_;
 float pMut_;
 float D_;
 };

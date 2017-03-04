@@ -26,12 +26,12 @@ public:
 //    CONSTRUCTORS
 //==============================
 Box();
-Box(const Box& b);
+Box(char c);
 
 //==============================
 //    DESTRUCTOR
 //==============================
-virtual ~Box();
+~Box();
 
 //==============================
 //    GETTERS
@@ -69,6 +69,7 @@ protected:
 //==============================
 float pMut_;
 vector <float> conc_;
+float pDeath_;
 Cell* cellptr_;
 
 

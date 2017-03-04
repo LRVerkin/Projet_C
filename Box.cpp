@@ -4,6 +4,8 @@
 
 #include "Box.h"
 
+using std::rand;
+
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
 //==============================
@@ -12,11 +14,28 @@
 //    CONSTRUCTORS
 //==============================
 
-Box::Box() : pMut_(0),cellptr_(nullptr)
+Box::Box() : pMut_(0), pDeath_(0.02)
 {
   conc_.push_back(50);
   conc_.push_back(0);
   conc_.push_back(0);
+  cellptr_ = nullptr;
+}
+
+Box::Box(char c) : pMut_(0), pDeath_(0.02)
+{
+  conc_.push_back(50);
+  conc_.push_back(0);
+  conc_.push_back(0);
+  if (c=='L') {
+    LCell* lc = new LCell();
+    cellptr_ = lc;
+  }
+  else {
+    SCell* sc = new SCell();
+    cellptr_ = sc;
+  }
+  
 }
 
 Box::Box(const Box& b) : diffusionspeed_(0.1)
@@ -32,7 +51,7 @@ Box::Box(const Box& b) : diffusionspeed_(0.1)
 //==============================
 Box::~Box()
 {
-  delete cellptr_;
+  
 }
 
 //==============================
@@ -40,12 +59,15 @@ Box::~Box()
 //==============================
 void Box::death()
 {
-  if (cellptr_!= nullptr){
-    conc_.at(0) += cellptr_->getP().at(0);
-    conc_.at(1) += cellptr_->getP().at(1);
-    conc_.at(2) += cellptr_->getP().at(2); 
-    cellptr_ = nullptr;
+  if ( (double)rand() / RAND_MAX <pDeath_){
+    if (cellptr_!= nullptr){
+      conc_.at(0) += cellptr_->getP().at(0);
+      conc_.at(1) += cellptr_->getP().at(1);
+      conc_.at(2) += cellptr_->getP().at(2); 
+      cellptr_ = nullptr;
+    }
   }
+  
 }
 
 void Box::Mutation(Cell* cell){

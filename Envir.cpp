@@ -5,6 +5,7 @@
 #include "Envir.h"
 
 using std::random_shuffle;
+using std::string;
 
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
@@ -14,7 +15,7 @@ using std::random_shuffle;
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A) : t_(0), pDeath_(0.02), D_(0.1)
+Envir::Envir(float T, float A) : t_(0), D_(0.1)
 {
   Ainit_= A;
   T_= T;
@@ -30,8 +31,9 @@ Envir::Envir(float T, float A) : t_(0), pDeath_(0.02), D_(0.1)
   random_shuffle(index.begin(),index.end());
 
   for (int i=0;i<(W_*H_)/2;i++){
-    grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
-    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
+    
+    grid_[index[i]/W_][index[i]%W_] = Box('L');
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] = Box('S');
   }
 
   renewal(Ainit_); //initialize the culture media
@@ -59,6 +61,9 @@ void Envir::diffusion(int x, int y)
   Box** newgrid = new Box*[W_];
   for (int k=0;k<W_;k++){
     newgrid[k] = new Box[H_];
+    for (int j=0;j<H_;j++){
+      newgrid[k][j]= Box();
+    }
   }
 
   float a = 0;
@@ -149,10 +154,10 @@ void Envir::division()
     
     vector<Box> boxes; //cells around the gap 
     for(int i=0; i<=2; i++){
-	  for(int j=0; j<=2; j++){
-	    if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
+	    for(int j=0; j<=2; j++){
+	      if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
+	    }
 	  }
-	}
     // 1  2  3 
     // 4  .  5
     // 6  7  8
@@ -162,14 +167,14 @@ void Envir::division()
     for(int n=1; n<9; n++) // find the cell with the better fitness
     {
 	    if(boxes[n].getCell()->Fitness() > bestBox.getCell()->Fitness()) bestBox = boxes[n];
-	}
+	  }
 	
-	vector<float> conc = bestBox.getCell()->getP();
-  std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
-	bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
-	bestBox.Mutation(bestBox.getCell());
-	if(typeid(bestBox.getCell())==typeid(LCell)) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
-	else grid_[x][y].setCell(new SCell(conc[0],conc[1],conc[2]));
+	  vector<float> conc = bestBox.getCell()->getP();
+    std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
+	  bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
+	  bestBox.Mutation(bestBox.getCell());
+	  if(typeid(bestBox.getCell())==typeid(LCell)) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
+	  else grid_[x][y].setCell(new SCell(conc[0],conc[1],conc[2]));
   }
 }
 
@@ -193,11 +198,11 @@ void Envir::run(int rounds)
   random_shuffle(ran.begin(),ran.end());
 
 
-  for (int i = 0;i < rounds;i++)
+  for (int i = 0;i < rounds*10;i++)
   {
 
     //POSSIBLE RENEWAL
-    if (i%int(T_*10) == 0) //if it's time to renew the medium
+    if (i%int(T_) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
     }
@@ -211,7 +216,7 @@ void Envir::run(int rounds)
 
 
     //METABOLITES DIFFUSE
-    diffusion();
+    //diffusion();
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_*H_;k++){
@@ -229,4 +234,20 @@ void Envir::run(int rounds)
 
     t_ += 0.1;
   }
+  
+  // STATE OF THE POPULATION
+  int nLcell = 0;
+  int nScell = 0;
+  string state;
+  for(int i=0; i<W_; i++){
+    for(int j=0; j<H_; j++){
+	   if(typeid(grid_[i][j].getCell())==typeid(LCell)) nLcell++;
+	   if(typeid(grid_[i][j].getCell())==typeid(SCell)) nScell++;
+	 }
+  }
+  if(nScell == 0){
+	 if(nLcell == 0) state = "Extinction";
+	 else state = "Exclusion";
+  } else state = "Cohabitation";
+  
 }
