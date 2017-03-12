@@ -56,7 +56,7 @@ Envir::~Envir()
 //==============================
 //    PUBLIC METHODS
 //==============================
-void Envir::diffusion(int x, int y)
+void Envir::diffusion()
 {
   Box** newgrid = new Box*[W_];
   for (int k=0;k<W_;k++){
@@ -219,8 +219,10 @@ void Envir::run(int rounds)
     //diffusion();
 
     //RANDOM DEATHS AMONG INDIVIDUALS
-    for(int k = 0;k<W_*H_;k++){
-      grid_[ran[k]/W_][ran[k]%W_].death();
+    for(int k = 0;k<W_;k++){
+      for (int i=0;i<H_;i++){
+        grid_[k][i].death();
+      }
     }
 
     //DIVISION
