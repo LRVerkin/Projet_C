@@ -62,7 +62,7 @@ void Envir::diffusion()
   for (int k=0;k<W_;k++){
     newgrid[k] = new Box[H_];
     for (int j=0;j<H_;j++){
-      newgrid[k][j]= Box();
+      newgrid[k][j].setCell(grid_[k][j].getCell());
     }
   }
 
@@ -216,7 +216,7 @@ void Envir::run(int rounds)
 
 
     //METABOLITES DIFFUSE
-    //diffusion();
+    diffusion();
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
