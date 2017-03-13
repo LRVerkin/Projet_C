@@ -33,7 +33,7 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-  ofstream fichier("test.txt", ios::out | ios::trunc); 
+  /*ofstream fichier("test.txt", ios::out | ios::trunc); 
   
   if(fichier){
     for(float Ainit=0; Ainit<=50; Ainit++){
@@ -43,7 +43,7 @@ int main(int argc, char const *argv[])
 	  }
     }          
     fichier.close();
-  } else cout << "Impossible d'ouvrir le fichier !" << endl;
+  } else cout << "Impossible d'ouvrir le fichier !" << endl;*/
   
   Envir gonnaFail(10,50);
 

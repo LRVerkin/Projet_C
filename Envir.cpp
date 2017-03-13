@@ -24,17 +24,17 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
     grid_[i] = new Box[H_];
   }
 
+
   vector<int> index;
   for (int i=0;i<W_*H_;i++){
     index.push_back(i);
   }
   random_shuffle(index.begin(),index.end());
 
-  for (int i=0;i<(W_*H_)/2;i++){
-    
+  /*for (int i=0;i<(W_*H_)/2;i++){
     grid_[index[i]/W_][index[i]%W_] = Box('L');
     grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] = Box('S');
-  }
+  }*/
 
   renewal(Ainit_); //initialize the culture media
   
@@ -208,7 +208,7 @@ void Envir::run(int rounds)
     }
 
     //METABOLITES DIFFUSE
-    //diffusion();
+    diffusion();
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_*H_;k++){
