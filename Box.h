@@ -44,6 +44,7 @@ inline Cell* getCell();
 //    SETTERS
 //==============================
 
+
 inline void setConc(float a, float b, float c);
 inline void setCell(Cell* c);
 //inline void setCell(SCell* c);
@@ -92,6 +93,7 @@ inline Cell* Box::getCell()
 //==============================
 //    SETTER DEFINITION
 //==============================
+
 
 inline void Box::setConc(float a, float b, float c)
 {

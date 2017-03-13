@@ -4,8 +4,6 @@
 
 #include "Box.h"
 
-using std::rand;
-
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
 //==============================
@@ -13,6 +11,7 @@ using std::rand;
 //==============================
 //    CONSTRUCTORS
 //==============================
+
 Box::Box() : pMut_(0), pDeath_(0.02)
 {
   conc_.push_back(50);
@@ -37,12 +36,22 @@ Box::Box(char c) : pMut_(0), pDeath_(0.02)
   
 }
 
+/*Box::Box(const Box& b) : diffusionspeed_(0.1)
+{
+  conc_[0] = b.getConc[0];
+  conc_[1] = b.getConc[1];
+  conc_[2] = b.getConc[2];
+  cellptr_ = b.cellptr_;
+}*/
+
 //==============================
 //    DESTRUCTOR
 //==============================
 Box::~Box()
 {
-  delete cellptr_;
+  if (cellptr_!=nullptr){
+  	delete cellptr_;
+  }
 }
 
 //==============================
@@ -50,8 +59,8 @@ Box::~Box()
 //==============================
 void Box::death()
 {
-  if ( (double)(rand()/RAND_MAX) < pDeath_){
-    if (cellptr_ != nullptr){
+  if ( (double)(rand() / RAND_MAX) < pDeath_){
+    if (cellptr_!= nullptr){
       conc_.at(0) += cellptr_->getP().at(0);
       conc_.at(1) += cellptr_->getP().at(1);
       conc_.at(2) += cellptr_->getP().at(2); 

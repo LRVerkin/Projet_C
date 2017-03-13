@@ -62,7 +62,7 @@ void Envir::diffusion()
   for (int k=0;k<W_;k++){
     newgrid[k] = new Box[H_];
     for (int j=0;j<H_;j++){
-      newgrid[k][j]= Box();
+      newgrid[k][j].setCell(grid_[k][j].getCell());
     }
   }
 
@@ -206,13 +206,23 @@ void Envir::run(int rounds)
     {
       renewal(Ainit_);
     }
+    
+    vector<int> browse; //will be used to browse grid_
+    for (int k=0;k<W_*H_;k++)
+    {
+      browse.push_back(k);
+    }
+    std::random_shuffle(browse.begin(),browse.end());
+
 
     //METABOLITES DIFFUSE
     diffusion();
 
     //RANDOM DEATHS AMONG INDIVIDUALS
-    for(int k = 0;k<W_*H_;k++){
-      grid_[ran[k]/W_][ran[k]%W_].death();
+    for(int k = 0;k<W_;k++){
+      for (int i=0;i<H_;i++){
+        grid_[k][i].death();
+      }
     }
 
     //DIVISION
