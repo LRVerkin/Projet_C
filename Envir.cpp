@@ -32,10 +32,10 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
   random_shuffle(index.begin(),index.end());
 
   for (int i=0;i<(W_*H_)/2;i++){
-    grid_[index[i]/W_][index[i]%W_] = Box('L');
-    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] = Box('S');
-    std::cout << "grid_[" << index[i]/W_ << "][" << index[i]%W_ << "] : " << grid_[index[i]/W_][index[i]%W_] << std::endl;
-    std::cout << "grid_[" << index[i+(W_*H_)/2]/W_ << "][" << index[i+(W_*H_)/2]%W_ << "] : " << grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] << std::endl;
+    grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
+    /*std::cout << "grid_[" << index[i]/W_ << "][" << index[i]%W_ << "] : " << grid_[index[i]/W_][index[i]%W_] << std::endl;
+    std::cout << "grid_[" << index[i+(W_*H_)/2]/W_ << "][" << index[i+(W_*H_)/2]%W_ << "] : " << grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] << std::endl;*/
   }
 
   renewal(Ainit_); //initialize the culture media
@@ -128,7 +128,7 @@ void Envir::diffusion()
 
   //grid_ = newgrid;
   //destroy newgrid
-  std::cout << "Getting into the copying loop (at last)" << std::endl;
+  std::cout << "Getting into the copying loop (at long freaking last)" << std::endl;
   for (int i=0;i<H_;i++)
   {
     for (int j=0;j<W_;j++){
