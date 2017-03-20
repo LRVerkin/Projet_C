@@ -58,7 +58,7 @@ Box::~Box()
 
 void Box::death()
 {
-  if ( (double)(rand() / RAND_MAX) < pDeath_){
+  if ((double)(rand() / (double)RAND_MAX) < pDeath_){
     if (cellptr_!= nullptr){
       conc_.at(0) += cellptr_->getP().at(0);
       conc_.at(1) += cellptr_->getP().at(1);

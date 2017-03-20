@@ -43,7 +43,7 @@ Box(const Box& b);
 //==============================
 
 inline vector<float> getConc() const;
-inline Cell* getCell() const;
+inline Cell* getCell();
 
 //==============================
 //    SETTERS
@@ -90,7 +90,7 @@ inline vector<float> Box::getConc() const
 	return conc_;
 }
 
-inline Cell* Box::getCell() const
+inline Cell* Box::getCell()
 {
 	return cellptr_;
 }

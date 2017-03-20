@@ -64,23 +64,24 @@ void Envir::diffusion()
   Box** newgrid = new Box*[W_];
   for (int k=0;k<W_;k++){
     for (int j=0;j<H_;j++){
-      //std::cout << "grid_[" << k << "][" << j << "] : " << grid_[k][j];
+      std::cout << "grid_[" << k << "][" << j << "] : " << grid_[k][j];
       newgrid[k] = new Box[H_];
-      //if (typeid(grid_[k][j].getCell()) == typeid(LCell)){
-        newgrid[k][j].setCell(grid_[k][j].getCell());
-      /*}
-      else {
-        newgrid[k][j].set
-      }*/
-      //std::cout << "newgrid[" << k << "][" << j << "] : " << newgrid[k][j];
+      newgrid[k][j].setCell(grid_[k][j].getCell());
+      
+      std::cout << "newgrid[" << k << "][" << j << "] : " << newgrid[k][j];
     }
   }
+
+  std::cout << "grid_[20][4] : " << grid_[20][4];
+  std::cout << "newgrid[20][4] : " << newgrid[20][4];
 
   float a = 0;
   float b = 0;
   float c = 0;
   int x = 0;
   int y = 0;
+
+
 
   /*prepare array of random indices so we can
   * diffuse at random*/
@@ -90,6 +91,7 @@ void Envir::diffusion()
   }
   random_shuffle(indices.begin(),indices.end());
 
+  
 
   for (int k=0;k<W_*H_;k++){
     x = indices[k]/W_;
@@ -122,6 +124,7 @@ void Envir::diffusion()
         c += D_*grid_[x][y].getConc()[2];
       }
     }
+    //std::cout << "newgrid[" << indices[k]/W_ << "][" << indices[k]%W_ << "] : " << newgrid[indices[k]/W_][indices[k]%W_];
     //x and y may have been changed, so we're using their initial values again
     newgrid[indices[k]/W_][indices[k]%W_].setConc(a,b,c);
   }  
@@ -148,6 +151,7 @@ void Envir::division()
   vector<int> findGaps;
   for(int i=0; i<W_*H_; i++)
   {
+    std::cout << "grid_[" << i/W_ << "][" << i%W_ << "] : " << grid_[i/W_][i%W_];
     if(grid_[i/W_][i%W_].getCell()==nullptr)
     {
 	  findGaps.push_back(i);
@@ -170,9 +174,12 @@ void Envir::division()
     if(J[2]>W_-1) J[2] = 0;
     
     vector<Box> boxes; //cells around the gap 
-    for(int i=0; i<=2; i++){
-	    for(int j=0; j<=2; j++){
-	      if (i!=1 && j!=1) boxes.push_back(grid_[I[i]][J[j]]);
+    for(int i=0; i<3; i++){
+	    for(int j=0; j<3; j++){
+	      if (i != 1 || j != 1) {
+          boxes.push_back(grid_[I[i]][J[j]]);
+          std::cout << "grid_[" << I[i] << "][" << J[j] << "] : " << grid_[I[i]][J[j]];
+        }
 	    }
 	  }
     // 1  2  3 
@@ -234,7 +241,7 @@ void Envir::run(int rounds)
 
 
     //METABOLITES DIFFUSE
-    diffusion();
+    //diffusion();
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
@@ -242,6 +249,7 @@ void Envir::run(int rounds)
         grid_[k][i].death();
       }
     }
+
 
     //DIVISION
     division();
