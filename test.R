@@ -5,7 +5,8 @@ colnames(data)<-c("nb_test","Ainit","T","result")
 print(data)
 n_test <- max(data$nb_test)
 n_param <- length(data$nb_test==1)/n_test
-plot(NA, NA, xlab='T', ylab="Ainit", xlim=c(0,1500), ylim=c(0,50)) #xlim=1500, ylim=50, 
+plot(NA, NA, xlab='T', ylab="Ainit", xlim=c(0,1500), ylim=c(0,50))
+legend("topright", c("Extinction","Exclusion", "Cohabitation"),col=c(rgb(1,0,0),rgb(0,1,0), rgb(0,0,1)), pch=c(19))
 for (param in 1:n_param) {
   r <- 0
   g <- 0
