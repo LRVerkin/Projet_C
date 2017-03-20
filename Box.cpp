@@ -26,23 +26,21 @@ Box::Box(char c) : pMut_(0), pDeath_(0.02)
   conc_.push_back(0);
   conc_.push_back(0);
   if (c=='L') {
-    LCell* lc = new LCell();
-    cellptr_ = lc;
+    cellptr_ = new LCell();
   }
   else {
-    SCell* sc = new SCell();
-    cellptr_ = sc;
+    cellptr_ = new SCell();
   }
   
 }
 
-/*Box::Box(const Box& b) : diffusionspeed_(0.1)
+Box::Box(const Box& b) : pMut_(0), pDeath_(0.02)
 {
-  conc_[0] = b.getConc[0];
-  conc_[1] = b.getConc[1];
-  conc_[2] = b.getConc[2];
+  conc_.push_back(b.getConc()[0]);
+  conc_.push_back(b.getConc()[1]);
+  conc_.push_back(b.getConc()[2]);
   cellptr_ = b.cellptr_;
-}*/
+}
 
 //==============================
 //    DESTRUCTOR
@@ -57,6 +55,7 @@ Box::~Box()
 //==============================
 //    PUBLIC METHODS
 //==============================
+
 void Box::death()
 {
   if ( (double)(rand() / RAND_MAX) < pDeath_){

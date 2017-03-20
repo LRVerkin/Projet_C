@@ -31,10 +31,12 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
   }
   random_shuffle(index.begin(),index.end());
 
-  /*for (int i=0;i<(W_*H_)/2;i++){
+  for (int i=0;i<(W_*H_)/2;i++){
     grid_[index[i]/W_][index[i]%W_] = Box('L');
     grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] = Box('S');
-  }*/
+    std::cout << "grid_[" << index[i]/W_ << "][" << index[i]%W_ << "] : " << grid_[index[i]/W_][index[i]%W_] << std::endl;
+    std::cout << "grid_[" << index[i+(W_*H_)/2]/W_ << "][" << index[i+(W_*H_)/2]%W_ << "] : " << grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] << std::endl;
+  }
 
   renewal(Ainit_); //initialize the culture media
   
@@ -58,11 +60,19 @@ Envir::~Envir()
 //==============================
 void Envir::diffusion()
 {
+  //std::vector<std::vector<Box>> mon_machin(h , std::vector<Box>(w, __init__));
   Box** newgrid = new Box*[W_];
   for (int k=0;k<W_;k++){
-    newgrid[k] = new Box[H_];
     for (int j=0;j<H_;j++){
-      newgrid[k][j].setCell(grid_[k][j].getCell());
+      //std::cout << "grid_[" << k << "][" << j << "] : " << grid_[k][j];
+      newgrid[k] = new Box[H_];
+      //if (typeid(grid_[k][j].getCell()) == typeid(LCell)){
+        newgrid[k][j].setCell(grid_[k][j].getCell());
+      /*}
+      else {
+        newgrid[k][j].set
+      }*/
+      //std::cout << "newgrid[" << k << "][" << j << "] : " << newgrid[k][j];
     }
   }
 
@@ -116,10 +126,17 @@ void Envir::diffusion()
     newgrid[indices[k]/W_][indices[k]%W_].setConc(a,b,c);
   }  
 
+  //grid_ = newgrid;
   //destroy newgrid
-  grid_ = newgrid;
+  std::cout << "Getting into the copying loop (at last)" << std::endl;
   for (int i=0;i<H_;i++)
   {
+    for (int j=0;j<W_;j++){
+      std::cout << "newgrid[" << i << "][" << j << "] : " << newgrid[i][j];
+      grid_[i][j] = Box(newgrid[i][j]);
+      std::cout << "grid_[" << i << "][" << j << "] : " << grid_[i][j];
+
+    }
     delete[] newgrid[i];
   }
   delete[] newgrid;
@@ -192,6 +209,7 @@ void Envir::run(int rounds)
 {
   //we'll use it every time we need to do something in no order
   vector<int> ran;
+  ran.reserve(W_*H_);
   for (int i=0;i<W_*H_;i++){
     ran.push_back(i);
   }

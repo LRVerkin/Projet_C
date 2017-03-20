@@ -20,7 +20,7 @@ LCell::LCell() : Cell(), Raa_(0.1), Rab_(0.1)
 
 LCell::LCell(float a, float b, float c) : Cell(a,b,c), Raa_(0.1), Rab_(0.1)
 {
-	
+	w_ = Fitness();
 }
 
 

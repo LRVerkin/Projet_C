@@ -22,11 +22,16 @@ using std::rand;
 class Box
 {
 public:
+float pMut_;
+vector <float> conc_;
+float pDeath_;
+Cell* cellptr_;
 //==============================
 //    CONSTRUCTORS
 //==============================
 Box();
 Box(char c);
+Box(const Box& b);
 
 //==============================
 //    DESTRUCTOR
@@ -37,8 +42,8 @@ Box(char c);
 //    GETTERS
 //==============================
 
-inline vector<float> getConc();
-inline Cell* getCell();
+inline vector<float> getConc() const;
+inline Cell* getCell() const;
 
 //==============================
 //    SETTERS
@@ -56,6 +61,7 @@ inline void setCell(Cell* c);
 //==============================
 //    PUBLIC METHODS
 //==============================
+friend std::ostream &operator<<(std::ostream &os, Box const &b);
 void death();
 void Mutation(Cell* cell);
 
@@ -67,10 +73,10 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-float pMut_;
+/*float pMut_;
 vector <float> conc_;
 float pDeath_;
-Cell* cellptr_;
+Cell* cellptr_;*/
 
 
 };
@@ -79,12 +85,12 @@ Cell* cellptr_;
 //    GETTER DEFINITION
 //==============================
 
-inline vector<float> Box::getConc()
+inline vector<float> Box::getConc() const
 {
 	return conc_;
 }
 
-inline Cell* Box::getCell()
+inline Cell* Box::getCell() const
 {
 	return cellptr_;
 }
@@ -114,6 +120,11 @@ inline void Box::setCell(Cell* c)
 //==============================
 //    OPERATOR DEFINITION
 //==============================
+
+inline std::ostream &operator<<(std::ostream &os, Box const &b) { 
+    return os << "pMut_ = " << b.pMut_ << " pDeath_ = " << b.pDeath_ << " and cellptr_ = " << b.cellptr_ <<std::endl;
+}
+
 
 
 #endif // BOX_H

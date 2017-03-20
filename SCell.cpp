@@ -20,7 +20,7 @@ SCell::SCell() : Cell(), Rbb_(0.1), Rbc_(0.1)
 
 SCell::SCell(float a, float b, float c) : Cell(a,b,c), Rbb_(0.1), Rbc_(0.1)
 {
-	
+	w_ = Fitness();
 }
 
 
