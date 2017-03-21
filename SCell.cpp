@@ -35,11 +35,13 @@ SCell::~SCell(){
 //==============================
 
 float SCell::Fitness(){
-  if (p_[2] < WMIN_){
-    return 0;
+  if (p_.at(2) < WMIN_){
+  	//std::cout << "p_[2] = " << p_.at(2) << " < WMIN_" << std::endl;
+    return 0.0;
   }
   else{
-    return p_[2];
+  	std::cout << "SCell : SCp_[2] = " << p_.at(2) << " is not inferior to WMIN_" << std::endl;
+    return p_.at(2);
   }
 }
 

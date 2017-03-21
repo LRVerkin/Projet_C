@@ -24,6 +24,7 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
     grid_[i] = new Box[H_];
   }
 
+  std::cout<< "grid_ initialized" <<std::endl;
 
   vector<int> index;
   for (int i=0;i<W_*H_;i++){
@@ -31,12 +32,16 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
   }
   random_shuffle(index.begin(),index.end());
 
+  std::cout<< "index created" <<std::endl;
+
   for (int i=0;i<(W_*H_)/2;i++){
     grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
     grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
     /*std::cout << "grid_[" << index[i]/W_ << "][" << index[i]%W_ << "] : " << grid_[index[i]/W_][index[i]%W_] << std::endl;
     std::cout << "grid_[" << index[i+(W_*H_)/2]/W_ << "][" << index[i+(W_*H_)/2]%W_ << "] : " << grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] << std::endl;*/
   }
+
+  std::cout << "got cells in boxes" << std::endl;
 
   renewal(Ainit_); //initialize the culture media
   
@@ -49,6 +54,9 @@ Envir::~Envir()
 {
   for (int i=0;i<H_;i++)
   {
+    /*for (int j=0;j<W_;j++){
+      delete grid_[i][j].getCell();
+    }*/
     delete[] grid_[i];
   }
 
@@ -151,7 +159,7 @@ void Envir::division()
   vector<int> findGaps;
   for(int i=0; i<W_*H_; i++)
   {
-    std::cout << "grid_[" << i/W_ << "][" << i%W_ << "] : " << grid_[i/W_][i%W_];
+    //std::cout << "grid_[" << i/W_ << "][" << i%W_ << "] : " << grid_[i/W_][i%W_];
     if(grid_[i/W_][i%W_].getCell()==nullptr)
     {
 	  findGaps.push_back(i);
@@ -174,11 +182,12 @@ void Envir::division()
     if(J[2]>W_-1) J[2] = 0;
     
     vector<Box> boxes; //cells around the gap 
+    boxes.reserve(9);
     for(int i=0; i<3; i++){
 	    for(int j=0; j<3; j++){
 	      if (i != 1 || j != 1) {
           boxes.push_back(grid_[I[i]][J[j]]);
-          std::cout << "grid_[" << I[i] << "][" << J[j] << "] : " << grid_[I[i]][J[j]];
+          //std::cout << "grid_[" << I[i] << "][" << J[j] << "] : " << grid_[I[i]][J[j]];
         }
 	    }
 	  }
@@ -214,6 +223,7 @@ void Envir::renewal(float f)
 
 void Envir::run(int rounds)
 {
+  std::cout<<"just started run"<<std::endl;
   //we'll use it every time we need to do something in no order
   vector<int> ran;
   ran.reserve(W_*H_);
@@ -225,6 +235,8 @@ void Envir::run(int rounds)
 
   for (int i = 0;i < rounds*10;i++)
   {
+
+    std::cout<<"round "<<i<<std::endl;
 
     //POSSIBLE RENEWAL
     if (i%int(T_) == 0) //if it's time to renew the medium
@@ -243,6 +255,8 @@ void Envir::run(int rounds)
     //METABOLITES DIFFUSE
     //diffusion();
 
+    std::cout<<"diffusion() passed" <<std::endl;
+
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
       for (int i=0;i<H_;i++){
@@ -250,9 +264,12 @@ void Envir::run(int rounds)
       }
     }
 
+    std::cout<<"death passed"<<std::endl;
 
     //DIVISION
     division();
+
+    std::cout<<"division() passed"<<std::endl;
 
     //INDIVIDUALS ADAPT THEIR METABOLISM
     random_shuffle(ran.begin(),ran.end());
