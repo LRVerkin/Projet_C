@@ -36,12 +36,11 @@ LCell::~LCell(){
 
 float LCell::Fitness(){
   if (p_.at(1) < WMIN_){
-  	//std::cout << "p_[1] = " << p_.at(1) << " < WMIN_" << std::endl;
-  	float buf = 0;
-    return buf;
+    std::cout << "got into LCell, p_[1] < WMIN" << std::endl;
+    return 0.0;
   }
   else {
-  	std::cout << "LCell : p_[1] = " << p_.at(1) << " is not inferior to WMIN_" << std::endl;
+    std::cout << "LCell with p_[1] > WMIN" << std::endl;
     return p_.at(1);
   }
 }

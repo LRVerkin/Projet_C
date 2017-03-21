@@ -17,7 +17,6 @@ Cell::Cell()
   p_.push_back(50);
   p_.push_back(0);
   p_.push_back(0);
-  w_ = 0;
 }
 
 Cell::Cell(float a, float b, float c)
@@ -25,7 +24,6 @@ Cell::Cell(float a, float b, float c)
   p_.push_back(a);
   p_.push_back(b);
   p_.push_back(c);
-  w_ = 0;
 }
 
 
