@@ -36,9 +36,9 @@ Box::Box(char c) : pMut_(0), pDeath_(0.02)
 
 Box::Box(const Box& b) : pMut_(0), pDeath_(0.02)
 {
-  conc_.push_back(b.getConc()[0]);
-  conc_.push_back(b.getConc()[1]);
-  conc_.push_back(b.getConc()[2]);
+  conc_.push_back(b.getconstConc()[0]);
+  conc_.push_back(b.getconstConc()[1]);
+  conc_.push_back(b.getconstConc()[2]);
   cellptr_ = b.cellptr_;
 }
 

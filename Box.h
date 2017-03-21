@@ -42,7 +42,8 @@ Box(const Box& b);
 //    GETTERS
 //==============================
 
-inline vector<float> getConc() const;
+inline vector<float> getconstConc() const;
+inline vector<float> getConc();
 inline Cell* getCell();
 
 //==============================
@@ -85,7 +86,12 @@ Cell* cellptr_;*/
 //    GETTER DEFINITION
 //==============================
 
-inline vector<float> Box::getConc() const
+inline vector<float> Box::getconstConc() const
+{
+	return conc_;
+}
+
+inline vector<float> Box::getConc()
 {
 	return conc_;
 }

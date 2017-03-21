@@ -151,7 +151,7 @@ void Envir::division()
   vector<int> findGaps;
   for(int i=0; i<W_*H_; i++)
   {
-    std::cout << "grid_[" << i/W_ << "][" << i%W_ << "] : " << grid_[i/W_][i%W_];
+    //std::cout << "grid_[" << i/W_ << "][" << i%W_ << "] : " << grid_[i/W_][i%W_];
     if(grid_[i/W_][i%W_].getCell()==nullptr)
     {
 	  findGaps.push_back(i);
@@ -174,6 +174,7 @@ void Envir::division()
     if(J[2]>W_-1) J[2] = 0;
     
     vector<Box> boxes; //cells around the gap 
+    boxes.reserve(9);
     for(int i=0; i<3; i++){
 	    for(int j=0; j<3; j++){
 	      if (i != 1 || j != 1) {
@@ -187,10 +188,17 @@ void Envir::division()
     // 6  7  8
     random_shuffle(boxes.begin(), boxes.end());
     
-    Box bestBox = boxes[0]; 
+    Box bestBox = Box(boxes[0]); 
     for(int n=1; n<9; n++) // find the cell with the better fitness
     {
-	    if(boxes[n].getCell()->Fitness() > bestBox.getCell()->Fitness()) bestBox = boxes[n];
+      std::cout << "get into problematic loop, n = " << n << std::endl;
+	    if(boxes[n].getCell()!=nullptr){
+        if (bestBox.getCell()->Fitness() < boxes[n].getCell()->Fitness()){
+          std::cout<< "got into second loop" << std::endl;
+          bestBox = boxes[n];
+        }
+      }
+        
 	  }
 	
 	  vector<float> conc = bestBox.getCell()->getP();
@@ -226,6 +234,8 @@ void Envir::run(int rounds)
   for (int i = 0;i < rounds*10;i++)
   {
 
+    std::cout<< "round " << i << std::endl;
+
     //POSSIBLE RENEWAL
     if (i%int(T_) == 0) //if it's time to renew the medium
     {
@@ -239,9 +249,12 @@ void Envir::run(int rounds)
     }
     std::random_shuffle(browse.begin(),browse.end());
 
+    std::cout << "Possible renewal over" << std::endl;
 
     //METABOLITES DIFFUSE
-    //diffusion();
+    /*diffusion();
+
+    std::cout << "Diffusion over" << std::endl; */
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
@@ -250,15 +263,31 @@ void Envir::run(int rounds)
       }
     }
 
+    std::cout<<"Some cells died" << std::endl;
+
+    for(int k = 0;k<W_;k++){
+      for (int i=0;i<H_;i++){
+        std::cout << "grid_[" << k << "][" << i << "] = " << grid_[k][i] << std::endl;
+        if (grid_[k][i].getCell()!=nullptr) {
+          std::cout << "Fitness = " << grid_[k][i].getCell()->Fitness() << std::endl;
+        }
+      }
+    }
+
+    std::cout << "division about to start" << std::endl;
 
     //DIVISION
     division();
+
+    std::cout << "division done" << std::endl;
 
     //INDIVIDUALS ADAPT THEIR METABOLISM
     random_shuffle(ran.begin(),ran.end());
     for (int i=0;i<W_*H_;i++){
       grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
     }
+
+    std::cout << "Metabolism done" << std::endl;
 
     t_ += 0.1;
   }
