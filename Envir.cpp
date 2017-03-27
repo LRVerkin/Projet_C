@@ -64,11 +64,11 @@ void Envir::diffusion()
   Box** newgrid = new Box*[W_];
   for (int k=0;k<W_;k++){
     for (int j=0;j<H_;j++){
-      std::cout << "grid_[" << k << "][" << j << "] : " << grid_[k][j];
+      //std::cout << "grid_[" << k << "][" << j << "] : " << grid_[k][j];
       newgrid[k] = new Box[H_];
-      newgrid[k][j].setCell(grid_[k][j].getCell());
+      newgrid[k][j].setConc(grid_[k][j].getConc()[0],grid_[k][j].getConc()[1],grid_[k][j].getConc()[2]);
       
-      std::cout << "newgrid[" << k << "][" << j << "] : " << newgrid[k][j];
+      //std::cout << "newgrid[" << k << "][" << j << "] : " << newgrid[k][j];
     }
   }
 
@@ -136,7 +136,7 @@ void Envir::diffusion()
   {
     for (int j=0;j<W_;j++){
       std::cout << "newgrid[" << i << "][" << j << "] : " << newgrid[i][j];
-      grid_[i][j] = Box(newgrid[i][j]);
+      grid_[i][j].setConc(newgrid[i][j].getConc()[0],newgrid[i][j].getConc()[1],newgrid[i][j].getConc()[2]);
       std::cout << "grid_[" << i << "][" << j << "] : " << grid_[i][j];
 
     }
