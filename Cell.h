@@ -93,7 +93,7 @@ inline vector<float> Cell::getP()
 
 inline void Cell::setP(float a, float b, float c)
 {
-  p_.reserve(15); //just in case p_ is empty
+  //p_.reserve(15); //just in case p_ is empty
   p_[0] = a;
   p_[1] = b;
   p_[2] = c;

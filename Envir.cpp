@@ -32,8 +32,10 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
   random_shuffle(index.begin(),index.end());
 
   for (int i=0;i<(W_*H_)/2;i++){
-    grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
-    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
+   // grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
+    grid_[index[i]/W_][index[i]%W_] = Box('L');
+    //grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] = Box('S');
     /*std::cout << "grid_[" << index[i]/W_ << "][" << index[i]%W_ << "] : " << grid_[index[i]/W_][index[i]%W_] << std::endl;
     std::cout << "grid_[" << index[i+(W_*H_)/2]/W_ << "][" << index[i+(W_*H_)/2]%W_ << "] : " << grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] << std::endl;*/
   }
@@ -71,9 +73,6 @@ void Envir::diffusion()
       //std::cout << "newgrid[" << k << "][" << j << "] : " << newgrid[k][j];
     }
   }
-
-  std::cout << "grid_[20][4] : " << grid_[20][4];
-  std::cout << "newgrid[20][4] : " << newgrid[20][4];
 
   float a = 0;
   float b = 0;
@@ -135,9 +134,9 @@ void Envir::diffusion()
   for (int i=0;i<H_;i++)
   {
     for (int j=0;j<W_;j++){
-      std::cout << "newgrid[" << i << "][" << j << "] : " << newgrid[i][j];
+      //std::cout << "newgrid[" << i << "][" << j << "] : " << newgrid[i][j];
       grid_[i][j].setConc(newgrid[i][j].getConc()[0],newgrid[i][j].getConc()[1],newgrid[i][j].getConc()[2]);
-      std::cout << "grid_[" << i << "][" << j << "] : " << grid_[i][j];
+      //std::cout << "grid_[" << i << "][" << j << "] : " << grid_[i][j];
 
     }
     delete[] newgrid[i];
@@ -186,10 +185,6 @@ void Envir::division()
     // 1  2  3 
     // 4  .  5
     // 6  7  8
-    /*random_shuffle(boxes.begin(), boxes.end());
-    problem here: random_shuffle turns LCell and SCell into Cell*,
-    hence the bugs that follow
-    looks like we don't need it either way*/
     
     Box bestBox = Box(boxes[0]); 
     for(int n=1; n<8; n++) // find the cell with the better fitness
@@ -198,18 +193,19 @@ void Envir::division()
 	    if(boxes[n].getCell()!=nullptr){
         if (bestBox.getCell()->Fitness() < boxes[n].getCell()->Fitness()){
           std::cout<< "got into second loop" << std::endl;
-          bestBox = boxes[n];
+          bestBox = Box(boxes[n]);
         }
       }
         
 	  }
 	
 	  vector<float> conc = bestBox.getCell()->getP();
-    std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
-	  bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
+    //std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
+
+	  bestBox.getCell()->setP(conc[0]/2,conc[1]/2,conc[2]/2);
 	  bestBox.Mutation(bestBox.getCell());
-	  if(bestBox.getCell()->LorS()=='l') grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
-	  else grid_[x][y].setCell(new SCell(conc[0],conc[1],conc[2]));
+	  if(bestBox.getCell()->LorS()=='l') grid_[x][y].setCell(new LCell(conc[0]/2,conc[1]/2,conc[2]/2));
+	  else grid_[x][y].setCell(new SCell(conc[0]/2,conc[1]/2,conc[2]/2));
   }
 }
 
@@ -270,9 +266,9 @@ void Envir::run(int rounds)
 
     for(int k = 0;k<W_;k++){
       for (int i=0;i<H_;i++){
-        std::cout << "grid_[" << k << "][" << i << "] = " << grid_[k][i] << std::endl;
+        //std::cout << "grid_[" << k << "][" << i << "] = " << grid_[k][i] << std::endl;
         if (grid_[k][i].getCell()!=nullptr) {
-          std::cout << "Fitness = " << grid_[k][i].getCell()->Fitness() << std::endl;
+          //std::cout << "Fitness = " << grid_[k][i].getCell()->Fitness() << std::endl;
         }
       }
     }

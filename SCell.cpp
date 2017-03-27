@@ -36,11 +36,11 @@ SCell::~SCell(){
 
 float SCell::Fitness(){
   if (p_.at(2) < WMIN_){
-    std::cout << "got into SCell, p_[2] < WMIN" << std::endl;
+    //std::cout << "got into SCell, p_[2] < WMIN" << std::endl;
     return 0.0;
   }
   else{
-    std::cout << "SCell with p_[2] > WMIN" << std::endl;
+    //std::cout << "SCell with p_[2] > WMIN" << std::endl;
     return p_.at(2);
   }
 }
