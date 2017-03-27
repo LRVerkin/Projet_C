@@ -84,6 +84,7 @@ vector<float> p_; //A, B and C
 
 inline vector<float> Cell::getP()
 {
+  //std::cout<<p_.size()<<std::endl;
 	return p_;
 }
 

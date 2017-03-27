@@ -54,7 +54,7 @@ Envir::~Envir()
     delete[] grid_[i];
   }
 
-  delete[] grid_;
+  delete grid_;
 }
 
 //==============================
@@ -141,7 +141,7 @@ void Envir::diffusion()
     }
     delete[] newgrid[i];
   }
-  delete[] newgrid;
+  delete newgrid;
 
 }
 
@@ -221,6 +221,10 @@ void Envir::renewal(float f)
 
 void Envir::run(int rounds)
 {
+
+  std::cout << "Size at beginning : " << std::endl;
+  std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
+
   //we'll use it every time we need to do something in no order
   vector<int> ran;
   ran.reserve(W_*H_);
@@ -229,6 +233,8 @@ void Envir::run(int rounds)
   }
   random_shuffle(ran.begin(),ran.end());
 
+  std::cout << "Size right after a loop that should have no effect on grid_ : " << std::endl;
+  std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
 
   for (int i = 0;i < rounds*10;i++)
   {
@@ -240,6 +246,7 @@ void Envir::run(int rounds)
     {
       renewal(Ainit_);
     }
+
     
     vector<int> browse; //will be used to browse grid_
     for (int k=0;k<W_*H_;k++)
@@ -249,6 +256,8 @@ void Envir::run(int rounds)
     std::random_shuffle(browse.begin(),browse.end());
 
     std::cout << "Possible renewal over" << std::endl;
+
+    std::cout << "Onto diffusion" << std::endl;
 
     //METABOLITES DIFFUSE
     diffusion();

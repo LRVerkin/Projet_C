@@ -2,6 +2,7 @@
 //    INCLUDES
 //==============================
 
+#include <cassert>
 #include "Box.h"
 
 //==============================
@@ -47,7 +48,7 @@ Box::Box(const Box& b) : pMut_(0), pDeath_(0.02)
 //==============================
 Box::~Box()
 {
-  if (cellptr_!=nullptr){
+  if (cellptr_!=NULL){
   	delete cellptr_;
   }
 }
@@ -60,6 +61,9 @@ void Box::death()
 {
   if ((double)(rand() / (double)RAND_MAX) < pDeath_){
     if (cellptr_!= nullptr){
+      std::cout << "Working on " << cellptr_ << std::endl;
+      assert(not conc_.empty());
+      assert(conc_.size() == 3);
       conc_.at(0) += cellptr_->getP().at(0);
       conc_.at(1) += cellptr_->getP().at(1);
       conc_.at(2) += cellptr_->getP().at(2); 
