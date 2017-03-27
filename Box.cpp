@@ -67,6 +67,7 @@ void Box::death()
       conc_.at(0) += cellptr_->getP().at(0);
       conc_.at(1) += cellptr_->getP().at(1);
       conc_.at(2) += cellptr_->getP().at(2); 
+      delete cellptr_;
       cellptr_ = nullptr;
     }
   }
