@@ -32,12 +32,8 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
   random_shuffle(index.begin(),index.end());
 
   for (int i=0;i<(W_*H_)/2;i++){
-   // grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
     grid_[index[i]/W_][index[i]%W_] = Box('L');
-    //grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
     grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] = Box('S');
-    /*std::cout << "grid_[" << index[i]/W_ << "][" << index[i]%W_ << "] : " << grid_[index[i]/W_][index[i]%W_] << std::endl;
-    std::cout << "grid_[" << index[i+(W_*H_)/2]/W_ << "][" << index[i+(W_*H_)/2]%W_ << "] : " << grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] << std::endl;*/
   }
 
   renewal(Ainit_); //initialize the culture media
@@ -62,15 +58,12 @@ Envir::~Envir()
 //==============================
 void Envir::diffusion()
 {
-  //std::vector<std::vector<Box>> mon_machin(h , std::vector<Box>(w, __init__));
+
   Box** newgrid = new Box*[W_];
   for (int k=0;k<W_;k++){
     for (int j=0;j<H_;j++){
-      //std::cout << "grid_[" << k << "][" << j << "] : " << grid_[k][j];
       newgrid[k] = new Box[H_];
       newgrid[k][j].setConc(grid_[k][j].getConc()[0],grid_[k][j].getConc()[1],grid_[k][j].getConc()[2]);
-      
-      //std::cout << "newgrid[" << k << "][" << j << "] : " << newgrid[k][j];
     }
   }
 
@@ -123,13 +116,11 @@ void Envir::diffusion()
         c += D_*grid_[x][y].getConc()[2];
       }
     }
-    //std::cout << "newgrid[" << indices[k]/W_ << "][" << indices[k]%W_ << "] : " << newgrid[indices[k]/W_][indices[k]%W_];
-    //x and y may have been changed, so we're using their initial values again
+
     newgrid[indices[k]/W_][indices[k]%W_].setConc(a,b,c);
   }  
 
-  //grid_ = newgrid;
-  //destroy newgrid
+
   std::cout << "Getting into the copying loop (at long freaking last)" << std::endl;
   for (int i=0;i<H_;i++)
   {
@@ -200,8 +191,6 @@ void Envir::division()
 	  }
 	
 	  vector<float> conc = bestBox.getCell()->getP();
-    //std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
-
 	  bestBox.getCell()->setP(conc[0]/2,conc[1]/2,conc[2]/2);
 	  bestBox.Mutation(bestBox.getCell());
 	  if(bestBox.getCell()->LorS()=='l') grid_[x][y].setCell(new LCell(conc[0]/2,conc[1]/2,conc[2]/2));
@@ -222,19 +211,15 @@ void Envir::renewal(float f)
 void Envir::run(int rounds)
 {
 
-  std::cout << "Size at beginning : " << std::endl;
+  std::cout << "Size at beginning: " << std::endl;
   std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
 
   //we'll use it every time we need to do something in no order
-  vector<int> ran;
-  ran.reserve(W_*H_);
-  for (int i=0;i<W_*H_;i++){
-    ran.push_back(i);
-  }
-  random_shuffle(ran.begin(),ran.end());
+  
 
-  std::cout << "Size right after a loop that should have no effect on grid_ : " << std::endl;
+  std::cout << "Size right after a loop that should have no effect on grid_: " << std::endl;
   std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
+
 
   for (int i = 0;i < rounds*10;i++)
   {
@@ -267,6 +252,7 @@ void Envir::run(int rounds)
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
       for (int i=0;i<H_;i++){
+        std::cout << "Cell " << grid_[k][i].getCell() << std::endl;
         grid_[k][i].death();
       }
     }
@@ -290,6 +276,11 @@ void Envir::run(int rounds)
     std::cout << "division done" << std::endl;
 
     //INDIVIDUALS ADAPT THEIR METABOLISM
+    vector<int> ran;
+    ran.reserve(W_*H_);
+    for (int i=0;i<W_*H_;i++){
+      ran.push_back(i);
+    }
     random_shuffle(ran.begin(),ran.end());
     for (int i=0;i<W_*H_;i++){
       grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
