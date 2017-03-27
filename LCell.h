@@ -46,6 +46,7 @@ public:
 //==============================
   float Fitness();
   void Metabolism(vector<float> conc, float t);
+  char LorS();
 
 protected:
 //==============================

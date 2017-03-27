@@ -174,7 +174,7 @@ void Envir::division()
     if(J[2]>W_-1) J[2] = 0;
     
     vector<Box> boxes; //cells around the gap 
-    boxes.reserve(9);
+    boxes.reserve(8);
     for(int i=0; i<3; i++){
 	    for(int j=0; j<3; j++){
 	      if (i != 1 || j != 1) {
@@ -186,10 +186,13 @@ void Envir::division()
     // 1  2  3 
     // 4  .  5
     // 6  7  8
-    random_shuffle(boxes.begin(), boxes.end());
+    /*random_shuffle(boxes.begin(), boxes.end());
+    problem here: random_shuffle turns LCell and SCell into Cell*,
+    hence the bugs that follow
+    looks like we don't need it either way*/
     
     Box bestBox = Box(boxes[0]); 
-    for(int n=1; n<9; n++) // find the cell with the better fitness
+    for(int n=1; n<8; n++) // find the cell with the better fitness
     {
       std::cout << "get into problematic loop, n = " << n << std::endl;
 	    if(boxes[n].getCell()!=nullptr){
@@ -205,7 +208,7 @@ void Envir::division()
     std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
 	  bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
 	  bestBox.Mutation(bestBox.getCell());
-	  if(typeid(bestBox.getCell())==typeid(LCell)) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
+	  if(bestBox.getCell()->LorS()=='l') grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
 	  else grid_[x][y].setCell(new SCell(conc[0],conc[1],conc[2]));
   }
 }
@@ -252,9 +255,9 @@ void Envir::run(int rounds)
     std::cout << "Possible renewal over" << std::endl;
 
     //METABOLITES DIFFUSE
-    /*diffusion();
+    diffusion();
 
-    std::cout << "Diffusion over" << std::endl; */
+    std::cout << "Diffusion over" << std::endl;
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
@@ -298,8 +301,8 @@ void Envir::run(int rounds)
   string state;
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	   if(typeid(grid_[i][j].getCell())==typeid(LCell)) nLcell++;
-	   if(typeid(grid_[i][j].getCell())==typeid(SCell)) nScell++;
+	   if(grid_[i][j].getCell()->LorS()=='l') nLcell++;
+	   if(grid_[i][j].getCell()->LorS()=='s') nScell++;
 	 }
   }
   if(nScell == 0){

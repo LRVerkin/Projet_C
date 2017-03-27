@@ -51,3 +51,7 @@ void SCell::Metabolism(vector<float> conc, float t){
   p_.at(2) += t*conc.at(1)*Rbc_;
   w_ = Fitness();
 }
+
+char SCell::LorS(){
+  return 's';
+}

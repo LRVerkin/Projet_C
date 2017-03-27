@@ -51,3 +51,7 @@ void LCell::Metabolism(vector<float> conc,float t){
   p_.at(1) += t*p_.at(0)*Rab_;
   w_ = Fitness();
 }
+
+char LCell::LorS(){
+  return 'l';
+}

@@ -58,6 +58,7 @@ inline void setP(float a, float b, float c);
 
   virtual void Metabolism(vector<float> conc, float t) = 0;
   virtual float Fitness() = 0;
+  virtual char LorS() = 0;
 
 
 protected:
