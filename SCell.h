@@ -22,6 +22,7 @@ public:
 //==============================
   SCell();
   SCell(float a, float b, float c);
+  char LorS();
 
 //==============================
 //    DESTRUCTOR

@@ -115,6 +115,7 @@ inline void Box::setConc(float a, float b, float c)
 
 inline void Box::setCell(Cell* c)
 {
+	delete cellptr_;
 	cellptr_ = c;
 }
 

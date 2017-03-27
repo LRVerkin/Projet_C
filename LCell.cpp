@@ -36,11 +36,11 @@ LCell::~LCell(){
 
 float LCell::Fitness(){
   if (p_.at(1) < WMIN_){
-    std::cout << "got into LCell, p_[1] < WMIN" << std::endl;
+    //std::cout << "got into LCell, p_[1] < WMIN" << std::endl;
     return 0.0;
   }
   else {
-    std::cout << "LCell with p_[1] > WMIN" << std::endl;
+    //std::cout << "LCell with p_[1] > WMIN" << std::endl;
     return p_.at(1);
   }
 }
@@ -50,4 +50,8 @@ void LCell::Metabolism(vector<float> conc,float t){
   p_.at(0) += t*(conc.at(0)*Raa_-p_.at(0)*Rab_);
   p_.at(1) += t*p_.at(0)*Rab_;
   w_ = Fitness();
+}
+
+char LCell::LorS(){
+  return 'l';
 }

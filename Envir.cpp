@@ -35,10 +35,8 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
   std::cout<< "index created" <<std::endl;
 
   for (int i=0;i<(W_*H_)/2;i++){
-    grid_[index[i]/W_][index[i]%W_].setCell(new LCell());
-    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell());
-    /*std::cout << "grid_[" << index[i]/W_ << "][" << index[i]%W_ << "] : " << grid_[index[i]/W_][index[i]%W_] << std::endl;
-    std::cout << "grid_[" << index[i+(W_*H_)/2]/W_ << "][" << index[i+(W_*H_)/2]%W_ << "] : " << grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] << std::endl;*/
+    grid_[index[i]/W_][index[i]%W_] = Box('L');
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] = Box('S');
   }
 
   std::cout << "got cells in boxes" << std::endl;
@@ -60,7 +58,7 @@ Envir::~Envir()
     delete[] grid_[i];
   }
 
-  delete[] grid_;
+  delete grid_;
 }
 
 //==============================
@@ -68,20 +66,14 @@ Envir::~Envir()
 //==============================
 void Envir::diffusion()
 {
-  //std::vector<std::vector<Box>> mon_machin(h , std::vector<Box>(w, __init__));
+
   Box** newgrid = new Box*[W_];
   for (int k=0;k<W_;k++){
     for (int j=0;j<H_;j++){
-      std::cout << "grid_[" << k << "][" << j << "] : " << grid_[k][j];
       newgrid[k] = new Box[H_];
-      newgrid[k][j].setCell(grid_[k][j].getCell());
-      
-      std::cout << "newgrid[" << k << "][" << j << "] : " << newgrid[k][j];
+      newgrid[k][j].setConc(grid_[k][j].getConc()[0],grid_[k][j].getConc()[1],grid_[k][j].getConc()[2]);
     }
   }
-
-  std::cout << "grid_[20][4] : " << grid_[20][4];
-  std::cout << "newgrid[20][4] : " << newgrid[20][4];
 
   float a = 0;
   float b = 0;
@@ -132,25 +124,23 @@ void Envir::diffusion()
         c += D_*grid_[x][y].getConc()[2];
       }
     }
-    //std::cout << "newgrid[" << indices[k]/W_ << "][" << indices[k]%W_ << "] : " << newgrid[indices[k]/W_][indices[k]%W_];
-    //x and y may have been changed, so we're using their initial values again
+
     newgrid[indices[k]/W_][indices[k]%W_].setConc(a,b,c);
   }  
 
-  //grid_ = newgrid;
-  //destroy newgrid
+
   std::cout << "Getting into the copying loop (at long freaking last)" << std::endl;
   for (int i=0;i<H_;i++)
   {
     for (int j=0;j<W_;j++){
-      std::cout << "newgrid[" << i << "][" << j << "] : " << newgrid[i][j];
-      grid_[i][j] = Box(newgrid[i][j]);
-      std::cout << "grid_[" << i << "][" << j << "] : " << grid_[i][j];
+      //std::cout << "newgrid[" << i << "][" << j << "] : " << newgrid[i][j];
+      grid_[i][j].setConc(newgrid[i][j].getConc()[0],newgrid[i][j].getConc()[1],newgrid[i][j].getConc()[2]);
+      //std::cout << "grid_[" << i << "][" << j << "] : " << grid_[i][j];
 
     }
     delete[] newgrid[i];
   }
-  delete[] newgrid;
+  delete newgrid;
 
 }
 
@@ -182,7 +172,7 @@ void Envir::division()
     if(J[2]>W_-1) J[2] = 0;
     
     vector<Box> boxes; //cells around the gap 
-    boxes.reserve(9);
+    boxes.reserve(8);
     for(int i=0; i<3; i++){
 	    for(int j=0; j<3; j++){
 	      if (i != 1 || j != 1) {
@@ -194,27 +184,25 @@ void Envir::division()
     // 1  2  3 
     // 4  .  5
     // 6  7  8
-    random_shuffle(boxes.begin(), boxes.end());
     
     Box bestBox = Box(boxes[0]); 
-    for(int n=1; n<9; n++) // find the cell with the better fitness
+    for(int n=1; n<8; n++) // find the cell with the better fitness
     {
       std::cout << "get into problematic loop, n = " << n << std::endl;
 	    if(boxes[n].getCell()!=nullptr){
         if (bestBox.getCell()->Fitness() < boxes[n].getCell()->Fitness()){
           std::cout<< "got into second loop" << std::endl;
-          bestBox = boxes[n];
+          bestBox = Box(boxes[n]);
         }
       }
         
 	  }
 	
 	  vector<float> conc = bestBox.getCell()->getP();
-    std::transform(conc.begin(), conc.end(), conc.begin(),std::bind1st(std::multiplies<float>(),0.5));
-	  bestBox.getCell()->setP(conc[0],conc[1],conc[2]);
+	  bestBox.getCell()->setP(conc[0]/2,conc[1]/2,conc[2]/2);
 	  bestBox.Mutation(bestBox.getCell());
-	  if(typeid(bestBox.getCell())==typeid(LCell)) grid_[x][y].setCell(new LCell(conc[0],conc[1],conc[2]));
-	  else grid_[x][y].setCell(new SCell(conc[0],conc[1],conc[2]));
+	  if(bestBox.getCell()->LorS()=='l') grid_[x][y].setCell(new LCell(conc[0]/2,conc[1]/2,conc[2]/2));
+	  else grid_[x][y].setCell(new SCell(conc[0]/2,conc[1]/2,conc[2]/2));
   }
 }
 
@@ -230,14 +218,14 @@ void Envir::renewal(float f)
 
 void Envir::run(int rounds)
 {
-  std::cout<<"just started run"<<std::endl;
-  //we'll use it every time we need to do something in no order
-  vector<int> ran;
-  ran.reserve(W_*H_);
-  for (int i=0;i<W_*H_;i++){
-    ran.push_back(i);
-  }
-  random_shuffle(ran.begin(),ran.end());
+
+  std::cout << "Size at beginning: " << std::endl;
+  std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
+
+  
+
+  std::cout << "Size right after a loop that should have no effect on grid_: " << std::endl;
+  std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
 
 
   for (int i = 0;i < rounds*10;i++)
@@ -250,6 +238,7 @@ void Envir::run(int rounds)
     {
       renewal(Ainit_);
     }
+
     
     vector<int> browse; //will be used to browse grid_
     for (int k=0;k<W_*H_;k++)
@@ -260,16 +249,19 @@ void Envir::run(int rounds)
 
     std::cout << "Possible renewal over" << std::endl;
 
-    //METABOLITES DIFFUSE
-    /*diffusion();
+    std::cout << "Onto diffusion" << std::endl;
 
-    std::cout << "Diffusion over" << std::endl; */
+    //METABOLITES DIFFUSE
+    diffusion();
+
+    std::cout << "Diffusion over" << std::endl;
 
     std::cout<<"diffusion() passed" <<std::endl;
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
       for (int i=0;i<H_;i++){
+        std::cout << "Cell " << grid_[k][i].getCell() << std::endl;
         grid_[k][i].death();
       }
     }
@@ -278,9 +270,9 @@ void Envir::run(int rounds)
 
     for(int k = 0;k<W_;k++){
       for (int i=0;i<H_;i++){
-        std::cout << "grid_[" << k << "][" << i << "] = " << grid_[k][i] << std::endl;
+        //std::cout << "grid_[" << k << "][" << i << "] = " << grid_[k][i] << std::endl;
         if (grid_[k][i].getCell()!=nullptr) {
-          std::cout << "Fitness = " << grid_[k][i].getCell()->Fitness() << std::endl;
+          //std::cout << "Fitness = " << grid_[k][i].getCell()->Fitness() << std::endl;
         }
       }
     }
@@ -295,6 +287,11 @@ void Envir::run(int rounds)
 
 
     //INDIVIDUALS ADAPT THEIR METABOLISM
+    vector<int> ran;
+    ran.reserve(W_*H_);
+    for (int i=0;i<W_*H_;i++){
+      ran.push_back(i);
+    }
     random_shuffle(ran.begin(),ran.end());
     for (int i=0;i<W_*H_;i++){
       grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
@@ -311,8 +308,8 @@ void Envir::run(int rounds)
   string state;
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	   if(typeid(grid_[i][j].getCell())==typeid(LCell)) nLcell++;
-	   if(typeid(grid_[i][j].getCell())==typeid(SCell)) nScell++;
+	   if(grid_[i][j].getCell()->LorS()=='l') nLcell++;
+	   if(grid_[i][j].getCell()->LorS()=='s') nScell++;
 	 }
   }
   if(nScell == 0){

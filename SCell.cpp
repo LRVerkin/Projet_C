@@ -36,11 +36,11 @@ SCell::~SCell(){
 
 float SCell::Fitness(){
   if (p_.at(2) < WMIN_){
-    std::cout << "got into SCell, p_[2] < WMIN" << std::endl;
+    //std::cout << "got into SCell, p_[2] < WMIN" << std::endl;
     return 0.0;
   }
   else{
-    std::cout << "SCell with p_[2] > WMIN" << std::endl;
+    //std::cout << "SCell with p_[2] > WMIN" << std::endl;
     return p_.at(2);
   }
 }
@@ -50,4 +50,8 @@ void SCell::Metabolism(vector<float> conc, float t){
   p_.at(1) += t*(conc.at(1)*Rbb_-p_.at(1)*Rbc_);
   p_.at(2) += t*conc.at(1)*Rbc_;
   w_ = Fitness();
+}
+
+char SCell::LorS(){
+  return 's';
 }
