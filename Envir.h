@@ -50,6 +50,7 @@ void diffusion();
 void division();
 void renewal(float f);
 void run(int rounds); //number of rounds
+std::string state;
 
 protected:
 //==============================
