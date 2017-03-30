@@ -289,8 +289,8 @@ void Envir::run(int rounds)
 
     std::cout << "Deaths are about to occur" << std::endl;
 
-    std::cout << "grid_[" << 0 << "][" << 0 << "] : " << grid_[0][0] << std::endl;
-    std::cout << "grid_[" << 5 << "][" << 20 << "] : " << grid_[5][20] << std::endl;
+    //std::cout << "grid_[" << 0 << "][" << 0 << "] : " << grid_[0][0] << std::endl;
+    //std::cout << "grid_[" << 5 << "][" << 20 << "] : " << grid_[5][20] << std::endl;
 
     
 
