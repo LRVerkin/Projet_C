@@ -48,9 +48,10 @@ Box::Box(const Box& b) : pMut_(0), pDeath_(0.02)
 //==============================
 Box::~Box()
 {
-  if (cellptr_!=NULL){
+  /*if (cellptr_!=NULL){
   	delete cellptr_;
-  }
+  }*/ 
+  //cellptr_ n'est pas alloué manuellement
 }
 
 //==============================

@@ -177,10 +177,14 @@ void Envir::division()
       for(int j=0; j<3; j++){
         if (i != 1 || j != 1) {
           boxes.push_back(grid_[I[i]][J[j]]);
-          std::cout << "grid_[" << I[i] << "][" << J[j] << "] : " << grid_[I[i]][J[j]] << " fitness :" << grid_[I[i]][J[j]].getCell()->Fitness() <<std::endl;
+          std::cout << "grid_[" << I[i] << "][" << J[j] << "] : " /*<< grid_[I[i]][J[j]] << " fitness :" << grid_[I[i]][J[j]].getCell()->Fitness()*/ <<std::endl;
         }
       }
     }
+    /* 
+       I don't know why but grid_[I[i]][J[j]].getCell()->Fitness() don't work
+    */
+    
     // 1  2  3 
     // 4  .  5
     // 6  7  8
