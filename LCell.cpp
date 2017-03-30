@@ -35,7 +35,7 @@ LCell::~LCell(){
 //==============================
 
 float LCell::Fitness(){
-  std::cout << "calculate fitness" << std::endl;
+  //std::cout << "calculate fitness" << std::endl;
   if (p_.at(1) < WMIN_){
     //std::cout << "got into LCell, p_[1] < WMIN" << std::endl;
     return 0.0;

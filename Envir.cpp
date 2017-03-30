@@ -200,12 +200,12 @@ void Envir::division()
     
     if(bBox1==true){
       for(int n=0; n<8; n++){ // find the cell with the better fitness
-        std::cout << "get into problematic loop, n = " << n << std::endl;
+        //std::cout << "get into problematic loop, n = " << n << std::endl;
         if(boxes[n].getCell()!=nullptr && boxes[n].getCell()!=bestBox->getCell()){
           //std::cout << "best box : " << bestBox->getCell() << " has fitness : " << bestBox->getCell()->Fitness() << std::endl;
           //std::cout << "other box : " << boxes[n].getCell() << " has fitness : " << boxes[n].getCell()->Fitness() << std::endl;
           if (bestBox->getCell()->Fitness() < boxes[n].getCell()->Fitness()){
-            std::cout<< "get into second loop" << std::endl;
+            //std::cout<< "get into second loop" << std::endl;
             bestBox = new Box(boxes[n]);
           }
         }
@@ -328,7 +328,6 @@ void Envir::run(int rounds)
   // STATE OF THE POPULATION
   int nLcell = 0;
   int nScell = 0;
-  string state;
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
 	   if(grid_[i][j].getCell()->LorS()=='l') nLcell++;
@@ -339,5 +338,7 @@ void Envir::run(int rounds)
 	 if(nLcell == 0) state = "Extinction";
 	 else state = "Exclusion";
   } else state = "Cohabitation";
+  
+  std::cout << state << std::endl;
   
 }

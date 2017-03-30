@@ -35,7 +35,7 @@ SCell::~SCell(){
 //==============================
 
 float SCell::Fitness(){
-  std::cout << "calculate fitness" << std::endl;
+  //std::cout << "calculate fitness" << std::endl;
   if (p_.at(2) < WMIN_){
     //std::cout << "got into SCell, p_[2] < WMIN" << std::endl;
     return 0.0;
