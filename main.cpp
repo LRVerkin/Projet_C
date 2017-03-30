@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
   
   if(fichier){
     for(float Ainit=0; Ainit<=50; Ainit++){
-	  for(int T=0; T<=1500; T++){
+	  for(int T=1; T<=1500; T++){
 	    int nb_test=10; //for each (Ainit,t) we simulate nb_test times
 	    for(int i=1; i<(nb_test+1); i++){
 	      Envir enviro(T,Ainit);
