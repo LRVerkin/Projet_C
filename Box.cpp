@@ -61,7 +61,7 @@ void Box::death()
 {
   if ((double)(rand() / (double)RAND_MAX) < pDeath_){
     if (cellptr_!= nullptr){
-      std::cout << "Working on " << cellptr_ << std::endl;
+      //std::cout << "Working on " << cellptr_ << std::endl;
       assert(not conc_.empty());
       assert(conc_.size() == 3);
       conc_.at(0) += cellptr_->getP().at(0);
@@ -80,7 +80,7 @@ void Box::Mutation(Cell* cell){
     float a = cell->getP()[0];
     float b = cell->getP()[1];
     float c = cell->getP()[2];
-    if (typeid(*cell)==typeid(LCell))
+    if ((*cell).LorS()=='l')
     {
       SCell(a,b,c);
     }

@@ -32,11 +32,15 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
   random_shuffle(index.begin(),index.end());
 
   for (int i=0;i<(W_*H_)/2;i++){
-    grid_[index[i]/W_][index[i]%W_] = Box('L');
-    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_] = Box('S');
+    grid_[index[i]/W_][index[i]%W_].setCell(new LCell);
+    grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell);
+    //I need to use "new" or else the cell will always be the same
   }
 
   renewal(Ainit_); //initialize the culture media
+
+
+
   
 }
 
@@ -47,6 +51,10 @@ Envir::~Envir()
 {
   for (int i=0;i<H_;i++)
   {
+    for (int j=0;j<W_;j++)
+    {
+      delete grid_[i][j].getCell();
+    }
     delete[] grid_[i];
   }
 
@@ -182,9 +190,12 @@ void Envir::division()
     {
       std::cout << "get into problematic loop, n = " << n << std::endl;
 	    if(boxes[n].getCell()!=nullptr){
+        std::cout << "got into first if" << std::endl;
+        std::cout << "bestBox.getCell fitness is " << bestBox.getCell()->Fitness() << std::endl;
+        std::cout << "boxes[" << n << "].getCell() fitness is " << boxes[n].getCell()->Fitness() << std::endl;
         if (bestBox.getCell()->Fitness() < boxes[n].getCell()->Fitness()){
-          std::cout<< "got into second loop" << std::endl;
-          bestBox = Box(boxes[n]);
+          std::cout<< "got into second if" << std::endl;
+          bestBox = boxes[n];
         }
       }
         
@@ -247,10 +258,13 @@ void Envir::run(int rounds)
 
     std::cout << "Deaths are about to occur" << std::endl;
 
+    std::cout << "grid_[" << 0 << "][" << 0 << "] : " << grid_[0][0] << std::endl;
+    std::cout << "grid_[" << 5 << "][" << 20 << "] : " << grid_[5][20] << std::endl;
+
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
       for (int i=0;i<H_;i++){
-        std::cout << "Cell " << grid_[k][i].getCell() << std::endl;
+        //std::cout << "Cell " << grid_[k][i].getCell() << std::endl;
         grid_[k][i].death();
       }
     }
