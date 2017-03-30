@@ -214,12 +214,6 @@ void Envir::run(int rounds)
   std::cout << "Size at beginning: " << std::endl;
   std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
 
-  //we'll use it every time we need to do something in no order
-  
-
-  std::cout << "Size right after a loop that should have no effect on grid_: " << std::endl;
-  std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
-
 
   for (int i = 0;i < rounds*10;i++)
   {
@@ -230,6 +224,7 @@ void Envir::run(int rounds)
     if (i%int(T_) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
+      std::cout << "Renewal over" << std::endl;
     }
 
     
@@ -239,8 +234,8 @@ void Envir::run(int rounds)
       browse.push_back(k);
     }
     std::random_shuffle(browse.begin(),browse.end());
+    
 
-    std::cout << "Possible renewal over" << std::endl;
 
     std::cout << "Onto diffusion" << std::endl;
 
@@ -248,6 +243,9 @@ void Envir::run(int rounds)
     diffusion();
 
     std::cout << "Diffusion over" << std::endl;
+
+
+    std::cout << "Deaths are about to occur" << std::endl;
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
