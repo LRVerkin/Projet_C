@@ -1,11 +1,14 @@
 //==============================
 //    INCLUDES
 //==============================
-
+#include <iostream>
+#include <chrono>
 #include "Envir.h"
 
 using std::random_shuffle;
 using std::string;
+
+typedef std::chrono::high_resolution_clock Clock;
 
 //==============================
 //    DEFINITION STATIC ATTRIBUTES
@@ -139,7 +142,7 @@ void Envir::diffusion()
   }  
 
 
-  std::cout << "Getting into the copying loop (at long freaking last)" << std::endl;
+  //std::cout << "Getting into the copying loop (at long freaking last)" << std::endl;
   for (int i=0;i<H_;i++)
   {
     for (int j=0;j<W_;j++){
@@ -253,20 +256,20 @@ void Envir::renewal(float f)
 void Envir::run(int rounds)
 {
 
-  std::cout << "Size at beginning: " << std::endl;
-  std::cout << grid_[0][0].getCell()->getP().size() << std::endl;
+  //std::cout << "Size at beginning: " << grid_[0][0].getCell()->getP().size() << std::endl;
 
+  auto t1 = Clock::now();
 
   for (int i = 0;i < rounds*10;i++)
   {
 
-    std::cout<< "round " << i << std::endl;
+    //std::cout<< "round " << i << std::endl;
 
     //POSSIBLE RENEWAL
     if (i%int(T_) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
-      std::cout << "Renewal over" << std::endl;
+      //std::cout << "Renewal over" << std::endl;
     }
 
     
@@ -279,19 +282,32 @@ void Envir::run(int rounds)
     
 
 
-    std::cout << "Onto diffusion" << std::endl;
+    //std::cout << "Onto diffusion" << std::endl;
 
     //METABOLITES DIFFUSE
     diffusion();
 
-    std::cout << "Diffusion over" << std::endl;
+    //std::cout << "Diffusion over" << std::endl;
 
-
-    std::cout << "Deaths are about to occur" << std::endl;
 
     //std::cout << "grid_[" << 0 << "][" << 0 << "] : " << grid_[0][0] << std::endl;
     //std::cout << "grid_[" << 5 << "][" << 20 << "] : " << grid_[5][20] << std::endl;
 
+        
+    //INDIVIDUALS ADAPT THEIR METABOLISM
+    vector<int> ran;
+    ran.reserve(W_*H_);
+    for (int i=0;i<W_*H_;i++){
+      ran.push_back(i);
+    }
+    random_shuffle(ran.begin(),ran.end());
+    for (int i=0;i<W_*H_;i++){
+      grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
+    }
+
+    //std::cout << "Metabolism done" << std::endl;
+    
+    //std::cout << "Deaths are about to occur" << std::endl;
     
 
     //RANDOM DEATHS AMONG INDIVIDUALS
@@ -302,23 +318,24 @@ void Envir::run(int rounds)
       }
     }
 
-    std::cout<<"Some cells died" << std::endl;
+    //std::cout<<"Some cells died" << std::endl;
 
-    for(int k = 0;k<W_;k++){
+    /*for(int k = 0;k<W_;k++){
       for (int i=0;i<H_;i++){
         //std::cout << "grid_[" << k << "][" << i << "] = " << grid_[k][i] << std::endl;
         if (grid_[k][i].getCell()!=nullptr) {
           //std::cout << "Fitness = " << grid_[k][i].getCell()->Fitness() << std::endl;
         }
       }
-    }
+    } */
 
-    std::cout << "division about to start" << std::endl;
+    //std::cout << "division about to start" << std::endl;
 
 
     //DIVISION
     division();
-    std::cout << "division done" << std::endl;
+    //std::cout << "division done" << std::endl;
+    
 
 
     //INDIVIDUALS ADAPT THEIR METABOLISM
@@ -338,6 +355,11 @@ void Envir::run(int rounds)
     t_ += 0.1;
   }
   
+  auto t2 = Clock::now();
+  std::cout << "Duration : " 
+            << std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count()
+            << " seconds" << std::endl;  
+  
   // STATE OF THE POPULATION
   int nLcell = 0;
   int nScell = 0;
@@ -352,6 +374,8 @@ void Envir::run(int rounds)
 	 else state = "Exclusion";
   } else state = "Cohabitation";
   
+  std::cout << "Nombre de LCell : " << nLcell << std::endl;
+  std::cout << "Nombre de SCell : " << nScell << std::endl;
   std::cout << state << std::endl;
   
 }
