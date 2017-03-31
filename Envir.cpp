@@ -245,7 +245,7 @@ void Envir::renewal(float f)
 void Envir::run(int rounds)
 {
 
-  std::cout << "Size at beginning: " << grid_[0][0].getCell()->getP().size() << std::endl;
+  //std::cout << "Size at beginning: " << grid_[0][0].getCell()->getP().size() << std::endl;
 
   auto t1 = Clock::now();
 

@@ -13,7 +13,7 @@
 //    CONSTRUCTORS
 //==============================
 
-Box::Box() : pMut_(0), pDeath_(0.02)
+Box::Box() : pMut_(0), pDeath_(0.1)
 {
   conc_.push_back(50);
   conc_.push_back(0);
@@ -21,7 +21,7 @@ Box::Box() : pMut_(0), pDeath_(0.02)
   cellptr_ = nullptr;
 }
 
-Box::Box(char c) : pMut_(0), pDeath_(0.02)
+Box::Box(char c) : pMut_(0), pDeath_(0.1)
 {
   conc_.push_back(50);
   conc_.push_back(0);
@@ -35,7 +35,7 @@ Box::Box(char c) : pMut_(0), pDeath_(0.02)
   
 }
 
-Box::Box(const Box& b) : pMut_(0), pDeath_(0.02)
+Box::Box(const Box& b) : pMut_(0), pDeath_(0.1)
 {
   conc_.push_back(b.getconstConc()[0]);
   conc_.push_back(b.getconstConc()[1]);
