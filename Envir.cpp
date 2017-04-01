@@ -297,19 +297,6 @@ void Envir::run(int rounds)
     //std::cout << "grid_[" << 0 << "][" << 0 << "] : " << grid_[0][0] << std::endl;
     //std::cout << "grid_[" << 5 << "][" << 20 << "] : " << grid_[5][20] << std::endl;
 
-        
-    //INDIVIDUALS ADAPT THEIR METABOLISM
-    vector<int> ran;
-    ran.reserve(W_*H_);
-    for (int i=0;i<W_*H_;i++){
-      ran.push_back(i);
-    }
-    random_shuffle(ran.begin(),ran.end());
-    for (int i=0;i<W_*H_;i++){
-      grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
-    }
-
-    //std::cout << "Metabolism done" << std::endl;
     
     //std::cout << "Deaths are about to occur" << std::endl;
     

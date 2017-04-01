@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <algorithm>
-#include <typeinfo>
 #include "Box.h"
 
 

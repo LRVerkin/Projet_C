@@ -10,17 +10,13 @@
 #include <fstream>
 
 #include "Envir.h"
-#include "Box.h"
-#include "Cell.h"
-//#include "SCell.h"
-//#include "LCell.h"
 
-using std::cout;
+/*using std::cout;
 using std::endl;
 using std::string;
 using std::ofstream;
 
-using namespace std;
+using namespace std;*/
 
 //==============================
 //    FUNCTION DeCLARATION
@@ -33,7 +29,7 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-  ofstream fichier("test.txt", ios::out | ios::trunc); 
+  std::ofstream fichier("test.txt", std::ios::out | std::ios::trunc); 
   
   if(fichier){
     for(float Ainit=0; Ainit<=50; Ainit+=10){
@@ -42,16 +38,13 @@ int main(int argc, char const *argv[])
 	    for(int i=1; i<(nb_test+1); i++){
 	      Envir enviro(T,Ainit);
 	      enviro.run(10);
-	      fichier << i << " " << Ainit << " " << T << " " << enviro.state << endl;
+	      fichier << i << " " << Ainit << " " << T << " " << enviro.state << std::endl;
 	    }
 	  }
     }          
     fichier.close();
-  } else cout << "Impossible d'ouvrir le fichier !" << endl;
+  } else std::cout << "Impossible d'ouvrir le fichier !" << std::endl;
   
-  //Envir gonnaFail(10,50);
-
-  //gonnaFail.run(100);
   
   return 0;
 }
