@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <typeinfo>
-#include "Cell.h"
 #include "SCell.h"
 #include "LCell.h"
 
@@ -22,11 +21,8 @@ using std::rand;
 class Box
 {
 public:
-	
-float pMut_;
-vector <float> conc_;
-float pDeath_;
-Cell* cellptr_;
+
+
 //==============================
 //    CONSTRUCTORS
 //==============================
@@ -75,10 +71,14 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-/*float pMut_;
-vector <float> conc_;
+
+float pMut_;
+
 float pDeath_;
-Cell* cellptr_;*/
+
+
+vector <float> conc_;
+Cell* cellptr_;
 
 
 };
@@ -116,7 +116,7 @@ inline void Box::setConc(float a, float b, float c)
 
 inline void Box::setCell(Cell* c)
 {
-	delete cellptr_;
+	//delete cellptr_; //gives seg fault
 	cellptr_ = c;
 }
 

@@ -75,7 +75,7 @@ Envir::~Envir()
     delete[] grid_[i];
   }
 
-  delete grid_;
+  delete[] grid_;
 }
 
 //==============================
@@ -153,11 +153,12 @@ void Envir::diffusion()
       //std::cout << "newgrid[" << i << "][" << j << "] : " << newgrid[i][j];
       grid_[i][j].setConc(newgrid[i][j].getConc()[0],newgrid[i][j].getConc()[1],newgrid[i][j].getConc()[2]);
       //std::cout << "grid_[" << i << "][" << j << "] : " << grid_[i][j];
+      delete newgrid[i][j].getCell();
 
     }
     delete[] newgrid[i];
   }
-  delete newgrid;
+  delete[] newgrid;
 
 }
 
@@ -199,9 +200,7 @@ void Envir::division()
         }
       }
     }
-    /* 
-       I don't know why but grid_[I[i]][J[j]].getCell()->Fitness() don't work
-    */
+
     
     // 1  2  3 
     // 4  .  5
@@ -264,7 +263,7 @@ void Envir::run(int rounds)
 
   auto t1 = Clock::now();
 
-  for (int i = 0;i < rounds*10;i++)
+  for (int i = 0;i < rounds;i++)
   {
 
     //std::cout<< "round " << i << std::endl;

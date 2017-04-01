@@ -21,11 +21,8 @@ Box::Box() : pMut_(0), pDeath_(0.1)
   cellptr_ = nullptr;
 }
 
-Box::Box(char c) : pMut_(0), pDeath_(0.1)
+Box::Box(char c) : Box()
 {
-  conc_.push_back(50);
-  conc_.push_back(0);
-  conc_.push_back(0);
   if (c=='L') {
     cellptr_ = new LCell();
   }
@@ -48,9 +45,10 @@ Box::Box(const Box& b) : pMut_(0), pDeath_(0.1)
 //==============================
 Box::~Box()
 {
-  /*if (cellptr_!=NULL){
+  /*if (cellptr_!=nullptr){
   	delete cellptr_;
-  }*/ 
+    cellptr_ = nullptr;
+  }*/
   //cellptr_ n'est pas alloué manuellement
 }
 
