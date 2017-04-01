@@ -23,6 +23,7 @@ public:
 //    CONSTRUCTORS
 //==============================
 
+Envir();
 Envir(float T, float A);
 
 //==============================
@@ -46,11 +47,17 @@ Envir(float T, float A);
 //==============================
 //    PUBLIC METHODS
 //==============================
-void diffusion();
-void division();
-void renewal(float f);
-void run(int rounds); //number of rounds
-std::string state;
+void 			diffusion();
+void 			division();
+void 			renewal(float f);
+void 			run(int rounds); //number of rounds
+
+
+//==============================
+//    PUBLIC ATTRIBUTES
+//==============================
+
+std::string 	state;
 
 protected:
 //==============================
@@ -60,14 +67,14 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-static const int W_ = 32;
-static const int H_ = 32;
-float T_;
-float t_;
-float Ainit_;
-Box** grid_;
-float pMut_;
-float D_;
+static const int 	W_ = 32;
+static const int 	H_ = 32;
+float 				T_;
+float 				t_;
+float 				Ainit_;
+Box** 				grid_;
+float 				pMut_;
+float 				D_;
 };
 
 //==============================

@@ -18,10 +18,10 @@ typedef std::chrono::high_resolution_clock Clock;
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir(float T, float A) : t_(0), D_(0.1)
+Envir::Envir() : t_(0), D_(0.1)
 {
-  Ainit_= A;
-  T_= T;
+  Ainit_= 50;
+  T_= 10;
   grid_ = new Box*[W_];
   for (int i=0;i<W_;i++){
     grid_[i] = new Box[H_];
@@ -46,10 +46,14 @@ Envir::Envir(float T, float A) : t_(0), D_(0.1)
   std::cout << "got cells in boxes" << std::endl;
 
   renewal(Ainit_); //initialize the culture media
-
-
-
   
+}
+
+Envir::Envir(float Ainit, float T) : Envir()
+{
+  Ainit_ = Ainit;
+  T_ = T;
+  renewal(Ainit_);
 }
 
 //==============================
