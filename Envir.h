@@ -23,7 +23,7 @@ public:
 //==============================
 
 Envir();
-Envir(float T, float A);
+Envir(int T, float A);
 
 //==============================
 //    DESTRUCTOR
@@ -68,7 +68,7 @@ protected:
 //==============================
 static const int 	W_ = 32;
 static const int 	H_ = 32;
-float 				T_;
+int 				T_;
 float 				t_;
 float 				Ainit_;
 Box** 				grid_;

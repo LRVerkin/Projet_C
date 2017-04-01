@@ -49,7 +49,7 @@ Envir::Envir() : t_(0), D_(0.1)
   
 }
 
-Envir::Envir(float Ainit, float T) : Envir()
+Envir::Envir(int T, float Ainit) : Envir()
 {
   Ainit_ = Ainit;
   T_ = T;
@@ -270,11 +270,12 @@ void Envir::run(int rounds)
     //std::cout<< "round " << i << std::endl;
 
     //POSSIBLE RENEWAL
-    if (i%int(T_) == 0) //if it's time to renew the medium
+    if (i%T_ == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
       //std::cout << "Renewal over" << std::endl;
     }
+  
 
     
     vector<int> browse; //will be used to browse grid_
@@ -340,16 +341,18 @@ void Envir::run(int rounds)
       grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
     }
 
-    std::cout << "Metabolism done" << std::endl;
+    //std::cout << "Metabolism done" << std::endl;
 
 
     t_ += 0.1;
-  }
-  
-  auto t2 = Clock::now();
+
+    auto t2 = Clock::now();
   std::cout << "Duration : " 
             << std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count()
             << " seconds" << std::endl;  
+  }
+  
+  
   
   // STATE OF THE POPULATION
   int nLcell = 0;
