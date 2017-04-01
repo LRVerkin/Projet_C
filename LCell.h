@@ -44,9 +44,9 @@ public:
 //==============================
 //    PUBLIC METHODS
 //==============================
-  float Fitness();
-  void Metabolism(vector<float> conc, float t);
-  char LorS();
+  float 			Fitness();
+  void 				Metabolism(vector<float> conc, float t);
+  char 				LorS();
 
 protected:
 //==============================
@@ -57,8 +57,8 @@ protected:
 //    ATTRIBUTES
 //==============================
   
-  const float Raa_;
-  const float Rab_;
+  const 			float Raa_;
+  const 			float Rab_;
 
 };
 

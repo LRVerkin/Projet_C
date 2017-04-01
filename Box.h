@@ -22,6 +22,7 @@ using std::rand;
 class Box
 {
 public:
+	
 float pMut_;
 vector <float> conc_;
 float pDeath_;

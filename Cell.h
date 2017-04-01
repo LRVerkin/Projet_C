@@ -46,7 +46,7 @@ public:
 //    SETTERS
 //==============================
 
-inline void setP(float a, float b, float c);
+  inline void         setP(float a, float b, float c);
 
 //==============================
 //    OPERATORS
@@ -56,9 +56,9 @@ inline void setP(float a, float b, float c);
 //    PUBLIC METHODS
 //==============================
 
-  virtual void Metabolism(vector<float> conc, float t) = 0;
-  virtual float Fitness() = 0;
-  virtual char LorS() = 0;
+  virtual void        Metabolism(vector<float> conc, float t) = 0;
+  virtual float       Fitness() = 0;
+  virtual char        LorS() = 0;
 
 
 protected:
@@ -70,10 +70,10 @@ protected:
 //    ATTRIBUTES
 //==============================
 
-const float WMIN_ = 0.001;
+const float           WMIN_ = 0.001;
 
-float w_; //fitness
-vector<float> p_; //A, B and C
+float                 w_; //fitness
+vector<float>         p_; //A, B and C
 
 };
 

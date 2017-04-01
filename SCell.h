@@ -22,7 +22,6 @@ public:
 //==============================
   SCell();
   SCell(float a, float b, float c);
-  char LorS();
 
 //==============================
 //    DESTRUCTOR
@@ -44,8 +43,9 @@ public:
 //==============================
 //    PUBLIC METHODS
 //==============================
-  float Fitness();
-  void Metabolism(vector<float> conc, float t);
+  float 			Fitness();
+  void 				Metabolism(vector<float> conc, float t);
+  char 				LorS();
 
 protected:
 //==============================
@@ -56,8 +56,8 @@ protected:
 //    ATTRIBUTES
 //==============================
   
-  const float Rbb_;
-  const float Rbc_;
+  const float 		Rbb_;
+  const float 		Rbc_;
 
 };
 
