@@ -84,7 +84,6 @@ vector<float>         p_; //A, B and C
 
 inline vector<float> Cell::getP()
 {
-  //std::cout<< "Size of p_ = " << p_.size()<< std::endl;
 	return p_;
 }
 
@@ -94,7 +93,6 @@ inline vector<float> Cell::getP()
 
 inline void Cell::setP(float a, float b, float c)
 {
-  //p_.reserve(15); //just in case p_ is empty
   p_[0] = a;
   p_[1] = b;
   p_[2] = c;

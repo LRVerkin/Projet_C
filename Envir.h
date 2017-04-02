@@ -48,7 +48,7 @@ Envir(int T, float A);
 //==============================
 void 			diffusion();
 void 			division();
-void 			renewal(float f);
+void 			renewal(float A);
 void 			run(int rounds); //number of rounds
 
 
@@ -56,7 +56,7 @@ void 			run(int rounds); //number of rounds
 //    PUBLIC ATTRIBUTES
 //==============================
 
-std::string 	state;
+std::string 			state;
 
 protected:
 //==============================
@@ -68,12 +68,13 @@ protected:
 //==============================
 static const int 	W_ = 32;
 static const int 	H_ = 32;
-int 				T_;
-float 				t_;
-float 				Ainit_;
-Box** 				grid_;
-float 				pMut_;
-float 				D_;
+
+float 						T_; //number of rounds between each renewal of the culture media
+float 						dt_;
+float 						Ainit_; // initial concentration of A
+Box** 						grid_;
+float 						D_; // diffusion coefficient
+
 };
 
 //==============================

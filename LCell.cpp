@@ -34,25 +34,41 @@ LCell::~LCell(){
 //    PUBLIC METHODS
 //==============================
 
-float LCell::Fitness(){
-  //std::cout << "calculate fitness" << std::endl;
-  if (p_.at(1) < WMIN_){
-    //std::cout << "got into LCell, p_[1] < WMIN" << std::endl;
-    return 0.0;
+float LCell::Fitness()
+{
+
+  /*
+  updates fitness and returns it
+  */
+
+  if (p_.at(1) < WMIN_)
+  {
+    w_ = 0;
   }
-  else {
-    //std::cout << "LCell with p_[1] > WMIN" << std::endl;
-    return p_.at(1);
+  else 
+  {
+    w_ = p_.at(1);
   }
+
+  return w_;
 }
 
-void LCell::Metabolism(vector<float> conc,float t){
-  conc.at(0) += -t*conc.at(0)*Raa_;
-  p_.at(0) += t*(conc.at(0)*Raa_-p_.at(0)*Rab_);
-  p_.at(1) += t*p_.at(0)*Rab_;
-  w_ = Fitness();
+void LCell::Metabolism(vector<float> conc,float dt)
+{
+
+  /*
+  metabolites (in cell and in box) vary
+  according to the equations that rule LCell metabolism.
+  Fitness is updated
+  */
+
+  conc.at(0) += - conc.at(0) * Raa_ * dt;
+  p_.at(0) += (conc.at(0) * Raa_ - p_.at(0) * Rab_) * dt;
+  p_.at(1) += p_.at(0) * Rab_ * dt;
+  Fitness();
 }
 
-char LCell::LorS(){
-  return 'l';
+char LCell::LorS()
+{
+  return 'L';
 }

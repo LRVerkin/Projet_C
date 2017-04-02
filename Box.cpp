@@ -18,15 +18,22 @@ Box::Box() : pMut_(0), pDeath_(0.1)
   conc_.push_back(50);
   conc_.push_back(0);
   conc_.push_back(0);
+
   cellptr_ = nullptr;
 }
 
 Box::Box(char c) : Box()
 {
-  if (c=='L') {
+  conc_.push_back(50);
+  conc_.push_back(0);
+  conc_.push_back(0);
+
+  if (c=='L') 
+  {
     cellptr_ = new LCell();
   }
-  else {
+  else 
+  {
     cellptr_ = new SCell();
   }
   
@@ -58,14 +65,21 @@ Box::~Box()
 
 void Box::death()
 {
-  if ((double)(rand() / (double)RAND_MAX) < pDeath_){
-    if (cellptr_!= nullptr){
-      //std::cout << "Working on " << cellptr_ << std::endl;
-      assert(not conc_.empty());
-      assert(conc_.size() == 3);
+
+  /*
+  Cell has a pDeath chance to die:
+  - its metabolites spread into the box;
+  - cellptr is deleted then set to nullptr.
+  */
+
+  if ((double)(rand() / (double)RAND_MAX) < pDeath_)
+  {
+    if (cellptr_!= nullptr)
+    {
       conc_.at(0) += cellptr_->getP().at(0);
       conc_.at(1) += cellptr_->getP().at(1);
       conc_.at(2) += cellptr_->getP().at(2); 
+      
       delete cellptr_;
       cellptr_ = nullptr;
     }
@@ -73,20 +87,30 @@ void Box::death()
   
 }
 
-void Box::Mutation(Cell* cell){
-  float v = (rand()%1000)/1000; // float between 0 and 1 included
-  if (v < pMut_){
-    float a = cell->getP()[0];
-    float b = cell->getP()[1];
-    float c = cell->getP()[2];
-    if ((*cell).LorS()=='l')
+void Box::Mutation(){
+
+  /*
+  Cell has a pMut chance of mutating
+  (if L: becomes S)
+  (if S: becomes L)
+  */
+
+  if ((rand()%1000)/1000 < pMut_)
+  {
+    float a = cellptr_->getP()[0];
+    float b = cellptr_->getP()[1];
+    float c = cellptr_->getP()[2];
+
+    delete cellptr_; 
+
+    if (cellptr_->LorS()=='L')
     {
-      SCell(a,b,c);
+      cellptr_ = new SCell(a,b,c);
     }
-    else //ie si le type est SCell
+    else
     {
-      LCell(a,b,c);
+      cellptr_ = new LCell(a,b,c);
     }
-    delete cell; 
+    
   }
 }

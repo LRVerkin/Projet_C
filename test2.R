@@ -4,31 +4,29 @@ colnames(data)<-c("nb_test","Ainit","T","result")
 plot(NA, NA, xlab='T', ylab="Ainit", xlim=c(0,1500), ylim=c(0,50))
 legend("topright", c("Exclusion","Cohabitation","Extinction"),col=c(rgb(1,0,0),rgb(0,1,0), rgb(0,0,1)), pch=c(19))
 
-r <- 0
-g <- 0
-b <- 0
+N <- max(data["nb_test"]) # nombre de tests que l'on veut réaliser
+L <- length(data$nb_test==1)/N # nombre de "couples de paramètres" par test
 
-#N <- max(data["nb_test"])
-
-l <- dim(data)[1]
-for (i in 1:l){
-  if (data["result"][i,]=='Cohabitation'){
-    g <- 1
+for (test in 1:N){
+  for (i in 1:L){
     r <- 0
-    b <- 0
-    #df[k,] <- c(r,g,b)
-  }
-  if (data["result"][i,]=='Exclusion'){
-    r <- 1
     g <- 0
     b <- 0
-    #df[k,] <- c(r,g,b)
+    if (data["result"][(test-1)*30+i,]=='Cohabitation'){
+      g <- g+1
+    }
+    
+    if (data["result"][(test-1)*30+i,]=='Exclusion'){
+      r <- r+1
+    }
+    
+    if (data["result"][(test-1)*30+i,]=='Extinction'){
+      b <- b+1
+    }
+    
+    r <- r/N
+    b <- b/N
+    g <- g/N
+    points(data["T"][(test-1)*30+i,], data["Ainit"][(test-1)*30+i,], pch=c(19), col=rgb(r, g, b, 0.5,maxColorValue = 1))
   }
-  if (data["result"][i,]=='Extinction'){
-    b <- 1
-    g <- 0
-    r <- 0
-    #df[k] <- c(r,g,b)
-  }
-  points(data["T"][i,], data["Ainit"][i,], pch=c(19), col=rgb(r, g, b, maxColorValue = 1))
 }
