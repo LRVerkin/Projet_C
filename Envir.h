@@ -23,7 +23,7 @@ public:
 //==============================
 
 Envir();
-Envir(int T, float A);
+Envir(float T, float A);
 
 //==============================
 //    DESTRUCTOR

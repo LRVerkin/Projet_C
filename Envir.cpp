@@ -92,6 +92,7 @@ void Envir::diffusion()
     for (int j=0;j<H_;j++)
     {
       newgrid[k] = new Box[H_];
+      newgrid[k][j].setCell(new LCell);
       newgrid[k][j].setConc(grid_[k][j].getConc()[0],grid_[k][j].getConc()[1],grid_[k][j].getConc()[2]);
     }
   }
@@ -299,7 +300,7 @@ void Envir::run(int rounds)
 
 
     //POSSIBLE RENEWAL
-    if (i%T_ == 0) //if it's time to renew the medium
+    if (i%(int)T_ == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
     }
@@ -348,9 +349,9 @@ void Envir::run(int rounds)
   
   auto t2 = Clock::now();
 
-  std::cout << "Duration : " 
+  /*std::cout << "Duration : " 
             << std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count()
-            << " seconds" << std::endl;  
+            << " seconds" << std::endl; */ 
   }
   
   

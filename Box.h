@@ -50,7 +50,6 @@ inline Cell* 					getCell();
 
 inline void 					setConc(float a, float b, float c);
 inline void 					setCell(Cell* c);
-//inline void setCell(SCell* c);
 
 //==============================
 //    OPERATORS
@@ -114,7 +113,7 @@ inline void Box::setConc(float a, float b, float c)
 
 inline void Box::setCell(Cell* c)
 {
-	//delete cellptr_; //gives seg fault
+	delete cellptr_; //gives seg fault
 	cellptr_ = c;
 }
 
