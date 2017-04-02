@@ -34,25 +34,41 @@ SCell::~SCell(){
 //    PUBLIC METHODS
 //==============================
 
-float SCell::Fitness(){
-  //std::cout << "calculate fitness" << std::endl;
-  if (p_.at(2) < WMIN_){
-    //std::cout << "got into SCell, p_[2] < WMIN" << std::endl;
-    return 0.0;
+float SCell::Fitness()
+{
+
+  /*
+  updates fitness and returns it
+  */
+
+  if (p_.at(2) < WMIN_)
+  {
+    w_ = 0;
   }
-  else{
-    //std::cout << "SCell with p_[2] > WMIN" << std::endl;
-    return p_.at(2);
+  else
+  {
+    w_ = p_.at(2);
   }
+
+  return w_;
 }
 
-void SCell::Metabolism(vector<float> conc, float t){
-  conc.at(1) += -t*conc.at(1)*Rbb_;
-  p_.at(1) += t*(conc.at(1)*Rbb_-p_.at(1)*Rbc_);
-  p_.at(2) += t*conc.at(1)*Rbc_;
-  w_ = Fitness();
+void SCell::Metabolism(vector<float> conc, float dt)
+{
+
+  /*
+  metabolites (in cell and in box) vary
+  according to the equations that rule SCell metabolism.
+  Fitness is updated
+  */
+
+  conc.at(1) += - conc.at(1) * Rbb_ * dt;
+  p_.at(1) += (conc.at(1) * Rbb_ - p_.at(1) * Rbc_) * dt;
+  p_.at(2) += conc.at(1) * Rbc_ * dt;
+  Fitness();
 }
 
-char SCell::LorS(){
-  return 's';
+char SCell::LorS()
+{
+  return 'S';
 }

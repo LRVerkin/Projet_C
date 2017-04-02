@@ -13,6 +13,7 @@
 
 using std::vector;
 using std::rand;
+using std::ostream;
 
 /**
  * @class Box
@@ -22,11 +23,7 @@ using std::rand;
 class Box
 {
 public:
-	
-float pMut_;
-vector <float> conc_;
-float pDeath_;
-Cell* cellptr_;
+
 //==============================
 //    CONSTRUCTORS
 //==============================
@@ -43,17 +40,17 @@ Box(const Box& b);
 //    GETTERS
 //==============================
 
-inline vector<float> getconstConc() const;
-inline vector<float> getConc();
-inline Cell* getCell();
+inline vector<float> 		getconstConc() const;
+inline vector<float> 		getConc();
+inline Cell* 						getCell();
 
 //==============================
 //    SETTERS
 //==============================
 
 
-inline void setConc(float a, float b, float c);
-inline void setCell(Cell* c);
+inline void 						setConc(float a, float b, float c);
+inline void 						setCell(Cell* c);
 //inline void setCell(SCell* c);
 
 //==============================
@@ -63,9 +60,9 @@ inline void setCell(Cell* c);
 //==============================
 //    PUBLIC METHODS
 //==============================
-friend std::ostream &operator<<(std::ostream &os, Box const &b);
-void death();
-void Mutation(Cell* cell);
+friend ostream 					&operator<<(ostream &os, Box const &b);
+void 										death();
+void 										Mutation();
 
 protected:
 //==============================
@@ -75,10 +72,10 @@ protected:
 //==============================
 //    ATTRIBUTES
 //==============================
-/*float pMut_;
-vector <float> conc_;
-float pDeath_;
-Cell* cellptr_;*/
+float 									pMut_;
+vector <float> 					conc_;
+float 									pDeath_;
+Cell* 									cellptr_;
 
 
 };
@@ -120,16 +117,13 @@ inline void Box::setCell(Cell* c)
 	cellptr_ = c;
 }
 
-/*inline void Box::setCell(SCell* c)
-{
-	cellptr_ = c;
-}*/
 
 //==============================
 //    OPERATOR DEFINITION
 //==============================
 
-inline std::ostream &operator<<(std::ostream &os, Box const &b) { 
+inline std::ostream &operator<<(std::ostream &os, Box const &b) 
+{ 
     return os << "pMut_ = " << b.pMut_ << " pDeath_ = " << b.pDeath_ << " and cellptr_ = " << b.cellptr_ <<std::endl;
 }
 

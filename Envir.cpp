@@ -18,32 +18,32 @@ typedef std::chrono::high_resolution_clock Clock;
 //==============================
 //    CONSTRUCTORS
 //==============================
-Envir::Envir() : t_(0), D_(0.1)
+Envir::Envir() : dt_(0.1), D_(0.1)
 {
   Ainit_= 50;
   T_= 10;
+
   grid_ = new Box*[W_];
-  for (int i=0;i<W_;i++){
+  for (int i=0;i<W_;i++)
+  {
     grid_[i] = new Box[H_];
   }
 
-  std::cout<< "grid_ initialized" <<std::endl;
 
+  //created so we can simulate randomness
   vector<int> index;
-  for (int i=0;i<W_*H_;i++){
+  for (int i=0;i<W_*H_;i++)
+  {
     index.push_back(i);
   }
   random_shuffle(index.begin(),index.end());
 
-  std::cout<< "index created" <<std::endl;
 
   for (int i=0;i<(W_*H_)/2;i++){
     grid_[index[i]/W_][index[i]%W_].setCell(new LCell);
     grid_[index[i+(W_*H_)/2]/W_][index[i+(W_*H_)/2]%W_].setCell(new SCell);
-    //I need to use "new" or else the cell will always be the same
   }
 
-  std::cout << "got cells in boxes" << std::endl;
 
   renewal(Ainit_); //initialize the culture media
   
@@ -63,9 +63,6 @@ Envir::~Envir()
 {
   for (int i=0;i<H_;i++)
   {
-    /*for (int j=0;j<W_;j++){
-      delete grid_[i][j].getCell();
-    }*/
 
     for (int j=0;j<W_;j++)
     {
@@ -84,9 +81,15 @@ Envir::~Envir()
 void Envir::diffusion()
 {
 
+  /*
+  All over the grid, metabolites diffuse from each box to its neighbours
+  */
+
   Box** newgrid = new Box*[W_];
-  for (int k=0;k<W_;k++){
-    for (int j=0;j<H_;j++){
+  for (int k=0;k<W_;k++)
+  {
+    for (int j=0;j<H_;j++)
+    {
       newgrid[k] = new Box[H_];
       newgrid[k][j].setConc(grid_[k][j].getConc()[0],grid_[k][j].getConc()[1],grid_[k][j].getConc()[2]);
     }
@@ -146,13 +149,11 @@ void Envir::diffusion()
   }  
 
 
-  //std::cout << "Getting into the copying loop (at long freaking last)" << std::endl;
   for (int i=0;i<H_;i++)
   {
-    for (int j=0;j<W_;j++){
-      //std::cout << "newgrid[" << i << "][" << j << "] : " << newgrid[i][j];
+    for (int j=0;j<W_;j++)
+    {
       grid_[i][j].setConc(newgrid[i][j].getConc()[0],newgrid[i][j].getConc()[1],newgrid[i][j].getConc()[2]);
-      //std::cout << "grid_[" << i << "][" << j << "] : " << grid_[i][j];
 
     }
     delete[] newgrid[i];
@@ -163,10 +164,17 @@ void Envir::diffusion()
 
 void Envir::division()
 {
+
+  /*
+  When a gap is found, the fittest cell divides to fill the gap.
+  The mother cell keeps a half of its metabolites and gives the other
+  half to its daughter cell.
+  The daughter cell has a pMut chance to mutate.
+  */
+
   vector<int> findGaps;
   for(int i=0; i<W_*H_; i++)
   {
-    //std::cout << "grid_[" << i/W_ << "][" << i%W_ << "] : " << grid_[i/W_][i%W_];
     if(grid_[i/W_][i%W_].getCell()==nullptr)
     {
 	  findGaps.push_back(i);
@@ -194,14 +202,10 @@ void Envir::division()
       for(int j=0; j<3; j++){
         if (i != 1 || j != 1) {
           boxes.push_back(grid_[I[i]][J[j]]);
-          //std::cout << "grid_[" << I[i] << "][" << J[j] << "] : " << grid_[I[i]][J[j]];
 
         }
       }
     }
-    /* 
-       I don't know why but grid_[I[i]][J[j]].getCell()->Fitness() don't work
-    */
     
     // 1  2  3 
     // 4  .  5
@@ -209,21 +213,23 @@ void Envir::division()
     
     Box* bestBox;
     bool bBox1 = false;
-    for(int n=0; n<8; n++){ // find a first cell
-      if(bBox1==false && boxes[n].getCell()!=nullptr){  //the firt box tested to be the best box must not be empty
+    for(int n=0; n<8; n++)
+    { // find a first cell
+      if(bBox1==false && boxes[n].getCell()!=nullptr)
+      {  //the firt box tested to be the best box must not be empty
           bestBox = new Box(boxes[n]);
           bBox1=true;
       }
     }
     
-    if(bBox1==true){
-      for(int n=0; n<8; n++){ // find the cell with the better fitness
-        //std::cout << "get into problematic loop, n = " << n << std::endl;
-        if(boxes[n].getCell()!=nullptr && boxes[n].getCell()!=bestBox->getCell()){
-          //std::cout << "best box : " << bestBox->getCell() << " has fitness : " << bestBox->getCell()->Fitness() << std::endl;
-          //std::cout << "other box : " << boxes[n].getCell() << " has fitness : " << boxes[n].getCell()->Fitness() << std::endl;
-          if (bestBox->getCell()->Fitness() < boxes[n].getCell()->Fitness()){
-            //std::cout<< "get into second loop" << std::endl;
+    if(bBox1==true)
+    {
+      for(int n=0; n<8; n++)
+      {
+        if(boxes[n].getCell()!=nullptr && boxes[n].getCell()!=bestBox->getCell())
+        {
+          if (bestBox->getCell()->Fitness() < boxes[n].getCell()->Fitness())
+          {
             bestBox = new Box(boxes[n]);
           }
         }
@@ -239,20 +245,30 @@ void Envir::division()
 
     vector<float> conc = bestBox->getCell()->getP();
     bestBox->getCell()->setP(conc[0]/2,conc[1]/2,conc[2]/2);
-    bestBox->Mutation(bestBox->getCell());
-    if(bestBox->getCell()->LorS()=='l') grid_[x][y].setCell(new LCell(conc[0]/2,conc[1]/2,conc[2]/2));
+
+    bestBox->Mutation();
+
+    if(bestBox->getCell()->LorS()=='L') grid_[x][y].setCell(new LCell(conc[0]/2,conc[1]/2,conc[2]/2));
     else grid_[x][y].setCell(new SCell(conc[0]/2,conc[1]/2,conc[2]/2));
     
     delete bestBox;
   }
 }
 
-void Envir::renewal(float f)
+void Envir::renewal(float A)
 {
-  //renew the culture media 
-  for(int i=0; i<W_; i++){
-    for(int j=0; j<H_; j++){
-      grid_[i][j].setConc(f,0,0);
+  /*
+  Renew the culture media:
+  B and C are drained
+  A goes back to its initial Ainit concentration
+  */
+
+
+  for(int i=0; i<W_; i++)
+  {
+    for(int j=0; j<H_; j++)
+    {
+      grid_[i][j].setConc(A,0,0);
     }
   }
 }
@@ -260,20 +276,27 @@ void Envir::renewal(float f)
 void Envir::run(int rounds)
 {
 
-  //std::cout << "Size at beginning: " << grid_[0][0].getCell()->getP().size() << std::endl;
+  /*
+  Main method that simulate a given number of rounds:
+  - every T rounds, the media is renewed;
+  - metabolites diffuse from each cell to its neighbours;
+  - some cells die;
+  - the fittest cell around a gap gets to divide and fill the gap,
+    with its daughter cell having a chance to mutate
+  - cells accomplish their metabolism.
+  */
+
 
   auto t1 = Clock::now();
 
-  for (int i = 0;i < rounds*10;i++)
+  for (int i = 0; i < rounds;i++)
   {
 
-    //std::cout<< "round " << i << std::endl;
 
     //POSSIBLE RENEWAL
     if (i%int(T_) == 0) //if it's time to renew the medium
     {
       renewal(Ainit_);
-      //std::cout << "Renewal over" << std::endl;
     }
 
     
@@ -285,51 +308,27 @@ void Envir::run(int rounds)
     std::random_shuffle(browse.begin(),browse.end());
     
 
-
-    //std::cout << "Onto diffusion" << std::endl;
-
     //METABOLITES DIFFUSE
     diffusion();
 
-    //std::cout << "Diffusion over" << std::endl;
-
-
-    //std::cout << "grid_[" << 0 << "][" << 0 << "] : " << grid_[0][0] << std::endl;
-    //std::cout << "grid_[" << 5 << "][" << 20 << "] : " << grid_[5][20] << std::endl;
-
-    
-    //std::cout << "Deaths are about to occur" << std::endl;
     
 
     //RANDOM DEATHS AMONG INDIVIDUALS
     for(int k = 0;k<W_;k++){
       for (int i=0;i<H_;i++){
-        //std::cout << "Cell " << grid_[k][i].getCell() << std::endl;
         grid_[k][i].death();
       }
     }
 
-    //std::cout<<"Some cells died" << std::endl;
-
-    /*for(int k = 0;k<W_;k++){
-      for (int i=0;i<H_;i++){
-        //std::cout << "grid_[" << k << "][" << i << "] = " << grid_[k][i] << std::endl;
-        if (grid_[k][i].getCell()!=nullptr) {
-          //std::cout << "Fitness = " << grid_[k][i].getCell()->Fitness() << std::endl;
-        }
-      }
-    } */
-
-    //std::cout << "division about to start" << std::endl;
 
 
     //DIVISION
     division();
-    //std::cout << "division done" << std::endl;
     
 
 
-    //INDIVIDUALS ADAPT THEIR METABOLISM
+    //INDIVIDUALS ADAPT THEIR METABOLITE CONCENTRATIONS
+    //ACCORDING TO THEIR METABOLISM
     vector<int> ran;
     ran.reserve(W_*H_);
     for (int i=0;i<W_*H_;i++){
@@ -337,13 +336,9 @@ void Envir::run(int rounds)
     }
     random_shuffle(ran.begin(),ran.end());
     for (int i=0;i<W_*H_;i++){
-      grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),t_);
+      grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),dt_);
     }
 
-    std::cout << "Metabolism done" << std::endl;
-
-
-    t_ += 0.1;
   }
   
   auto t2 = Clock::now();
@@ -356,14 +351,13 @@ void Envir::run(int rounds)
   int nScell = 0;
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
-	   if(grid_[i][j].getCell()->LorS()=='l') nLcell++;
-	   if(grid_[i][j].getCell()->LorS()=='s') nScell++;
+	   if(grid_[i][j].getCell()->LorS()=='L') nLcell++;
+	   if(grid_[i][j].getCell()->LorS()=='S') nScell++;
 	 }
   }
-  if(nScell == 0){
-	 if(nLcell == 0) state = "Extinction";
-	 else state = "Exclusion";
-  } else state = "Cohabitation";
+  if (nScell == 0 && nLcell == 0) state = "Extinction";
+  else if (nScell == 0 && nLcell != 0) state = "Exclusion of SCells by LCells";
+  else state = "Cohabitation";
   
   std::cout << "Nombre de LCell : " << nLcell << std::endl;
   std::cout << "Nombre de SCell : " << nScell << std::endl;
