@@ -4,8 +4,8 @@ colnames(data)<-c("nb_test","Ainit","T","result")
 plot(NA, NA, xlab='T', ylab="Ainit", xlim=c(0,1500), ylim=c(0,50))
 legend("topright", c("Exclusion","Cohabitation","Extinction"),col=c(rgb(1,0,0),rgb(0,1,0), rgb(0,0,1)), pch=c(19))
 
-N <- max(data["nb_test"])
-L <- length(data$nb_test==1)/N
+N <- max(data["nb_test"]) # nombre de tests que l'on veut réaliser
+L <- length(data$nb_test==1)/N # nombre de "couples de paramètres" par test
 
 for (test in 1:N){
   for (i in 1:L){
@@ -27,6 +27,6 @@ for (test in 1:N){
     r <- r/N
     b <- b/N
     g <- g/N
-    points(data["T"][(test-1)*30+i,], data["Ainit"][(test-1)*30+i,], pch=c(19), col=rgb(r, g, b, maxColorValue = 1))
+    points(data["T"][(test-1)*30+i,], data["Ainit"][(test-1)*30+i,], pch=c(19), col=rgb(r, g, b, 0.5,maxColorValue = 1))
   }
 }
