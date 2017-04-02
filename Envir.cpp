@@ -49,7 +49,7 @@ Envir::Envir() : t_(0), D_(0.1)
   
 }
 
-Envir::Envir(float Ainit, float T) : Envir()
+Envir::Envir(float T, float Ainit) : Envir()
 {
   Ainit_ = Ainit;
   T_ = T;
