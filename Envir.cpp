@@ -342,12 +342,7 @@ void Envir::run(int rounds)
       grid_[ran[i]/W_][ran[i]%W_].getCell()->Metabolism(grid_[ran[i]/W_][ran[i]%W_].getConc(),dt_);
     }
 
-  
-  auto t2 = Clock::now();
 
-  /*std::cout << "Duration : " 
-            << std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count()
-            << " seconds" << std::endl; */ 
   }
   
   
@@ -366,5 +361,12 @@ void Envir::run(int rounds)
   std::cout << "Nombre de LCell : " << nLcell << std::endl;
   std::cout << "Nombre de SCell : " << nScell << std::endl;
   std::cout << state << std::endl;
+
+    
+  auto t2 = Clock::now();
+
+  std::cout << "Duration : " 
+            << std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count()
+            << " seconds" << std::endl;
   
 }
