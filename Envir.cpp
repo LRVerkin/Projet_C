@@ -22,6 +22,8 @@ Envir::Envir() : dt_(0.1), D_(0.1)
 {
   Ainit_= 50;
   T_= 10;
+  nLcell = 0;
+  nScell = 0;
 
   grid_ = new Box*[W_];
   for (int i=0;i<W_;i++)
@@ -241,12 +243,6 @@ void Envir::division()
       }
     }
     
-    /* PROBLEMS :
-       
-       As the fitness is always null (no metabolism of cells before use fitness() -> [B]=[C]=0)
-       we never change bestBox
-      
-    */
 
     vector<float> conc = bestBox->getCell()->getP();
     bestBox->getCell()->setP(conc[0]/2,conc[1]/2,conc[2]/2);
@@ -287,7 +283,7 @@ void Envir::run(int rounds)
   - metabolites diffuse from each cell to its neighbours;
   - some cells die;
   - the fittest cell around a gap gets to divide and fill the gap,
-    with its daughter cell having a chance to mutate
+  and it has a chance to mutate
   - cells accomplish their metabolism.
   */
 
@@ -357,8 +353,6 @@ void Envir::run(int rounds)
   
   
   // STATE OF THE POPULATION
-  int nLcell = 0;
-  int nScell = 0;
   for(int i=0; i<W_; i++){
     for(int j=0; j<H_; j++){
 	   if(grid_[i][j].getCell()->LorS()=='L') nLcell++;

@@ -57,6 +57,8 @@ void 			run(int rounds); //number of rounds
 //==============================
 
 std::string 			state;
+int 							nLcell;
+int              	nScell;
 
 protected:
 //==============================
@@ -68,6 +70,7 @@ protected:
 //==============================
 static const int 	W_ = 32;
 static const int 	H_ = 32;
+
 
 float 						T_; //number of rounds between each renewal of the culture media
 float 						dt_;
