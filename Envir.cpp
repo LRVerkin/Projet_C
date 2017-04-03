@@ -171,9 +171,9 @@ void Envir::division()
 
   /*
   When a gap is found, the fittest cell divides to fill the gap.
+  The mother cell has a pMut chance to mutate and the two daughters have the same mutation.
   The mother cell keeps a half of its metabolites and gives the other
   half to its daughter cell.
-  The daughter cell has a pMut chance to mutate.
   */
 
   vector<int> findGaps;
